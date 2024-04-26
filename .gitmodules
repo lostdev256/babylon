@@ -1,0 +1,9 @@
+[submodule "tools"]
+	path = tools
+	url = git@github.com:CodeJediTeam/Babylon-tools.git
+[submodule "modules/System"]
+	path = modules/System
+	url = git@github.com:CodeJediTeam/Babylon-modules-System.git
+[submodule "modules/Common"]
+	path = modules/Common
+	url = git@github.com:CodeJediTeam/Babylon-modules-Common.git
