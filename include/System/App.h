@@ -3,7 +3,7 @@
 #include <Common/Globals.h>
 #include <System/IAppDelegate.h>
 
-namespace BS::Core
+namespace Babylon::System
 {
 
 class App final
@@ -19,4 +19,4 @@ private:
     IAppDelegateUPtr _delegate;
 };
 
-} // namespace BS::Core
+} // namespace Babylon::System

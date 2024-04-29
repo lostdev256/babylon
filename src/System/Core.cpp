@@ -1,6 +1,6 @@
-#include <Core/Core.h>
+#include <System/Core.h>
 
-namespace BS::Core
+namespace Babylon::System
 {
 
 App Core::_app = App();
@@ -10,4 +10,4 @@ const App& Core::AppInstance()
     return _app;
 }
 
-} // namespace BS::Core
+} // namespace Babylon::System

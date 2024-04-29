@@ -12,4 +12,5 @@ babylon_register_module(
     OUTPUT_NAME_DEBUG_POSTFIX .debug
     INCLUDE_DIRS include
     SRC_SEARCH_DIRS include src
+    DEPENDS Common
 )

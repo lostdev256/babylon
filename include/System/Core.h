@@ -1,9 +1,9 @@
 #pragma once
 
 #include <Common/Globals.h>
-#include <Core/App.h>
+#include <System/App.h>
 
-namespace BS::Core
+namespace Babylon::System
 {
 
 class Core final
@@ -49,4 +49,4 @@ inline bool Core::Core::Run()
     }
 }
 
-} // namespace BS::Core
+} // namespace Babylon::System

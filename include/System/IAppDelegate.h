@@ -2,7 +2,7 @@
 
 #include <Common/Globals.h>
 
-namespace BS::Core
+namespace Babylon::System
 {
 
 using IAppDelegateUPtr = std::unique_ptr<class IAppDelegate>;
@@ -17,4 +17,4 @@ public:
     virtual void Run() = 0;
 };
 
-} // namespace BS::Core
+} // namespace Babylon::System

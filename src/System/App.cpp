@@ -1,6 +1,6 @@
-#include <Core/App.h>
+#include <System/App.h>
 
-namespace BS::Core
+namespace Babylon::System
 {
 
 void App::SetDelegate(IAppDelegateUPtr delegate)
@@ -42,4 +42,4 @@ bool App::Run()
     return true;
 }
 
-} // namespace BS::Core
+} // namespace Babylon::System
