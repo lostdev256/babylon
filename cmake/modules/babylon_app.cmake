@@ -1,7 +1,7 @@
 ################################################################################
 # Babylon app tools
 ################################################################################
-cmake_minimum_required(VERSION 3.20.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.29.0 FATAL_ERROR)
 
 # definitions
 define_property(GLOBAL PROPERTY BABYLON_APP_DEFAULT_CFG_PATH
@@ -42,7 +42,7 @@ macro(babylon_configure_app)
 
     get_property(BABYLON_ROOT_DIR GLOBAL PROPERTY BABYLON_ROOT_DIR)
     if(NOT BABYLON_ROOT_DIR)
-        message(FATAL_ERROR "Babylon root project not found")
+        message(FATAL_ERROR "Babylon root directory not found")
     endif()
     list(APPEND CMAKE_MODULE_PATH ${BABYLON_ROOT_DIR}/tools/cmake/modules)
 

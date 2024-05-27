@@ -1,10 +1,10 @@
 ################################################################################
 # MSVC Babylon module default configuration
 ################################################################################
-cmake_minimum_required(VERSION 3.20.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.29.0 FATAL_ERROR)
 
 if(NOT BABYLON_ROOT_DIR)
-    message(FATAL_ERROR "Babylon root project not found")
+    message(FATAL_ERROR "Babylon root directory not found")
 endif()
 
 if(NOT BABYLON_MODULE)
