@@ -7,22 +7,16 @@ if(NOT BABYLON_ROOT_DIR)
     message(FATAL_ERROR "Babylon root directory not found")
 endif()
 
+# Search for sources by masks
 function(babylon_get_sources files)
-    set(single_value_args BASE_DIR)
-    set(multi_value_args SEARCH_DIRS)
+    set(multi_value_args SEARCH_MASKS)
     cmake_parse_arguments("ARG" "${options}" "${single_value_args}" "${multi_value_args}" ${ARGN})
 
-    if(NOT ARG_BASE_DIR OR NOT ARG_SEARCH_DIRS)
+    if(NOT ARG_SEARCH_MASKS)
         babylon_log_error("Not enough arguments")
         return()
     endif()
 
-    unset(search_dirs)
-    foreach(search_dir ${ARG_SEARCH_DIRS})
-        list(APPEND search_dirs "${search_dir}/*.h")
-        list(APPEND search_dirs "${search_dir}/*.cpp")
-    endforeach()
-
-    file(GLOB_RECURSE found_files LIST_DIRECTORIES false ${search_dirs})
+    file(GLOB_RECURSE found_files LIST_DIRECTORIES false ${ARG_SEARCH_MASKS})
     set(${files} ${found_files} PARENT_SCOPE)
 endfunction()

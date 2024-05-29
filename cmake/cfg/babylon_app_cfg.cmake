@@ -3,16 +3,6 @@
 ################################################################################
 cmake_minimum_required(VERSION 3.29.0 FATAL_ERROR)
 
-# app properties
-get_property(BABYLON_APP_ROOT_DIR GLOBAL PROPERTY BABYLON_APP_ROOT_DIR)
-get_property(BABYLON_APP GLOBAL PROPERTY BABYLON_APP_NAME)
-get_property(BABYLON_APP_OUTPUT_DIR GLOBAL PROPERTY BABYLON_APP_OUTPUT_DIR)
-get_property(BABYLON_APP_OUTPUT_NAME GLOBAL PROPERTY BABYLON_APP_OUTPUT_NAME)
-get_property(BABYLON_APP_OUTPUT_NAME_DEBUG_POSTFIX GLOBAL PROPERTY BABYLON_APP_OUTPUT_NAME_DEBUG_POSTFIX)
-get_property(BABYLON_APP_INCLUDE_DIRS GLOBAL PROPERTY BABYLON_APP_INCLUDE_DIRS)
-get_property(BABYLON_APP_SRC_SEARCH_DIRS GLOBAL PROPERTY BABYLON_APP_SRC_SEARCH_DIRS)
-get_property(BABYLON_APP_DEPENDS GLOBAL PROPERTY BABYLON_APP_DEPENDS)
-
 if(NOT BABYLON_APP)
     message(FATAL_ERROR "Babylon app not specified")
 endif()
@@ -22,19 +12,8 @@ endif()
 #     set(CMAKE_MACOSX_BUNDLE ON)
 # endif()
 
-# build types
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
-    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release")
-endif()
-set(CMAKE_CONFIGURATION_TYPES "Debug" "Release" CACHE STRING "" FORCE)
-
-# use solution folders feature
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER __CMAKE__)
-
-# sources
-babylon_get_sources(src_files BASE_DIR ${BABYLON_APP_ROOT_DIR} SEARCH_DIRS ${BABYLON_APP_SRC_SEARCH_DIRS})
+# Sources
+babylon_get_sources(src_files SEARCH_MASKS ${BABYLON_APP_SOURCE_SEARCH_MASKS})
 
 foreach(src_path ${src_files})
     cmake_path(RELATIVE_PATH src_path BASE_DIRECTORY ${BABYLON_APP_ROOT_DIR} OUTPUT_VARIABLE src_rel_path)
@@ -44,11 +23,7 @@ endforeach()
 
 add_executable(${BABYLON_APP} ${src_files})
 
-# output
-set_target_properties(${BABYLON_APP} PROPERTIES TARGET_NAME ${BABYLON_APP_OUTPUT_NAME})
-if(BABYLON_APP_OUTPUT_NAME_DEBUG_POSTFIX)
-    set_target_properties(${BABYLON_APP} PROPERTIES DEBUG_POSTFIX ${BABYLON_APP_OUTPUT_NAME_DEBUG_POSTFIX})
-endif()
+# Output
 set_target_properties(${BABYLON_APP} PROPERTIES
     OUTPUT_DIRECTORY_DEBUG   ${BABYLON_APP_OUTPUT_DIR}
     OUTPUT_DIRECTORY_RELEASE ${BABYLON_APP_OUTPUT_DIR}
@@ -58,6 +33,7 @@ set_target_properties(${BABYLON_APP} PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY_RELEASE ${BABYLON_APP_OUTPUT_DIR}
     ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${BABYLON_APP_OUTPUT_DIR}
     ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${BABYLON_APP_OUTPUT_DIR}
+    TARGET_NAME ${BABYLON_APP_OUTPUT_NAME}
 )
 
 # TODO
@@ -73,15 +49,15 @@ set_target_properties(${BABYLON_APP} PROPERTIES
 #     babylon_log_info("output_name: ${output_name}")
 # endif()
 
-# dependencies
+# Dependencies
 target_include_directories(${BABYLON_APP} PUBLIC ${BABYLON_APP_INCLUDE_DIRS})
 
-if (BABYLON_APP_DEPENDS)
-    add_dependencies(${BABYLON_APP} ${BABYLON_APP_DEPENDS})
-    target_link_libraries(${BABYLON_APP} PUBLIC ${BABYLON_APP_DEPENDS})
+if (BABYLON_APP_DEPEND_MODULES)
+    add_dependencies(${BABYLON_APP} ${BABYLON_APP_DEPEND_MODULES})
+    target_link_libraries(${BABYLON_APP} PUBLIC ${BABYLON_APP_DEPEND_MODULES})
 endif()
 
-# configure
+# Configure
 set_target_properties(${BABYLON_APP} PROPERTIES
     C_STANDARD 17
     CXX_STANDARD 20
@@ -95,5 +71,74 @@ target_compile_options(${BABYLON_APP} PUBLIC
 )
 
 if(MSVC)
-    include(cfg/msvc/babylon_app_cfg)
+    set_property(DIRECTORY ${BABYLON_APP_ROOT_DIR} PROPERTY VS_STARTUP_PROJECT ${BABYLON_APP})
+
+    set_target_properties(${BABYLON_APP} PROPERTIES
+        VS_GLOBAL_KEYWORD "Win32Proj"
+        VS_GLOBAL_ROOTNAMESPACE ${BABYLON_APP}
+        INTERPROCEDURAL_OPTIMIZATION_RELEASE "TRUE"
+    )
+
+    target_compile_definitions(${BABYLON_APP} PUBLIC
+        "$<$<CONFIG:Debug>:"
+        "_DEBUG"
+        ">"
+        "$<$<CONFIG:Release>:"
+        "NDEBUG"
+        ">"
+        "_WINDOWS;"
+        "UNICODE;"
+        "_UNICODE"
+    )
+
+    target_compile_options(${BABYLON_APP} PUBLIC
+        /GS
+        /W4
+        #/Wall
+        #/WX- # TODO
+        /Zc:wchar_t
+        /Gm-
+        /fp:precise
+        /WX-
+        /Zc:forScope
+        /std:c17
+        /std:c++20
+        /Gz
+        /EHsc
+        /nologo
+        /permissive-
+        /sdl
+        /Y-
+
+        $<$<CONFIG:Debug>:
+        /Zi;
+        /Od;
+        /Ob0;
+        /RTC1;
+        /MDd
+        >
+        $<$<CONFIG:Release>:
+        /Zc:inline
+        /GL;
+        /O2;
+        /Ob2;
+        /MD;
+        /Oi;
+        /Gy
+        >
+    )
+
+    target_link_options(${BABYLON_APP} PUBLIC
+        /SUBSYSTEM:CONSOLE
+        /DEBUG;
+
+        $<$<CONFIG:Debug>:
+        /INCREMENTAL
+        >
+        $<$<CONFIG:Release>:
+        /OPT:REF;
+        /OPT:ICF;
+        /INCREMENTAL:NO
+        >
+    )
 endif()
