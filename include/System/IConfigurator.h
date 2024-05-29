@@ -1,15 +1,14 @@
 #pragma once
 
 #include <Common/Globals.h>
-#include <System/IConfigurator.h>
 
 namespace Babylon::System
 {
 
-class App final
+class IConfigurator
 {
 public:
-    bool Execute();
+    virtual ~IConfigurator() = default;
 };
 
 } // namespace Babylon::System

@@ -3,42 +3,9 @@
 namespace Babylon::System
 {
 
-void App::SetDelegate(IAppDelegateUPtr delegate)
+bool App::Execute()
 {
-    _delegate.swap(delegate);
-}
-
-bool App::Init()
-{
-    if (!_delegate)
-    {
-        return false;
-    }
-
-    _delegate->OnInit();
-
-    return true;
-}
-
-void App::Deinit()
-{
-    if (!_delegate)
-    {
-        return;
-    }
-
-    _delegate->OnDeinit();
-}
-
-bool App::Run()
-{
-    if (!_delegate)
-    {
-        return false;
-    }
-
-    _delegate->Run();
-
+    std::cout << "Hello from App" << std::endl;
     return true;
 }
 

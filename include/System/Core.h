@@ -12,7 +12,7 @@ public:
     static const App& AppInstance();
 
     template<class T>
-    static bool Run();
+    static bool Execute();
 
 private:
     Core() = delete;
@@ -25,20 +25,20 @@ private:
 };
 
 template<class T>
-inline bool Core::Core::Run()
+inline bool Core::Core::Execute()
 {
     // try
     {
-        _app.SetDelegate(std::make_unique<T>());
+//        _app.SetDelegate(std::make_unique<T>());
+//
+//        if (!_app.Init())
+//        {
+//            return false;
+//        }
 
-        if (!_app.Init())
-        {
-            return false;
-        }
+        auto result = _app.Execute();
 
-        auto result = _app.Run();
-
-        _app.Deinit();
+//        _app.Deinit();
 
         return result;
     }
