@@ -3,16 +3,22 @@
 ################################################################################
 cmake_minimum_required(VERSION 3.29.0 FATAL_ERROR)
 
-# project
+# Project
 project(Babylon CXX)
 
-# includes
+# Definitions
+set(BABYLON_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Babylon root directory")
+
+# Includes
 include(${CMAKE_CURRENT_SOURCE_DIR}/tools/cmake/babylon.cmake)
 
-# collect babylon modules
-babylon_collect_modules()
+# Configure Babylon
+babylon_global_configure()
 
-# add all babylon modules if root project
+# Collect internal Babylon modules
+babylon_collect_internal_modules()
+
+# Enable all Babylon modules if root project
 if(${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
-    babylon_add_modules(ALL)
+    babylon_enable_modules(ALL)
 endif()
