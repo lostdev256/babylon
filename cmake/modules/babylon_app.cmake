@@ -34,10 +34,10 @@ macro(babylon_configure_app)
     endif()
 
     if(NOT ARG_OUTPUT_DIR)
-        set(BABYLON_APP_OUTPUT_DIR ${ARG_ROOT_DIR})
+        set(BABYLON_APP_OUTPUT_DIR ${BABYLON_APP_ROOT_DIR})
         babylon_log_warn("App (${BABYLON_APP}) uses default output dir (${BABYLON_APP_OUTPUT_DIR})")
     else()
-        set(BABYLON_APP_OUTPUT_DIR ${BABYLON_MODULE_ROOT_DIR}/${ARG_OUTPUT_DIR})
+        set(BABYLON_APP_OUTPUT_DIR ${BABYLON_APP_ROOT_DIR}/${ARG_OUTPUT_DIR})
     endif()
 
     if(NOT ARG_OUTPUT_NAME)
