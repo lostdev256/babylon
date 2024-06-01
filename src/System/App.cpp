@@ -5,7 +5,7 @@ namespace Babylon::System
 
 bool App::Execute()
 {
-    std::cout << "Hello from App" << std::endl;
+    //std::cout << "Hello from App" << std::endl;
     return true;
 }
 
