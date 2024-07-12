@@ -1,10 +1,10 @@
 ################################################################################
 # Babylon root project
 ################################################################################
-cmake_minimum_required(VERSION 3.29.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
 # Project
-project(Babylon CXX)
+project(Babylon)
 
 # Definitions
 set(BABYLON_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Babylon root directory")
