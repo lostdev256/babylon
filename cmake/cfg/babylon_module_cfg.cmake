@@ -1,22 +1,25 @@
 ################################################################################
 # Babylon module default configuration
 ################################################################################
-cmake_minimum_required(VERSION 3.29.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
 if(NOT BABYLON_ROOT_DIR)
     message(FATAL_ERROR "Babylon root directory not found")
 endif()
 
-# Sources
-babylon_get_sources(src_files SEARCH_MASKS ${BABYLON_MODULE_SOURCE_SEARCH_MASKS})
+# Project
+project(${BABYLON_MODULE})
 
-foreach(src_path ${src_files})
-    cmake_path(RELATIVE_PATH src_path BASE_DIRECTORY ${BABYLON_MODULE_ROOT_DIR} OUTPUT_VARIABLE src_rel_path)
-    cmake_path(GET src_rel_path PARENT_PATH group)
-    source_group(${group} FILES ${src_path})
+# Sources
+babylon_get_sources(SRC_FILES SEARCH_MASKS ${BABYLON_MODULE_SOURCE_SEARCH_MASKS})
+
+foreach(SRC_PATH ${SRC_FILES})
+    cmake_path(RELATIVE_PATH SRC_PATH BASE_DIRECTORY ${BABYLON_MODULE_ROOT_DIR} OUTPUT_VARIABLE SRC_REL_PATH)
+    cmake_path(GET SRC_REL_PATH PARENT_PATH group)
+    source_group(${GROUP} FILES ${SRC_PATH})
 endforeach()
 
-add_library(${BABYLON_MODULE} STATIC ${src_files})
+add_library(${BABYLON_MODULE} STATIC ${SRC_FILES})
 set_target_properties(${BABYLON_MODULE} PROPERTIES FOLDER "Babylon")
 
 # Output
@@ -29,24 +32,18 @@ set_target_properties(${BABYLON_MODULE} PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY_RELEASE ${BABYLON_MODULE_OUTPUT_DIR}
     ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${BABYLON_MODULE_OUTPUT_DIR}
     ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${BABYLON_MODULE_OUTPUT_DIR}
-    TARGET_NAME ${BABYLON_MODULE_OUTPUT_NAME}
+    TARGET_NAME ${BABYLON_MODULE}
 )
 
 # Dependencies
 target_include_directories(${BABYLON_MODULE} PUBLIC ${BABYLON_MODULE_INCLUDE_DIRS})
 target_link_directories(${BABYLON_MODULE} PUBLIC ${BABYLON_MODULE_OUTPUT_DIR})
 
-if (BABYLON_MODULE_DEPEND_MODULES)
-    add_dependencies(${BABYLON_MODULE} ${BABYLON_MODULE_DEPEND_MODULES})
-    target_link_libraries(${BABYLON_MODULE} PUBLIC ${BABYLON_MODULE_DEPEND_MODULES})
-endif()
+foreach(DEPEND_MODULE ${BABYLON_MODULE_DEPEND_MODULES})
+    babylon_link_depend_module(${BABYLON_MODULE} ${DEPEND_MODULE})
+endforeach()
 
 # Configure
-set_target_properties(${BABYLON_MODULE} PROPERTIES
-    C_STANDARD 17
-    CXX_STANDARD 20
-)
-
 target_compile_options(${BABYLON_MODULE} PUBLIC
     -Wall
     #-Wextra # TODO: MSVC

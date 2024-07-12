@@ -1,7 +1,7 @@
 ################################################################################
 # Babylon modules tools
 ################################################################################
-cmake_minimum_required(VERSION 3.29.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
 if(NOT BABYLON_ROOT_DIR)
     message(FATAL_ERROR "Babylon root directory not found")
@@ -14,25 +14,23 @@ set(BABYLON_MODULE_DEFAULT_CFG ${BABYLON_CMAKE_CFG_DIR}/babylon_module_cfg.cmake
 
 # Search Babylon root dir for modules
 macro(babylon_collect_internal_modules)
-    file(GLOB sub_dirs LIST_DIRECTORIES true RELATIVE ${BABYLON_ROOT_DIR} modules/*)
-    foreach(dir ${sub_dirs})
-        if(IS_DIRECTORY ${BABYLON_ROOT_DIR}/${dir} AND EXISTS ${BABYLON_ROOT_DIR}/${dir}/CMakeLists.txt)
-            add_subdirectory(${dir} ${dir})
+    file(GLOB SUB_DIRS LIST_DIRECTORIES true RELATIVE ${BABYLON_ROOT_DIR} modules/*)
+    foreach(DIR ${SUB_DIRS})
+        if(IS_DIRECTORY ${BABYLON_ROOT_DIR}/${DIR} AND EXISTS ${BABYLON_ROOT_DIR}/${DIR}/CMakeLists.txt)
+            add_subdirectory(${DIR} ${DIR})
         endif()
     endforeach()
 endmacro()
 
 # Register Babylon module
-macro(babylon_register_module)
-    set(single_value_args NAME CFG ROOT_DIR OUTPUT_DIR OUTPUT_NAME)
-    set(multi_value_args INCLUDE_DIRS SOURCE_SEARCH_MASKS DEPEND_MODULES)
-    cmake_parse_arguments("ARG" "${options}" "${single_value_args}" "${multi_value_args}" ${ARGN})
+function(babylon_register_module BABYLON_MODULE)
+    set(SINGLE_VALUE_ARGS CFG ROOT_DIR OUTPUT_DIR)
+    set(MULTI_VALUE_ARGS INCLUDE_DIRS SOURCE_SEARCH_MASKS DEPEND_MODULES)
+    cmake_parse_arguments("ARG" "${OPTIONS}" "${SINGLE_VALUE_ARGS}" "${MULTI_VALUE_ARGS}" ${ARGN})
 
-    if(NOT ARG_NAME)
-        set(BABYLON_MODULE ${PROJECT_NAME})
-        babylon_log_info("Module uses default name (${BABYLON_MODULE})")
-    else()
-        set(BABYLON_MODULE ${ARG_NAME})
+    if(NOT BABYLON_MODULE)
+        babylon_log_error("Module name not specified")
+        return()
     endif()
 
     if(${BABYLON_MODULE} IN_LIST BABYLON_AVAILABLE_MODULES)
@@ -57,7 +55,7 @@ macro(babylon_register_module)
         set(BABYLON_MODULE_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
         babylon_log_info("Module (${BABYLON_MODULE}) uses default root dir (${BABYLON_MODULE_ROOT_DIR})")
     else()
-        set(BABYLON_MODULE_ROOT_DIR ${ARG_ROOT_DIR})
+        set(BABYLON_MODULE_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${ARG_ROOT_DIR})
     endif()
 
     if(NOT ARG_OUTPUT_DIR)
@@ -67,58 +65,50 @@ macro(babylon_register_module)
         set(BABYLON_MODULE_OUTPUT_DIR ${BABYLON_MODULE_ROOT_DIR}/${ARG_OUTPUT_DIR})
     endif()
 
-    if(NOT ARG_OUTPUT_NAME)
-        set(BABYLON_MODULE_OUTPUT_NAME ${BABYLON_MODULE})
-        babylon_log_warn("Module (${BABYLON_MODULE}) uses default output name (${BABYLON_MODULE_OUTPUT_NAME})")
-    else()
-        set(BABYLON_MODULE_OUTPUT_NAME ${ARG_OUTPUT_NAME})
-    endif()
-
     unset(BABYLON_MODULE_INCLUDE_DIRS)
-    foreach(dir ${ARG_INCLUDE_DIRS})
-        if(IS_DIRECTORY ${BABYLON_MODULE_ROOT_DIR}/${dir})
-            list(APPEND BABYLON_MODULE_INCLUDE_DIRS ${BABYLON_MODULE_ROOT_DIR}/${dir})
+    foreach(DIR ${ARG_INCLUDE_DIRS})
+        if(IS_DIRECTORY ${BABYLON_MODULE_ROOT_DIR}/${DIR})
+            list(APPEND BABYLON_MODULE_INCLUDE_DIRS ${BABYLON_MODULE_ROOT_DIR}/${DIR})
         endif()
     endforeach()
 
     unset(BABYLON_MODULE_SOURCE_SEARCH_MASKS)
-    foreach(mask ${ARG_SOURCE_SEARCH_MASKS})
-        list(APPEND BABYLON_MODULE_SOURCE_SEARCH_MASKS ${BABYLON_MODULE_ROOT_DIR}/${mask})
+    foreach(MASK ${ARG_SOURCE_SEARCH_MASKS})
+        list(APPEND BABYLON_MODULE_SOURCE_SEARCH_MASKS ${BABYLON_MODULE_ROOT_DIR}/${MASK})
     endforeach()
 
     set(BABYLON_MODULE_DEPEND_MODULES ${ARG_DEPEND_MODULES})
 
-    set(BABYLON_MODULE_CFG_${BABYLON_MODULE} ${BABYLON_MODULE_CFG} CACHE INTERNAL "")
-    set(BABYLON_MODULE_ROOT_DIR_${BABYLON_MODULE} ${BABYLON_MODULE_ROOT_DIR} CACHE INTERNAL "")
-    set(BABYLON_MODULE_OUTPUT_DIR_${BABYLON_MODULE} ${BABYLON_MODULE_OUTPUT_DIR} CACHE INTERNAL "")
-    set(BABYLON_MODULE_OUTPUT_NAME_${BABYLON_MODULE} ${BABYLON_MODULE_OUTPUT_NAME} CACHE INTERNAL "")
-    set(BABYLON_MODULE_INCLUDE_DIRS_${BABYLON_MODULE} ${BABYLON_MODULE_INCLUDE_DIRS} CACHE INTERNAL "")
-    set(BABYLON_MODULE_SOURCE_SEARCH_MASKS_${BABYLON_MODULE} ${BABYLON_MODULE_SOURCE_SEARCH_MASKS} CACHE INTERNAL "")
-    set(BABYLON_MODULE_DEPEND_MODULES_${BABYLON_MODULE} ${BABYLON_MODULE_DEPEND_MODULES} CACHE INTERNAL "")
+    set(${BABYLON_MODULE}_BABYLON_MODULE_CFG ${BABYLON_MODULE_CFG} CACHE INTERNAL "")
+    set(${BABYLON_MODULE}_BABYLON_MODULE_ROOT_DIR ${BABYLON_MODULE_ROOT_DIR} CACHE INTERNAL "")
+    set(${BABYLON_MODULE}_BABYLON_MODULE_OUTPUT_DIR ${BABYLON_MODULE_OUTPUT_DIR} CACHE INTERNAL "")
+    set(${BABYLON_MODULE}_BABYLON_MODULE_INCLUDE_DIRS ${BABYLON_MODULE_INCLUDE_DIRS} CACHE INTERNAL "")
+    set(${BABYLON_MODULE}_BABYLON_MODULE_SOURCE_SEARCH_MASKS ${BABYLON_MODULE_SOURCE_SEARCH_MASKS} CACHE INTERNAL "")
+    set(${BABYLON_MODULE}_BABYLON_MODULE_DEPEND_MODULES ${BABYLON_MODULE_DEPEND_MODULES} CACHE INTERNAL "")
 
     babylon_log_info("Module (${BABYLON_MODULE}) registered")
-endmacro()
+endfunction()
 
 # Enable Babylon modules
 function(babylon_enable_modules)
-    set(options ALL)
-    cmake_parse_arguments("ARG" "${options}" "${single_value_args}" "${multi_value_args}" ${ARGN})
+    set(OPTIONS ALL)
+    cmake_parse_arguments("ARG" "${OPTIONS}" "${SINGLE_VALUE_ARGS}" "${MULTI_VALUE_ARGS}" ${ARGN})
 
     if(ARG_ALL)
-        set(modules ${BABYLON_AVAILABLE_MODULES})
+        set(MODULES ${BABYLON_AVAILABLE_MODULES})
     else()
-        set(modules ${ARG_UNPARSED_ARGUMENTS})
+        set(MODULES ${ARG_UNPARSED_ARGUMENTS})
     endif()
 
-    foreach(module ${modules})
-        babylon_enable_module(${module})
+    foreach(MODULE ${MODULES})
+        babylon_enable_module(${MODULE})
     endforeach()
 endfunction()
 
 # Enable Babylon module
 function(babylon_enable_module BABYLON_MODULE)
     if(NOT ${BABYLON_MODULE} IN_LIST BABYLON_AVAILABLE_MODULES)
-        babylon_log_error("Module (${BABYLON_MODULE}) does not exist")
+        babylon_log_error("Module (${BABYLON_MODULE}) doesn't exist")
         return()
     endif()
 
@@ -132,17 +122,56 @@ function(babylon_enable_module BABYLON_MODULE)
         set(BABYLON_ENABLED_MODULES "${BABYLON_ENABLED_MODULES};${BABYLON_MODULE}" CACHE INTERNAL "Enabled Babylon modules")
     endif()
 
-    set(BABYLON_MODULE_DEPEND_MODULES ${BABYLON_MODULE_DEPEND_MODULES_${BABYLON_MODULE}})
+    set(BABYLON_MODULE_DEPEND_MODULES ${${BABYLON_MODULE}_BABYLON_MODULE_DEPEND_MODULES})
 
     babylon_enable_modules(${BABYLON_MODULE_DEPEND_MODULES})
 
-    set(BABYLON_MODULE_ROOT_DIR ${BABYLON_MODULE_ROOT_DIR_${BABYLON_MODULE}})
-    set(BABYLON_MODULE_OUTPUT_DIR ${BABYLON_MODULE_OUTPUT_DIR_${BABYLON_MODULE}})
-    set(BABYLON_MODULE_OUTPUT_NAME ${BABYLON_MODULE_OUTPUT_NAME_${BABYLON_MODULE}})
-    set(BABYLON_MODULE_INCLUDE_DIRS ${BABYLON_MODULE_INCLUDE_DIRS_${BABYLON_MODULE}})
-    set(BABYLON_MODULE_SOURCE_SEARCH_MASKS ${BABYLON_MODULE_SOURCE_SEARCH_MASKS_${BABYLON_MODULE}})
+    set(BABYLON_MODULE_ROOT_DIR ${${BABYLON_MODULE}_BABYLON_MODULE_ROOT_DIR})
+    set(BABYLON_MODULE_OUTPUT_DIR ${${BABYLON_MODULE}_BABYLON_MODULE_OUTPUT_DIR})
+    set(BABYLON_MODULE_INCLUDE_DIRS ${${BABYLON_MODULE}_BABYLON_MODULE_INCLUDE_DIRS})
+    set(BABYLON_MODULE_SOURCE_SEARCH_MASKS ${${BABYLON_MODULE}_BABYLON_MODULE_SOURCE_SEARCH_MASKS})
 
-    include(${BABYLON_MODULE_CFG_${BABYLON_MODULE}})
+    include(${${BABYLON_MODULE}_BABYLON_MODULE_CFG})
 
     babylon_log_info("Module (${BABYLON_MODULE}) enabled")
+endfunction()
+
+# Link depend Babylon module
+function(babylon_link_depend_module BABYLON_MODULE DEPEND_MODULE)
+    if(NOT BABYLON_MODULE)
+        babylon_log_error("Module not specified")
+        return()
+    endif()
+
+    if(NOT ${BABYLON_MODULE} IN_LIST BABYLON_AVAILABLE_MODULES)
+        babylon_log_error("Module (${BABYLON_MODULE}) doesn't exist")
+        return()
+    endif()
+
+    if(NOT ${BABYLON_MODULE} IN_LIST BABYLON_ENABLED_MODULES)
+        babylon_log_error("Module (${BABYLON_MODULE}) doesn't enabled")
+        return()
+    endif()
+
+    if(NOT DEPEND_MODULE)
+        babylon_log_error("Depend module not specified")
+        return()
+    endif()
+
+    if(NOT ${DEPEND_MODULE} IN_LIST BABYLON_AVAILABLE_MODULES)
+        babylon_log_error("Depend module (${DEPEND_MODULE}) doesn't exist")
+        return()
+    endif()
+
+    if(NOT ${DEPEND_MODULE} IN_LIST BABYLON_ENABLED_MODULES)
+        babylon_log_error("Depend module (${DEPEND_MODULE}) doesn't enabled")
+        return()
+    endif()
+
+    foreach(DIR ${${DEPEND_MODULE}_BABYLON_MODULE_INCLUDE_DIRS})
+        target_include_directories(${BABYLON_MODULE} PRIVATE ${DIR})
+    endforeach()
+
+    target_link_libraries(${BABYLON_MODULE} PUBLIC ${DEPEND_MODULE})
+    add_dependencies(${BABYLON_MODULE} ${DEPEND_MODULE})
 endfunction()

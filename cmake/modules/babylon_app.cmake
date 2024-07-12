@@ -1,22 +1,21 @@
 ################################################################################
 # Babylon app tools
 ################################################################################
-cmake_minimum_required(VERSION 3.29.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
 # Definitions
 set(BABYLON_APP_DEFAULT_CFG ${BABYLON_CMAKE_CFG_DIR}/babylon_app_cfg.cmake CACHE INTERNAL "Default Babylon app cfg")
 
 # Configure Babylon app
-macro(babylon_configure_app)
-    set(single_value_args NAME CFG ROOT_DIR OUTPUT_DIR OUTPUT_NAME)
-    set(multi_value_args INCLUDE_DIRS SOURCE_SEARCH_MASKS DEPEND_MODULES)
-    cmake_parse_arguments("ARG" "${options}" "${single_value_args}" "${multi_value_args}" ${ARGN})
+function(babylon_configure_app)
+    set(SINGLE_VALUE_ARGS CFG OUTPUT_DIR OUTPUT_NAME)
+    set(MULTI_VALUE_ARGS INCLUDE_DIRS SOURCE_SEARCH_MASKS DEPEND_MODULES)
+    cmake_parse_arguments("ARG" "${OPTIONS}" "${SINGLE_VALUE_ARGS}" "${MULTI_VALUE_ARGS}" ${ARGN})
 
-    if(NOT ARG_NAME)
-        set(BABYLON_APP ${PROJECT_NAME})
-        babylon_log_info("App uses default name (${BABYLON_APP})")
-    else()
-        set(BABYLON_APP ${ARG_NAME})
+    set(BABYLON_APP ${PROJECT_NAME})
+    if(NOT BABYLON_APP)
+        babylon_log_fatal("App name not specified")
+        return()
     endif()
 
     if(NOT ARG_CFG)
@@ -26,12 +25,7 @@ macro(babylon_configure_app)
         set(BABYLON_APP_CFG ${ARG_CFG})
     endif()
 
-    if(NOT ARG_ROOT_DIR)
-        set(BABYLON_APP_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
-        babylon_log_info("App (${BABYLON_APP}) uses default root dir (${BABYLON_APP_ROOT_DIR})")
-    else()
-        set(BABYLON_APP_ROOT_DIR ${ARG_ROOT_DIR})
-    endif()
+    set(BABYLON_APP_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
     if(NOT ARG_OUTPUT_DIR)
         set(BABYLON_APP_OUTPUT_DIR ${BABYLON_APP_ROOT_DIR})
@@ -41,20 +35,24 @@ macro(babylon_configure_app)
     endif()
 
     if(NOT ARG_OUTPUT_NAME)
-        set(BABYLON_APP_OUTPUT_NAME ${ARG_NAME})
-        babylon_log_warn("Module (${BABYLON_APP}) uses default output name (${BABYLON_APP_OUTPUT_NAME})")
+        set(BABYLON_APP_OUTPUT_NAME ${BABYLON_APP})
+        babylon_log_info("App (${BABYLON_APP}) uses default output name (${BABYLON_APP_OUTPUT_NAME})")
     else()
         set(BABYLON_APP_OUTPUT_NAME ${ARG_OUTPUT_NAME})
     endif()
 
     unset(BABYLON_APP_INCLUDE_DIRS)
-    foreach(dir ${ARG_INCLUDE_DIRS})
-        if(IS_DIRECTORY ${BABYLON_APP_ROOT_DIR}/${dir})
-            list(APPEND BABYLON_APP_INCLUDE_DIRS ${BABYLON_APP_ROOT_DIR}/${dir})
+    foreach(DIR ${ARG_INCLUDE_DIRS})
+        if(IS_DIRECTORY ${BABYLON_APP_ROOT_DIR}/${DIR})
+            list(APPEND BABYLON_APP_INCLUDE_DIRS ${BABYLON_APP_ROOT_DIR}/${DIR})
         endif()
     endforeach()
 
-    set(BABYLON_APP_SOURCE_SEARCH_MASKS ${ARG_SOURCE_SEARCH_MASKS})
+    unset(BABYLON_APP_SOURCE_SEARCH_MASKS)
+    foreach(MASK ${ARG_SOURCE_SEARCH_MASKS})
+        list(APPEND BABYLON_APP_SOURCE_SEARCH_MASKS ${BABYLON_APP_ROOT_DIR}/${MASK})
+    endforeach()
+
     set(BABYLON_APP_DEPEND_MODULES ${ARG_DEPEND_MODULES})
 
     babylon_enable_modules(${BABYLON_APP_DEPEND_MODULES})
@@ -62,4 +60,4 @@ macro(babylon_configure_app)
     include(${BABYLON_APP_CFG})
 
     babylon_log_info("App (${BABYLON_APP}) configured")
-endmacro()
+endfunction()

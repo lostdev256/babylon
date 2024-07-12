@@ -1,7 +1,7 @@
 ################################################################################
 # Babylon app default configuration
 ################################################################################
-cmake_minimum_required(VERSION 3.29.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
 if(NOT BABYLON_APP)
     message(FATAL_ERROR "Babylon app not specified")
@@ -13,19 +13,19 @@ endif()
 # endif()
 
 # Sources
-babylon_get_sources(src_files SEARCH_MASKS ${BABYLON_APP_SOURCE_SEARCH_MASKS})
+babylon_get_sources(SRC_FILES SEARCH_MASKS ${BABYLON_APP_SOURCE_SEARCH_MASKS})
 
-foreach(src_path ${src_files})
-    cmake_path(RELATIVE_PATH src_path BASE_DIRECTORY ${BABYLON_APP_ROOT_DIR} OUTPUT_VARIABLE src_rel_path)
-    cmake_path(GET src_rel_path PARENT_PATH group)
-    source_group(${group} FILES ${src_path})
+foreach(SRC_PATH ${SRC_FILES})
+    cmake_path(RELATIVE_PATH SRC_PATH BASE_DIRECTORY ${BABYLON_APP_ROOT_DIR} OUTPUT_VARIABLE SRC_REL_PATH)
+    cmake_path(GET SRC_REL_PATH PARENT_PATH GROUP)
+    source_group(${GROUP} FILES ${SRC_PATH})
 endforeach()
 
-add_executable(${BABYLON_APP} ${src_files})
+add_executable(${BABYLON_APP} ${SRC_FILES})
 
 # Output
 set_target_properties(${BABYLON_APP} PROPERTIES
-    OUTPUT_DIRECTORY_DEBUG   ${BABYLON_APP_OUTPUT_DIR}
+    OUTPUT_DIRECTORY_DEBUG ${BABYLON_APP_OUTPUT_DIR}
     OUTPUT_DIRECTORY_RELEASE ${BABYLON_APP_OUTPUT_DIR}
     RUNTIME_OUTPUT_DIRECTORY_DEBUG ${BABYLON_APP_OUTPUT_DIR}
     RUNTIME_OUTPUT_DIRECTORY_RELEASE ${BABYLON_APP_OUTPUT_DIR}
@@ -53,15 +53,11 @@ set_target_properties(${BABYLON_APP} PROPERTIES
 target_include_directories(${BABYLON_APP} PUBLIC ${BABYLON_APP_INCLUDE_DIRS})
 
 if (BABYLON_APP_DEPEND_MODULES)
+    foreach(DEPEND_MODULE ${BABYLON_APP_DEPEND_MODULES})
+        target_link_libraries(${BABYLON_APP} PUBLIC ${DEPEND_MODULE})
+    endforeach()
     add_dependencies(${BABYLON_APP} ${BABYLON_APP_DEPEND_MODULES})
-    target_link_libraries(${BABYLON_APP} PUBLIC ${BABYLON_APP_DEPEND_MODULES})
 endif()
-
-# Configure
-set_target_properties(${BABYLON_APP} PROPERTIES
-    C_STANDARD 17
-    CXX_STANDARD 20
-)
 
 target_compile_options(${BABYLON_APP} PUBLIC
     -Wall
