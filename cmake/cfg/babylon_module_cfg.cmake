@@ -12,13 +12,7 @@ project(${BABYLON_MODULE})
 
 # Sources
 babylon_get_sources(SRC_FILES SEARCH_MASKS ${BABYLON_MODULE_SOURCE_SEARCH_MASKS})
-
-foreach(SRC_PATH ${SRC_FILES})
-    cmake_path(RELATIVE_PATH SRC_PATH BASE_DIRECTORY ${BABYLON_MODULE_ROOT_DIR} OUTPUT_VARIABLE SRC_REL_PATH)
-    cmake_path(GET SRC_REL_PATH PARENT_PATH group)
-    source_group(${GROUP} FILES ${SRC_PATH})
-endforeach()
-
+source_group(TREE ${BABYLON_MODULE_ROOT_DIR} FILES ${SRC_FILES})
 add_library(${BABYLON_MODULE} STATIC ${SRC_FILES})
 set_target_properties(${BABYLON_MODULE} PROPERTIES FOLDER "Babylon")
 

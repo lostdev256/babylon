@@ -9,25 +9,25 @@ endif()
 
 # Info
 macro(babylon_log_info MSG)
-    message(STATUS "[${PROJECT_NAME}] ${MSG}")
+    message(STATUS "${MSG}")
 endmacro()
 
 # Warning
 macro(babylon_log_warn MSG)
-    message(WARNING "[${PROJECT_NAME}] ${MSG}")
+    message(WARNING "${MSG}")
 endmacro()
 
 # Error
 macro(babylon_log_error MSG)
-    message(SEND_ERROR "[${PROJECT_NAME}] ${MSG}")
+    message(SEND_ERROR "${MSG}")
 endmacro()
 
 # Fatal error
 macro(babylon_log_fatal MSG)
-    message(FATAL_ERROR "[${PROJECT_NAME}] ${MSG}")
+    message(FATAL_ERROR "${MSG}")
 endmacro()
 
 # Debug
 macro(babylon_log_debug MSG)
-    message(AUTHOR_WARNING "[${PROJECT_NAME}] ${MSG}")
+    message(AUTHOR_WARNING "${MSG}")
 endmacro()

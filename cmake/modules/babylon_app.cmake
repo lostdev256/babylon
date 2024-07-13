@@ -9,7 +9,7 @@ set(BABYLON_APP_DEFAULT_CFG ${BABYLON_CMAKE_CFG_DIR}/babylon_app_cfg.cmake CACHE
 # Configure Babylon app
 function(babylon_configure_app)
     set(SINGLE_VALUE_ARGS CFG OUTPUT_DIR OUTPUT_NAME)
-    set(MULTI_VALUE_ARGS INCLUDE_DIRS SOURCE_SEARCH_MASKS DEPEND_MODULES)
+    set(MULTI_VALUE_ARGS INCLUDE_DIRS SOURCE_SEARCH_MASKS)
     cmake_parse_arguments("ARG" "${OPTIONS}" "${SINGLE_VALUE_ARGS}" "${MULTI_VALUE_ARGS}" ${ARGN})
 
     set(BABYLON_APP ${PROJECT_NAME})
@@ -53,9 +53,7 @@ function(babylon_configure_app)
         list(APPEND BABYLON_APP_SOURCE_SEARCH_MASKS ${BABYLON_APP_ROOT_DIR}/${MASK})
     endforeach()
 
-    set(BABYLON_APP_DEPEND_MODULES ${ARG_DEPEND_MODULES})
-
-    babylon_enable_modules(${BABYLON_APP_DEPEND_MODULES})
+    set(BABYLON_APP_DEPEND_MODULES ${BABYLON_ENABLED_MODULES})
 
     include(${BABYLON_APP_CFG})
 
