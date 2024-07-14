@@ -11,6 +11,12 @@ endif()
 set(BABYLON_CMAKE_MODULES_DIR ${CMAKE_CURRENT_LIST_DIR}/modules CACHE INTERNAL "Babylon CMake modules directory")
 set(BABYLON_CMAKE_CFG_DIR ${CMAKE_CURRENT_LIST_DIR}/cfg CACHE INTERNAL "Babylon CMake cfg directory")
 
+if(BABYLON_OS_MAC)
+    set(BABYLON_CMAKE_PLATFORM_CFG_DIR ${BABYLON_CMAKE_CFG_DIR}/platforms/mac CACHE INTERNAL "Babylon MacOS CMake cfg directory")
+else()
+    unset(BABYLON_CMAKE_PLATFORM_CFG_DIR CACHE INTERNAL "")
+endif()
+
 # Includes
 include(${BABYLON_CMAKE_MODULES_DIR}/babylon_log.cmake)
 include(${BABYLON_CMAKE_MODULES_DIR}/babylon_source.cmake)
