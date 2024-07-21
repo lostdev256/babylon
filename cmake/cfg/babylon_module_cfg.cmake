@@ -38,11 +38,14 @@ foreach(DEPEND_MODULE ${BABYLON_MODULE_DEPEND_MODULES})
 endforeach()
 
 # Configure
+set_target_properties(${BABYLON_MODULE} PROPERTIES CXX_STANDARD ${CMAKE_CXX_STANDARD})
+
 target_compile_options(${BABYLON_MODULE} PUBLIC
     -Wall
     #-Wextra # TODO: MSVC
     #-pedantic # TODO: MSVC
     #-Werror # TODO: MSVC
+    -std=c++${CMAKE_CXX_STANDARD}
 )
 
 if(MSVC)

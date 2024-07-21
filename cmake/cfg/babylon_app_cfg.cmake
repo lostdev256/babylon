@@ -63,11 +63,15 @@ if (BABYLON_APP_DEPEND_MODULES)
     add_dependencies(${BABYLON_APP} ${BABYLON_APP_DEPEND_MODULES})
 endif()
 
+# Configure
+set_target_properties(${BABYLON_APP} PROPERTIES CXX_STANDARD ${CMAKE_CXX_STANDARD})
+
 target_compile_options(${BABYLON_APP} PUBLIC
     -Wall
     #-Wextra # TODO: MSVC
     #-pedantic # TODO: MSVC
     #-Werror # TODO: MSVC
+    -std=c++${CMAKE_CXX_STANDARD}
 )
 
 if(MSVC)
