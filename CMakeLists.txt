@@ -1,7 +1,7 @@
 ################################################################################
 # Babylon System module
 ################################################################################
-cmake_minimum_required(VERSION 3.29.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
 # Register in Babylon
 babylon_register_module(BabylonSystem
