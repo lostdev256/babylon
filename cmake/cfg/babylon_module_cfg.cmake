@@ -78,7 +78,7 @@ if(MSVC)
         /WX-
         /Zc:forScope
         /std:c17
-        /std:c++20
+        /std:c++${CMAKE_CXX_STANDARD}
         /Gz
         /EHsc
         /nologo
