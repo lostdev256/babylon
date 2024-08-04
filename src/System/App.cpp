@@ -3,10 +3,43 @@
 namespace Babylon::System
 {
 
-bool App::Execute()
+void App::Execute()
 {
-    //std::cout << "Hello from App" << std::endl;
-    return true;
+    if (!_delegate)
+    {
+        return;
+    }
+
+    Init();
+
+    _delegate->Run();
+
+    Loop();
+    DeInit();
+}
+
+void App::Init()
+{
+    if (!_delegate)
+    {
+        return;
+    }
+
+    _delegate->Init();
+}
+
+void App::DeInit()
+{
+    if (!_delegate)
+    {
+        return;
+    }
+
+    _delegate->DeInit();
+}
+
+void App::Loop()
+{
 }
 
 } // namespace Babylon::System
