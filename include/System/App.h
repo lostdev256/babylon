@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Common/Singleton.h>
+#include <System/AppLoopController.h>
 #include <System/IAppDelegate.h>
 
 #include <memory>
@@ -22,26 +23,22 @@ public:
     /**
      * Запускает приложение
      */
-    void Execute();
+    void Run();
 
 private:
     /**
      * Выполняет инициализацию приложения и делегата
      */
-    void Init();
+    void Setup();
 
     /**
      * Выполняет де инициализацию приложения и делегата
      */
-    void DeInit();
-
-    /**
-     * Запускает основной цикл
-     */
-    void Loop();
+    void Teardown();
 
 private:
     IAppDelegateUPtr _delegate;
+    AppLoopController _loop;
 };
 
 template<class T>

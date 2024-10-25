@@ -3,43 +3,27 @@
 namespace Babylon::System
 {
 
-void App::Execute()
+void App::Run()
 {
     if (!_delegate)
     {
         return;
     }
 
-    Init();
-
-    _delegate->Run();
-
-    Loop();
-    DeInit();
+    Setup();
+    _delegate->OnAppRun();
+    _loop.Run();
+    Teardown();
 }
 
-void App::Init()
+void App::Setup()
 {
-    if (!_delegate)
-    {
-        return;
-    }
-
-    _delegate->Init();
+    _delegate->OnAppSetup();
 }
 
-void App::DeInit()
+void App::Teardown()
 {
-    if (!_delegate)
-    {
-        return;
-    }
-
-    _delegate->DeInit();
-}
-
-void App::Loop()
-{
+    _delegate->OnAppTeardown();
 }
 
 } // namespace Babylon::System

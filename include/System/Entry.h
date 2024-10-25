@@ -16,7 +16,7 @@ int main(int argc, char** argv)                     \
     Babylon::System::App::Finaliser guard;          \
     auto& app = Babylon::System::App::Instance();   \
     app.UseDelegate<AppDelegateClassName>();        \
-    app.Execute();                                  \
+    app.Run();                                      \
     return 0;                                       \
 }
 

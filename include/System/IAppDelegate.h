@@ -12,9 +12,9 @@ class IAppDelegate
 public:
     virtual ~IAppDelegate() = default;
 
-    virtual void Init() {};
-    virtual void DeInit() {};
-    virtual void Run() {};
+    virtual void OnAppSetup() {};
+    virtual void OnAppTeardown() {};
+    virtual void OnAppRun() {};
 };
 
 } // namespace Babylon::System
