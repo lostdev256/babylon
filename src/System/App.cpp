@@ -1,29 +1,41 @@
+#include <pch.h>
+
 #include <System/App.h>
 
 namespace Babylon::System
 {
 
-void App::Run()
+void App::SetArguments(AppArguments&& arguments)
 {
-    if (!_delegate)
-    {
-        return;
-    }
-
-    Setup();
-    _delegate->OnAppRun();
-    _loop.Run();
-    Teardown();
+    _arguments = std::move(arguments);
 }
 
-void App::Setup()
+void App::SetDelegate(IAppDelegateUPtr&& delegate)
 {
-    _delegate->OnAppSetup();
+    _delegate = std::move(delegate);
 }
 
-void App::Teardown()
-{
-    _delegate->OnAppTeardown();
-}
+// void App::Run()
+// {
+//     if (!_delegate)
+//     {
+//         return;
+//     }
+//
+//     Setup();
+//     _delegate->OnAppRun();
+//     //_loop.Run();
+//     Teardown();
+// }
+
+// void App::Setup()
+// {
+//     _delegate->OnAppSetup();
+// }
+//
+// void App::Teardown()
+// {
+//     _delegate->OnAppTeardown();
+// }
 
 } // namespace Babylon::System

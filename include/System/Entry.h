@@ -1,23 +1,25 @@
 #pragma once
 
+#include <Platform/Entry.h>
 #include <System/App.h>
+#include <System/AppArguments.h>
+#include <System/IAppDelegate.h>
 
-// TODO: return global static error handler result
+namespace Babylon::System
+{
 
-#ifndef BABYLON_ENTRY_POINT
-/**
- * Entry point to app
- * [AppDelegateClassName] - Babylon::System::IAppDelegate based class name
- */
-#define BABYLON_ENTRY_POINT(AppDelegateClassName)   \
-                                                    \
-int main(int argc, char** argv)                     \
-{                                                   \
-    Babylon::System::App::Finaliser guard;          \
-    auto& app = Babylon::System::App::Instance();   \
-    app.UseDelegate<AppDelegateClassName>();        \
-    app.Run();                                      \
-    return 0;                                       \
+template <class AppDelegateClassName>
+int Entry(AppArguments&& args)
+{
+    static_assert(std::is_convertible_v<AppDelegateClassName, IAppDelegate>);
+    auto delegate =  std::make_unique<AppDelegateClassName>();
+
+    App::Finaliser guard;
+    auto& app = App::Instance();
+    app.SetArguments(std::move(args));
+    app.SetDelegate(std::move(delegate));
+
+    return Platform::Entry();
 }
 
-#endif // BABYLON_ENTRY_POINT
+} // namespace Babylon::System

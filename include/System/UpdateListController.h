@@ -2,8 +2,6 @@
 
 #include <System/IAppLoopController.h>
 
-#include <vector>
-
 namespace Babylon::System
 {
 
