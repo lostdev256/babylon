@@ -63,8 +63,19 @@ if (BABYLON_APP_DEPEND_MODULES)
     add_dependencies(${BABYLON_APP} ${BABYLON_APP_DEPEND_MODULES})
 endif()
 
+if (APPLE)
+    find_library(Cocoa Cocoa)
+    target_link_libraries(${BABYLON_APP} PUBLIC $<$<PLATFORM_ID:Darwin>:${Cocoa}>)
+elseif (WIN32)
+    target_link_libraries(${BABYLON_APP} PUBLIC gdi32 gdiplus user32 advapi32 ole32 shell32 comdlg32)
+endif()
+
 # Configure
 set_target_properties(${BABYLON_APP} PROPERTIES CXX_STANDARD ${CMAKE_CXX_STANDARD})
+
+if(APPLE AND ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    target_compile_definitions(${BABYLON_APP} PUBLIC BABYLON_OS_MAC=1)
+endif()
 
 target_compile_options(${BABYLON_APP} PUBLIC
     -Wall
