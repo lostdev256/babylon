@@ -7,3 +7,6 @@
 [submodule "modules/Common"]
 	path = modules/BabylonCommon
 	url = git@github.com:CodeJediTeam/Babylon-modules-Common.git
+[submodule "modules/BabylonUI"]
+	path = modules/BabylonUI
+	url = git@github.com:CodeJediTeam/Babylon-modules-UI.git
