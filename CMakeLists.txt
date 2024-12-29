@@ -8,5 +8,4 @@ babylon_register_module(BabylonSystem
     OUTPUT_DIR lib
     INCLUDE_DIRS include
     SOURCE_SEARCH_MASKS include/*.h include/*.cpp src/*.h src/*.cpp src/*.m src/*.mm
-    DEPEND_MODULES BabylonCommon
 )
