@@ -3,7 +3,7 @@
 #include <Platform/Main.h>
 
 /**
- * Entry point to app
- * [AppDelegateClassName] - Babylon::System::IAppDelegate based class name
+ * Точка входа в приложение
+ * @tparam TAppConfigurator Имя класса реализующего Babylon::System::IAppConfigurator
  */
-#define BABYLON_ENTRY_POINT(AppDelegateClassName) BABYLON_ENTRY_POINT_IMPL(AppDelegateClassName)
+#define BABYLON_ENTRY_POINT(TAppConfigurator) BABYLON_ENTRY_POINT_IMPL(TAppConfigurator)

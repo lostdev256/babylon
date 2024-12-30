@@ -1,13 +1,14 @@
 #pragma once
 
-#include <System/Entry.h>
+#include <System/App.h>
 
 #if BABYLON_OS_MAC
 
-#define BABYLON_ENTRY_POINT_IMPL(AppDelegateClassName)                     \
-int main(int argc, char** argv)                                            \
-{                                                                          \
-    return Babylon::System::Entry<AppDelegateClassName>({ argc, argv });   \
+#define BABYLON_ENTRY_POINT_IMPL(TAppConfigurator)                  \
+int main(int argc, char** argv)                                     \
+{                                                                   \
+    Babylon::System::App::Entry<TAppConfigurator>({ argc, argv });  \
+    return 0;                                                       \
 }
 
 #else

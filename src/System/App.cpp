@@ -10,9 +10,9 @@ void App::SetArguments(AppArguments&& arguments)
     _arguments = std::move(arguments);
 }
 
-void App::SetDelegate(IAppDelegateUPtr&& delegate)
+void App::SetConfigurator(std::unique_ptr<IAppConfigurator>&& configurator)
 {
-    _delegate = std::move(delegate);
+    _configurator = std::move(configurator);
 }
 
 // void App::Run()
