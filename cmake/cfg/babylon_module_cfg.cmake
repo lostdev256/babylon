@@ -11,7 +11,11 @@ endif()
 project(${BABYLON_MODULE})
 
 # Sources
-babylon_get_sources(SRC_FILES SEARCH_MASKS ${BABYLON_MODULE_SOURCE_SEARCH_MASKS})
+babylon_get_sources(SRC_FILES
+    SEARCH_MASKS ${BABYLON_MODULE_SOURCE_SEARCH_MASKS}
+    SEARCH_MASKS_OS_WIN ${BABYLON_MODULE_SOURCE_SEARCH_MASKS_OS_WIN}
+    SEARCH_MASKS_OS_MAC ${BABYLON_MODULE_SOURCE_SEARCH_MASKS_OS_MAC}
+)
 source_group(TREE ${BABYLON_MODULE_ROOT_DIR} FILES ${SRC_FILES})
 add_library(${BABYLON_MODULE} STATIC ${SRC_FILES})
 set_target_properties(${BABYLON_MODULE} PROPERTIES FOLDER "Babylon")
@@ -37,17 +41,17 @@ foreach(DEPEND_MODULE ${BABYLON_MODULE_DEPEND_MODULES})
     babylon_link_depend_module(${BABYLON_MODULE} ${DEPEND_MODULE})
 endforeach()
 
-if (APPLE)
+if(BABYLON_OS_WIN)
+    target_link_libraries(${BABYLON_MODULE} PUBLIC gdi32 gdiplus user32 advapi32 ole32 shell32 comdlg32)
+elseif(BABYLON_OS_MAC)
     find_library(Cocoa Cocoa)
     target_link_libraries(${BABYLON_MODULE} PUBLIC $<$<PLATFORM_ID:Darwin>:${Cocoa}>)
-elseif (WIN32)
-    target_link_libraries(${BABYLON_MODULE} PUBLIC gdi32 gdiplus user32 advapi32 ole32 shell32 comdlg32)
 endif()
 
 # Configure
 set_target_properties(${BABYLON_MODULE} PROPERTIES CXX_STANDARD ${CMAKE_CXX_STANDARD})
 
-if(APPLE AND ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+if(BABYLON_OS_MAC)
     target_compile_definitions(${BABYLON_MODULE} PUBLIC BABYLON_OS_MAC=1)
 endif()
 
