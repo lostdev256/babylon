@@ -10,7 +10,7 @@ set(BABYLON_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Babylon root di
 include(${CMAKE_CURRENT_SOURCE_DIR}/tools/cmake/babylon.cmake)
 
 # Configure Babylon
-babylon_global_configure()
+babylon_configure()
 
 # Collect internal Babylon modules
 babylon_collect_internal_modules()
