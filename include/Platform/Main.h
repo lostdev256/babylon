@@ -11,6 +11,17 @@ int main(int argc, char** argv)                                     \
     return 0;                                                       \
 }
 
+#elif BABYLON_OS_WIN
+
+#include <Windows.h>
+
+#define BABYLON_ENTRY_POINT_IMPL(TAppConfigurator)                  \
+int main(int argc, char** argv)                                     \
+{                                                                   \
+    Babylon::System::App::Entry<TAppConfigurator>({ argc, argv });  \
+    return 0;                                                       \
+}
+
 #else
 
 #error Target platform not supported
