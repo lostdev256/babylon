@@ -77,7 +77,9 @@ endif()
 # Configure
 set_target_properties(${BABYLON_APP} PROPERTIES CXX_STANDARD ${CMAKE_CXX_STANDARD})
 
-if(BABYLON_OS_MAC)
+if(BABYLON_OS_WIN)
+    target_compile_definitions(${BABYLON_APP} PUBLIC BABYLON_OS_WIN=1)
+elseif(BABYLON_OS_MAC)
     target_compile_definitions(${BABYLON_APP} PUBLIC BABYLON_OS_MAC=1)
 endif()
 
