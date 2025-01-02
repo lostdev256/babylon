@@ -1,7 +1,25 @@
 ################################################################################
-# Babylon global configuration
+# Babylon defines configuration
 ################################################################################
 cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
+
+# C++ standard
+if(NOT BABYLON_CPP_STANDARD)
+    if(NOT CMAKE_CXX_STANDARD)
+        set(BABYLON_CPP_STANDARD 20 CACHE STRING "" FORCE)
+    else()
+        set(BABYLON_CPP_STANDARD ${CMAKE_CXX_STANDARD} CACHE STRING "" FORCE)
+    endif()
+endif()
+
+# C standard
+if(NOT BABYLON_C_STANDARD)
+    if(NOT CMAKE_C_STANDARD)
+        set(BABYLON_C_STANDARD 17 CACHE STRING "" FORCE)
+    else()
+        set(BABYLON_C_STANDARD ${CMAKE_C_STANDARD} CACHE STRING "" FORCE)
+    endif()
+endif()
 
 if(NOT BABYLON_ROOT_DIR)
     message(FATAL_ERROR "Babylon root directory not found")
