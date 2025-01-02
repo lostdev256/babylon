@@ -1,0 +1,81 @@
+{
+	"version": 6,
+	"cmakeMinimumRequired": {
+		"major": 3,
+		"minor": 30,
+		"patch": 0
+	},
+	"include": [
+		"BabylonCMakePresets.json"
+	],
+	"configurePresets": [
+		{
+			"name": "project",
+			"hidden": true
+		},
+		{
+			"name": "win_vs_msvc",
+			"hidden": false,
+			"inherits": [
+				"babylon_win_vs_msvc",
+				"project"
+			]
+		},
+		{
+			"name": "win_vs_clang",
+			"hidden": false,
+			"inherits": [
+				"babylon_win_vs_clang",
+				"project"
+			]
+		},
+		{
+			"name": "win_ninja_clang_debug",
+			"hidden": false,
+			"inherits": [
+				"babylon_win_ninja_clang_debug",
+				"project"
+			]
+		},
+		{
+			"name": "win_ninja_clang_release",
+			"hidden": false,
+			"inherits": [
+				"babylon_win_ninja_clang_release",
+				"project"
+			]
+		},
+		{
+			"name": "win_ninja_clang_profile",
+			"hidden": false,
+			"inherits": [
+				"babylon_win_ninja_clang_profile",
+				"project"
+			]
+		},
+		{
+			"name": "mac_ninja_debug",
+			"hidden": false,
+			"inherits": [
+				"babylon_mac_ninja_debug",
+				"project"
+			]
+		},
+		{
+			"name": "mac_ninja_release",
+			"hidden": false,
+			"inherits": [
+				"babylon_mac_ninja_release",
+				"project"
+			]
+		},
+		{
+			"name": "mac_ninja_profile",
+			"hidden": false,
+			"inherits": [
+				"babylon_mac_ninja_profile",
+				"project"
+			]
+		}
+	]
+}
