@@ -6,7 +6,8 @@
 		"patch": 0
 	},
 	"include": [
-		"tools/cmake/presets.json"
+		"tools/cmake/presets/win.json",
+		"tools/cmake/presets/mac.json"
 	],
 	"configurePresets": [
 		{
