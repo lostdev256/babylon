@@ -7,24 +7,16 @@ if(NOT BABYLON_ROOT_DIR)
     message(FATAL_ERROR "Babylon root directory not found")
 endif()
 
-# Defines
-set(BABYLON_CMAKE_MODULES_DIR ${CMAKE_CURRENT_LIST_DIR}/modules CACHE INTERNAL "Babylon CMake modules directory")
-set(BABYLON_CMAKE_CFG_DIR ${CMAKE_CURRENT_LIST_DIR}/cfg CACHE INTERNAL "Babylon CMake cfg directory")
+set(BABYLON_CMAKE_MODULES_DIR "${CMAKE_CURRENT_LIST_DIR}/modules" CACHE INTERNAL "Babylon CMake modules directory")
+set(BABYLON_CMAKE_CFG_DIR "${CMAKE_CURRENT_LIST_DIR}/cfg" CACHE INTERNAL "Babylon CMake cfg directory")
 
-if(BABYLON_OS_MAC)
-    set(BABYLON_CMAKE_PLATFORM_CFG_DIR ${BABYLON_CMAKE_CFG_DIR}/platforms/mac CACHE INTERNAL "Babylon MacOS CMake cfg directory")
-else()
-    unset(BABYLON_CMAKE_PLATFORM_CFG_DIR CACHE)
-endif()
+include("${BABYLON_CMAKE_MODULES_DIR}/common.cmake")
+include("${BABYLON_CMAKE_MODULES_DIR}/log.cmake")
+include("${BABYLON_CMAKE_MODULES_DIR}/sources.cmake")
+include("${BABYLON_CMAKE_MODULES_DIR}/modules.cmake")
+include("${BABYLON_CMAKE_MODULES_DIR}/app.cmake")
 
-# Includes
-include(${BABYLON_CMAKE_MODULES_DIR}/babylon_log.cmake)
-include(${BABYLON_CMAKE_MODULES_DIR}/babylon_source.cmake)
-include(${BABYLON_CMAKE_MODULES_DIR}/babylon_module.cmake)
-include(${BABYLON_CMAKE_MODULES_DIR}/babylon_app.cmake)
+include("${BABYLON_CMAKE_CFG_DIR}/common_cfg.cmake")
 
-# Babylon global configure
-macro(babylon_configure)
-    include(${BABYLON_CMAKE_CFG_DIR}/babylon_defines_cfg.cmake)
-    include(${BABYLON_CMAKE_CFG_DIR}/babylon_global_cfg.cmake)
-endmacro()
+# Collect internal Babylon modules
+babylon_collect_internal_modules()

@@ -4,7 +4,7 @@
 cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
 # Definitions
-set(BABYLON_APP_DEFAULT_CFG ${BABYLON_CMAKE_CFG_DIR}/babylon_app_cfg.cmake CACHE INTERNAL "Default Babylon app cfg")
+set(BABYLON_APP_DEFAULT_CFG "${BABYLON_CMAKE_CFG_DIR}/app_cfg.cmake" CACHE INTERNAL "Default Babylon app cfg")
 
 # Configure Babylon app
 function(babylon_configure_app)

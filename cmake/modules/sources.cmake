@@ -1,5 +1,5 @@
 ################################################################################
-# Source files utils
+# Babylon source files utils
 ################################################################################
 cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
@@ -18,35 +18,29 @@ function(babylon_get_sources FILES)
         return()
     endif()
 
+    # Collect all source files by masks
+    file(GLOB_RECURSE FOUND_FILES LIST_DIRECTORIES false ${ARG_SEARCH_MASKS})
     file(GLOB_RECURSE FOUND_FILES_OS_WIN LIST_DIRECTORIES false ${ARG_SEARCH_MASKS_OS_WIN})
     file(GLOB_RECURSE FOUND_FILES_OS_MAC LIST_DIRECTORIES false ${ARG_SEARCH_MASKS_OS_MAC})
-    file(GLOB_RECURSE FOUND_FILES LIST_DIRECTORIES false ${ARG_SEARCH_MASKS})
 
     unset(RESULT_FILES)
 
     foreach(FOUND_FILE ${FOUND_FILES})
-        if(NOT BABYLON_OS_WIN AND ${FOUND_FILE} IN_LIST FOUND_FILES_OS_WIN)
-            continue()
-        endif()
-        if(NOT BABYLON_OS_MAC AND ${FOUND_FILE} IN_LIST FOUND_FILES_OS_MAC)
+        if((NOT BABYLON_OS_WIN AND FOUND_FILE IN_LIST FOUND_FILES_OS_WIN) OR
+           (NOT BABYLON_OS_MAC AND FOUND_FILE IN_LIST FOUND_FILES_OS_MAC))
             continue()
         endif()
         list(APPEND RESULT_FILES ${FOUND_FILE})
     endforeach()
 
     if(BABYLON_OS_WIN)
-        foreach(FOUND_FILE ${FOUND_FILES_OS_WIN})
-            if(NOT ${FOUND_FILE} IN_LIST RESULT_FILES)
-                list(APPEND RESULT_FILES ${FOUND_FILE})
-            endif()
-        endforeach()
+        list(APPEND RESULT_FILES ${FOUND_FILES_OS_WIN})
     elseif(BABYLON_OS_MAC)
-        foreach(FOUND_FILE ${FOUND_FILES_OS_MAC})
-            if(NOT ${FOUND_FILE} IN_LIST RESULT_FILES)
-                list(APPEND RESULT_FILES ${FOUND_FILE})
-            endif()
-        endforeach()
+        list(APPEND RESULT_FILES ${FOUND_FILES_OS_MAC})
     endif()
+
+    # Remove duplicates
+    list(REMOVE_DUPLICATES RESULT_FILES)
 
     set(${FILES} ${RESULT_FILES} PARENT_SCOPE)
 endfunction()

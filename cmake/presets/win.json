@@ -1,0 +1,93 @@
+{
+	"version": 6,
+	"cmakeMinimumRequired": {
+		"major": 3,
+		"minor": 30,
+		"patch": 0
+	},
+    "include": [
+        "common.json"
+    ],
+	"configurePresets": [
+		{
+			"name": "babylon_win",
+			"hidden": true,
+            "inherits": [
+                "babylon_common"
+            ],
+			"architecture": {
+				"value": "x64",
+				"strategy": "external"
+			}
+		},
+        {
+            "name": "babylon_win_vs",
+            "hidden": true,
+            "generator": "Visual Studio 17 2022",
+            "inherits": [
+                "babylon_win"
+            ]
+        },
+		{
+			"name": "babylon_win_vs_msvc",
+			"hidden": true,
+			"inherits": [
+				"babylon_win_vs"
+			],
+			"toolset": {
+				"value": "v143",
+				"strategy": "external"
+			}
+		},
+		{
+			"name": "babylon_win_vs_clang",
+			"hidden": true,
+			"inherits": [
+				"babylon_win_vs"
+			],
+			"toolset": {
+				"value": "ClangCL",
+				"strategy": "external"
+			},
+			"cacheVariables": {
+				"CMAKE_GENERATOR_TOOLSET": "ClangCL"
+			}
+		},
+		{
+			"name": "babylon_win_ninja_clang",
+			"hidden": true,
+			"generator": "Ninja",
+			"inherits": [
+				"babylon_win"
+			],
+			"cacheVariables": {
+				"CMAKE_C_COMPILER": "clang-cl",
+  				"CMAKE_CXX_COMPILER": "clang-cl"
+			}
+		},
+		{
+			"name": "babylon_win_ninja_clang_debug",
+			"hidden": true,
+			"inherits": [
+				"babylon_win_ninja_clang",
+				"babylon_debug"
+			]
+		},
+		{
+			"name": "babylon_win_ninja_clang_release",
+			"hidden": true,
+			"inherits": [
+				"babylon_win_ninja_clang",
+				"babylon_release"
+			]
+		},
+		{
+			"name": "babylon_win_ninja_clang_profile",
+			"hidden": true,
+			"inherits": [
+				"babylon_win_ninja_clang",
+				"babylon_profile"
+			]
+		}
+	]
+}

@@ -32,7 +32,7 @@ set_target_properties(${BABYLON_APP} PROPERTIES
 if(BABYLON_OS_MAC)
     set_target_properties(${BABYLON_APP} PROPERTIES
         MACOSX_BUNDLE "ON"
-        MACOSX_BUNDLE_INFO_PLIST ${BABYLON_CMAKE_PLATFORM_CFG_DIR}/Info.plist.in
+#        MACOSX_BUNDLE_INFO_PLIST ${BABYLON_CMAKE_PLATFORM_CFG_DIR}/Info.plist.in
         MACOSX_BUNDLE_NAME ${BABYLON_APP}
 #        MACOSX_BUNDLE_VERSION ${PROJECT_VERSION}
 #        MACOSX_BUNDLE_COPYRIGHT ""
@@ -78,9 +78,9 @@ endif()
 set_target_properties(${BABYLON_APP} PROPERTIES CXX_STANDARD ${CMAKE_CXX_STANDARD})
 
 if(BABYLON_OS_WIN)
-    target_compile_definitions(${BABYLON_APP} PUBLIC BABYLON_OS_WIN=1)
+    target_compile_definitions(${BABYLON_APP} PUBLIC BABYLON_OS_WIN=${BABYLON_OS_WIN})
 elseif(BABYLON_OS_MAC)
-    target_compile_definitions(${BABYLON_APP} PUBLIC BABYLON_OS_MAC=1)
+    target_compile_definitions(${BABYLON_APP} PUBLIC BABYLON_OS_MAC=${BABYLON_OS_MAC})
 endif()
 
 target_compile_options(${BABYLON_APP} PUBLIC

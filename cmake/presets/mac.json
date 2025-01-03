@@ -1,0 +1,69 @@
+{
+	"version": 6,
+	"cmakeMinimumRequired": {
+		"major": 3,
+		"minor": 30,
+		"patch": 0
+	},
+    "include": [
+        "common.json"
+    ],
+	"configurePresets": [
+		{
+			"name": "babylon_mac",
+			"hidden": true,
+            "inherits": [
+                "babylon_common"
+            ],
+			"toolset": {
+				"value": "buildsystem=12",
+				"strategy": "external"
+			},
+			"cacheVariables": {
+				"CMAKE_OSX_DEPLOYMENT_TARGET": "14.5",
+				"CMAKE_APPLE_SILICON_PROCESSOR": "arm64",
+				"CMAKE_OSX_ARCHITECTURES": "arm64"
+			}
+		},
+		{
+			"name": "babylon_mac_xcode",
+			"hidden": true,
+			"generator": "Xcode",
+			"inherits": [
+				"babylon_mac"
+			]
+		},
+		{
+			"name": "babylon_mac_ninja",
+			"hidden": true,
+			"generator": "Ninja",
+			"inherits": [
+				"babylon_mac"
+			]
+		},
+		{
+			"name": "babylon_mac_ninja_debug",
+			"hidden": true,
+			"inherits": [
+				"babylon_mac_ninja",
+				"babylon_debug"
+			]
+		},
+		{
+			"name": "babylon_mac_ninja_release",
+			"hidden": true,
+			"inherits": [
+				"babylon_mac_ninja",
+				"babylon_release"
+			]
+		},
+		{
+			"name": "babylon_mac_ninja_profile",
+			"hidden": true,
+			"inherits": [
+				"babylon_mac_ninja",
+				"babylon_profile"
+			]
+		}
+	]
+}

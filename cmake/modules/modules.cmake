@@ -10,7 +10,7 @@ endif()
 # Definitions
 set(BABYLON_AVAILABLE_MODULES CACHE INTERNAL "Available Babylon modules")
 set(BABYLON_ENABLED_MODULES CACHE INTERNAL "Enabled Babylon modules")
-set(BABYLON_MODULE_DEFAULT_CFG ${BABYLON_CMAKE_CFG_DIR}/babylon_module_cfg.cmake CACHE INTERNAL "Default Babylon module cfg")
+set(BABYLON_MODULE_DEFAULT_CFG "${BABYLON_CMAKE_CFG_DIR}/module_cfg.cmake" CACHE INTERNAL "Default Babylon module cfg")
 
 # Search Babylon root dir for modules
 macro(babylon_collect_internal_modules)

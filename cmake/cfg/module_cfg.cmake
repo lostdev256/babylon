@@ -52,9 +52,9 @@ endif()
 set_target_properties(${BABYLON_MODULE} PROPERTIES CXX_STANDARD ${CMAKE_CXX_STANDARD})
 
 if(BABYLON_OS_WIN)
-    target_compile_definitions(${BABYLON_MODULE} PUBLIC BABYLON_OS_WIN=1)
+    target_compile_definitions(${BABYLON_MODULE} PUBLIC BABYLON_OS_WIN=${BABYLON_OS_WIN})
 elseif(BABYLON_OS_MAC)
-    target_compile_definitions(${BABYLON_MODULE} PUBLIC BABYLON_OS_MAC=1)
+    target_compile_definitions(${BABYLON_MODULE} PUBLIC BABYLON_OS_MAC=${BABYLON_OS_MAC})
 endif()
 
 target_compile_options(${BABYLON_MODULE} PUBLIC
