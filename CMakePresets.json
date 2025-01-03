@@ -54,6 +54,13 @@
 				"project"
 			]
 		},
+        {
+            "name": "mac_xcode",
+            "hidden": false,
+            "inherits": [
+                "babylon_mac_xcode"
+            ]
+        },
 		{
 			"name": "mac_ninja_debug",
 			"hidden": false,
