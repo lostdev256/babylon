@@ -1,7 +1,7 @@
 ################################################################################
 # Babylon modules tools
 ################################################################################
-cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
 if(NOT BABYLON_ROOT_DIR)
     message(FATAL_ERROR "Babylon root directory not found")
@@ -10,13 +10,12 @@ endif()
 # Definitions
 set(BABYLON_MODULES_AVAILABLE CACHE INTERNAL "Available Babylon modules")
 set(BABYLON_MODULES_ENABLED CACHE INTERNAL "Enabled Babylon modules")
-set(BABYLON_MODULE_DEFAULT_CFG "${BABYLON_CMAKE_CFG_DIR}/module_cfg.cmake" CACHE INTERNAL "Default Babylon module cfg")
 
 # Search Babylon root dir for modules
 macro(babylon_collect_internal_modules)
-    file(GLOB SUB_DIRS LIST_DIRECTORIES true RELATIVE ${BABYLON_ROOT_DIR} modules/*)
+    file(GLOB SUB_DIRS LIST_DIRECTORIES true RELATIVE "${BABYLON_ROOT_DIR}" "modules/*")
     foreach(DIR ${SUB_DIRS})
-        if(IS_DIRECTORY ${BABYLON_ROOT_DIR}/${DIR} AND EXISTS ${BABYLON_ROOT_DIR}/${DIR}/CMakeLists.txt)
+        if(IS_DIRECTORY "${BABYLON_ROOT_DIR}/${DIR}" AND EXISTS "${BABYLON_ROOT_DIR}/${DIR}/CMakeLists.txt")
             add_subdirectory(${DIR} ${DIR})
         endif()
     endforeach()
@@ -45,7 +44,7 @@ function(babylon_register_module BABYLON_UNIT_NAME)
     endif()
 
     if(NOT ARG_CFG)
-        set(BABYLON_UNIT_CFG ${BABYLON_MODULE_DEFAULT_CFG})
+        set(BABYLON_UNIT_CFG "${BABYLON_CMAKE_CFG_DIR}/module_cfg.cmake")
         babylon_log_info("Module (${BABYLON_UNIT_NAME}) uses default configuration (${BABYLON_UNIT_CFG})")
     else()
         set(BABYLON_UNIT_CFG ${ARG_CFG})

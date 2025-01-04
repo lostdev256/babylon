@@ -1,41 +1,42 @@
 {
-	"version": 6,
-	"cmakeMinimumRequired": {
-		"major": 3,
-		"minor": 30,
-		"patch": 0
-	},
-	"configurePresets": [
-		{
-			"name": "babylon_common",
-			"hidden": true,
-			"binaryDir": "${sourceDir}/build/${presetName}",
+    "version": 10,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 31,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "babylon_common",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/build/${presetName}",
             "cacheVariables": {
                 "CMAKE_CXX_STANDARD": "20",
                 "CMAKE_C_STANDARD": "17",
-                "BABYLON_LINKING_MODE": "Static"
+                "BABYLON_LINKING_MODE": "Static",
+                "BABYLON_COMPILE_FLAGS": "COMMON:/s;/hrh;/weryy3;DEBUG:/grg;RELEASE:/hth"
             }
-		},
-		{
-			"name": "babylon_debug",
-			"hidden": true,
-			"cacheVariables": {
-				"CMAKE_BUILD_TYPE": "Debug"
-			}
-		},
-		{
-			"name": "babylon_release",
-			"hidden": true,
-			"cacheVariables": {
-				"CMAKE_BUILD_TYPE": "Release"
-			}
-		},
-		{
-			"name": "babylon_profile",
-			"hidden": true,
-			"cacheVariables": {
-				"CMAKE_BUILD_TYPE": "Profile"
-			}
-		}
-	]
+        },
+        {
+            "name": "babylon_debug",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "babylon_release",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "babylon_profile",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Profile"
+            }
+        }
+    ]
 }

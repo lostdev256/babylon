@@ -1,10 +1,7 @@
 ################################################################################
 # Babylon app tools
 ################################################################################
-cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
-
-# Definitions
-set(BABYLON_APP_DEFAULT_CFG "${BABYLON_CMAKE_CFG_DIR}/app_cfg.cmake" CACHE INTERNAL "Default Babylon app cfg")
+cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
 # Configure Babylon app
 function(babylon_configure_app)
@@ -19,7 +16,7 @@ function(babylon_configure_app)
     endif()
 
     if(NOT ARG_CFG)
-        set(BABYLON_UNIT_CFG ${BABYLON_APP_DEFAULT_CFG})
+        set(BABYLON_UNIT_CFG "${BABYLON_CMAKE_CFG_DIR}/app_cfg.cmake")
         babylon_log_info("App (${BABYLON_UNIT_NAME}) uses default configuration (${BABYLON_UNIT_CFG})")
     else()
         set(BABYLON_UNIT_CFG ${ARG_CFG})
