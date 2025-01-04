@@ -36,7 +36,6 @@ function(babylon_configure_app)
 
     if(NOT ARG_OUTPUT_NAME)
         set(BABYLON_UNIT_OUTPUT_NAME ${BABYLON_UNIT_NAME})
-        babylon_log_info("App (${BABYLON_UNIT_NAME}) uses default output name (${BABYLON_UNIT_OUTPUT_NAME})")
     else()
         set(BABYLON_UNIT_OUTPUT_NAME ${ARG_OUTPUT_NAME})
     endif()
@@ -62,6 +61,8 @@ function(babylon_configure_app)
     endforeach()
 
     set(BABYLON_UNIT_DEPEND_MODULES ${BABYLON_MODULES_ENABLED})
+
+    set(BABYLON_UNIT_TYPE "App")
 
     include(${BABYLON_UNIT_CFG})
 

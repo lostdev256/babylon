@@ -1,10 +1,19 @@
 ################################################################################
-# Babylon app default configuration
+# Babylon module default configuration
 ################################################################################
 cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
 if(NOT BABYLON_UNIT_NAME)
-    message(FATAL_ERROR "Babylon app not specified")
+    message(FATAL_ERROR "Babylon unit not specified")
+endif()
+
+if(BABYLON_UNIT_TYPE STREQUAL "App")
+    set(BABYLON_APP_UNIT ON)
+endif()
+
+# Project
+if(NOT BABYLON_APP_UNIT)
+    project(${BABYLON_UNIT_NAME})
 endif()
 
 # Sources
@@ -14,7 +23,8 @@ babylon_get_sources(SRC_FILES
     SEARCH_MASKS_OS_MAC ${BABYLON_UNIT_SOURCE_SEARCH_MASKS_OS_MAC}
 )
 source_group(TREE ${BABYLON_UNIT_ROOT_DIR} FILES ${SRC_FILES})
-add_executable(${BABYLON_UNIT_NAME} ${SRC_FILES})
+add_library(${BABYLON_UNIT_NAME} STATIC ${SRC_FILES})
+set_target_properties(${BABYLON_UNIT_NAME} PROPERTIES FOLDER "Babylon")
 
 # Output
 set_target_properties(${BABYLON_UNIT_NAME} PROPERTIES
@@ -29,43 +39,13 @@ set_target_properties(${BABYLON_UNIT_NAME} PROPERTIES
     TARGET_NAME ${BABYLON_UNIT_OUTPUT_NAME}
 )
 
-if(BABYLON_OS_MAC)
-    set_target_properties(${BABYLON_UNIT_NAME} PROPERTIES
-        MACOSX_BUNDLE "ON"
-#        MACOSX_BUNDLE_INFO_PLIST ${BABYLON_CMAKE_PLATFORM_CFG_DIR}/Info.plist.in
-        MACOSX_BUNDLE_NAME ${BABYLON_UNIT_NAME}
-#        MACOSX_BUNDLE_VERSION ${PROJECT_VERSION}
-#        MACOSX_BUNDLE_COPYRIGHT ""
-#        MACOSX_BUNDLE_GUI_IDENTIFIER "org.${BABYLON_UNIT_NAME}.gui"
-#        MACOSX_BUNDLE_ICON_FILE "Icon.icns"
-#        MACOSX_BUNDLE_INFO_STRING ""
-#        MACOSX_BUNDLE_LONG_VERSION_STRING ""
-#        MACOSX_BUNDLE_SHORT_VERSION_STRING ""
-    )
-endif()
-
-# TODO
-# if(APPLE)
-#     if(BABYLON_APP_OUTPUT_NAME_DEBUG_POSTFIX AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-#         set(output_name "${BABYLON_UNIT_OUTPUT_NAME}${BABYLON_APP_OUTPUT_NAME_DEBUG_POSTFIX}.app")
-#     else()
-#         set(output_name ${BABYLON_UNIT_OUTPUT_NAME})
-#     endif()
-#     set_target_properties(${BABYLON_UNIT_NAME} PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME ${output_name})
-#     set_property(GLOBAL PROPERTY MACOSX_BUNDLE_BUNDLE_NAME ${output_name})
-#     set_property(DIRECTORY ${BABYLON_UNIT_ROOT_DIR} PROPERTY MACOSX_BUNDLE_BUNDLE_NAME ${output_name})
-#     babylon_log_info("output_name: ${output_name}")
-# endif()
-
 # Dependencies
 target_include_directories(${BABYLON_UNIT_NAME} PUBLIC ${BABYLON_UNIT_INCLUDE_DIRS})
+target_link_directories(${BABYLON_UNIT_NAME} PUBLIC ${BABYLON_UNIT_OUTPUT_DIR})
 
-if (BABYLON_UNIT_DEPEND_MODULES)
-    foreach(DEPEND_MODULE ${BABYLON_UNIT_DEPEND_MODULES})
-        target_link_libraries(${BABYLON_UNIT_NAME} PUBLIC ${${DEPEND_MODULE}_BABYLON_UNIT_OUTPUT_NAME})
-    endforeach()
-    add_dependencies(${BABYLON_UNIT_NAME} ${BABYLON_UNIT_DEPEND_MODULES})
-endif()
+foreach(DEPEND_MODULE ${BABYLON_UNIT_DEPEND_MODULES})
+    babylon_link_depend_module(${BABYLON_UNIT_NAME} ${DEPEND_MODULE})
+endforeach()
 
 if(BABYLON_OS_WIN)
     target_link_libraries(${BABYLON_UNIT_NAME} PUBLIC gdi32 gdiplus user32 advapi32 ole32 shell32 comdlg32)
@@ -92,8 +72,6 @@ target_compile_options(${BABYLON_UNIT_NAME} PUBLIC
 )
 
 if(MSVC)
-    set_property(DIRECTORY ${BABYLON_UNIT_ROOT_DIR} PROPERTY VS_STARTUP_PROJECT ${BABYLON_UNIT_NAME})
-
     set_target_properties(${BABYLON_UNIT_NAME} PROPERTIES
         VS_GLOBAL_KEYWORD "Win32Proj"
         VS_GLOBAL_ROOTNAMESPACE ${BABYLON_UNIT_NAME}
@@ -107,7 +85,7 @@ if(MSVC)
         "$<$<CONFIG:Release>:"
         "NDEBUG"
         ">"
-        "_WINDOWS;"
+        "_LIB;"
         "UNICODE;"
         "_UNICODE"
     )

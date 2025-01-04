@@ -3,8 +3,8 @@
 ################################################################################
 cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
-if(NOT BABYLON_ROOT_DIR)
-    message(FATAL_ERROR "Babylon root directory not found")
+if(NOT BABYLON_UNIT_NAME)
+    message(FATAL_ERROR "Babylon module not specified")
 endif()
 
 # Project
@@ -30,7 +30,7 @@ set_target_properties(${BABYLON_UNIT_NAME} PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY_RELEASE ${BABYLON_UNIT_OUTPUT_DIR}
     ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${BABYLON_UNIT_OUTPUT_DIR}
     ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${BABYLON_UNIT_OUTPUT_DIR}
-    TARGET_NAME ${BABYLON_UNIT_NAME}
+    TARGET_NAME ${BABYLON_UNIT_OUTPUT_NAME}
 )
 
 # Dependencies
