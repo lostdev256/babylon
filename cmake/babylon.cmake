@@ -13,6 +13,7 @@ set(BABYLON_CMAKE_CFG_DIR "${CMAKE_CURRENT_LIST_DIR}/cfg" CACHE INTERNAL "Babylo
 include("${BABYLON_CMAKE_MODULES_DIR}/common.cmake")
 include("${BABYLON_CMAKE_MODULES_DIR}/log.cmake")
 include("${BABYLON_CMAKE_MODULES_DIR}/sources.cmake")
+include("${BABYLON_CMAKE_MODULES_DIR}/units.cmake")
 include("${BABYLON_CMAKE_MODULES_DIR}/modules.cmake")
 include("${BABYLON_CMAKE_MODULES_DIR}/app.cmake")
 
