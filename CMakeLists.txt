@@ -8,5 +8,5 @@ babylon_register_module(BabylonUI
     OUTPUT_DIR lib
     INCLUDE_DIRS include
     SOURCE_SEARCH_MASKS include/*.h include/*.cpp src/*.h src/*.cpp
-    DEPEND_MODULES BabylonSystem
+    DEPEND_UNITS BabylonSystem
 )
