@@ -53,13 +53,14 @@ function(babylon_register_app APP_NAME)
         list(APPEND SOURCE_SEARCH_MASKS_OS_MAC ${ROOT_DIR}/${MASK})
     endforeach()
 
-    babylon_set_unit_property(APP_NAME, ROOT_DIR, ${ROOT_DIR})
-    babylon_set_unit_property(APP_NAME, OUTPUT_DIR, ${OUTPUT_DIR})
-    babylon_set_unit_property(APP_NAME, OUTPUT_NAME, ${OUTPUT_NAME})
-    babylon_set_unit_property(APP_NAME, INCLUDE_DIRS, ${INCLUDE_DIRS})
-    babylon_set_unit_property(APP_NAME, SOURCE_SEARCH_MASKS, ${PROP_SOURCE_SEARCH_MASKSVALUE})
-    babylon_set_unit_property(APP_NAME, SOURCE_SEARCH_MASKS_OS_WIN, ${SOURCE_SEARCH_MASKS_OS_WIN})
-    babylon_set_unit_property(APP_NAME, SOURCE_SEARCH_MASKS_OS_MAC, ${SOURCE_SEARCH_MASKS_OS_MAC})
+    babylon_unit_set_property(APP_NAME, UNIT_TYPE, "App")
+    babylon_unit_set_property(APP_NAME, ROOT_DIR, ${ROOT_DIR})
+    babylon_unit_set_property(APP_NAME, OUTPUT_DIR, ${OUTPUT_DIR})
+    babylon_unit_set_property(APP_NAME, OUTPUT_NAME, ${OUTPUT_NAME})
+    babylon_unit_set_property(APP_NAME, INCLUDE_DIRS, ${INCLUDE_DIRS})
+    babylon_unit_set_property(APP_NAME, SOURCE_SEARCH_MASKS, ${SOURCE_SEARCH_MASKS})
+    babylon_unit_set_property(APP_NAME, SOURCE_SEARCH_MASKS_OS_WIN, ${SOURCE_SEARCH_MASKS_OS_WIN})
+    babylon_unit_set_property(APP_NAME, SOURCE_SEARCH_MASKS_OS_MAC, ${SOURCE_SEARCH_MASKS_OS_MAC})
 
     set(BABYLON_APP ${APP_NAME} CACHE INTERNAL "Babylon app")
 
@@ -77,9 +78,9 @@ function(babylon_enable_app)
 
     # TODO:
 
-    set(BABYLON_UNIT_DEPEND_MODULES ${${BABYLON_UNIT_NAME}_BABYLON_UNIT_DEPEND_MODULES})
+    set(BABYLON_UNIT_DEPEND_UNITS ${${BABYLON_UNIT_NAME}_BABYLON_UNIT_DEPEND_UNITS})
 
-    babylon_enable_modules(${BABYLON_UNIT_DEPEND_MODULES})
+    babylon_enable_modules(${BABYLON_UNIT_DEPEND_UNITS})
 
     set(BABYLON_UNIT_ROOT_DIR ${${BABYLON_UNIT_NAME}_BABYLON_UNIT_ROOT_DIR})
     set(BABYLON_UNIT_OUTPUT_DIR ${${BABYLON_UNIT_NAME}_BABYLON_UNIT_OUTPUT_DIR})
@@ -150,7 +151,7 @@ function(babylon_configure_app)
         list(APPEND BABYLON_UNIT_SOURCE_SEARCH_MASKS_OS_MAC ${BABYLON_UNIT_ROOT_DIR}/${MASK})
     endforeach()
 
-    set(BABYLON_UNIT_DEPEND_MODULES ${BABYLON_MODULES_ENABLED})
+    set(BABYLON_UNIT_DEPEND_UNITS ${BABYLON_MODULES_ENABLED})
 
     set(BABYLON_UNIT_TYPE "App")
 

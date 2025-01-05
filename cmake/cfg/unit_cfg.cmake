@@ -43,8 +43,8 @@ set_target_properties(${BABYLON_UNIT_NAME} PROPERTIES
 target_include_directories(${BABYLON_UNIT_NAME} PUBLIC ${BABYLON_UNIT_INCLUDE_DIRS})
 target_link_directories(${BABYLON_UNIT_NAME} PUBLIC ${BABYLON_UNIT_OUTPUT_DIR})
 
-foreach(DEPEND_MODULE ${BABYLON_UNIT_DEPEND_MODULES})
-    babylon_link_depend_module(${BABYLON_UNIT_NAME} ${DEPEND_MODULE})
+foreach(DEPEND_UNIT ${BABYLON_UNIT_DEPEND_UNITS})
+    babylon_link_depend_module(${BABYLON_UNIT_NAME} ${DEPEND_UNIT})
 endforeach()
 
 if(BABYLON_OS_WIN)
