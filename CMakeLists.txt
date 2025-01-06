@@ -1,7 +1,7 @@
 ################################################################################
 # Babylon root project
 ################################################################################
-cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
 project(Babylon)
 
@@ -11,7 +11,7 @@ include(${BABYLON_ROOT_DIR}/tools/cmake/babylon.cmake)
 
 # Enable all Babylon modules if root project
 if(${BABYLON_ROOT_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
-    babylon_enable_modules(ALL)
+    babylon_enable_units(ALL)
     # TODO: хак для VisualStudio, что бы солющн назывался Babylon.sln, а не по последнему включенному модулю
     project(Babylon)
 endif()
