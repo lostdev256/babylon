@@ -1,7 +1,7 @@
 ################################################################################
 # Babylon module default configuration
 ################################################################################
-cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
 if(NOT BABYLON_UNIT_NAME)
     message(FATAL_ERROR "Babylon unit not specified")

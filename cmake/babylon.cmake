@@ -1,7 +1,7 @@
 ################################################################################
 # Babylon cmake tools
 ################################################################################
-cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
 if(NOT BABYLON_ROOT_DIR)
     message(FATAL_ERROR "Babylon root directory not found")
@@ -14,10 +14,8 @@ include("${BABYLON_CMAKE_MODULES_DIR}/common.cmake")
 include("${BABYLON_CMAKE_MODULES_DIR}/log.cmake")
 include("${BABYLON_CMAKE_MODULES_DIR}/sources.cmake")
 include("${BABYLON_CMAKE_MODULES_DIR}/units.cmake")
-include("${BABYLON_CMAKE_MODULES_DIR}/modules.cmake")
-include("${BABYLON_CMAKE_MODULES_DIR}/app.cmake")
 
 include("${BABYLON_CMAKE_CFG_DIR}/common_cfg.cmake")
 
-# Collect internal Babylon modules
-babylon_collect_internal_modules()
+babylon_init_units()
+babylon_collect_internal_units()
