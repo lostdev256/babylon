@@ -1,5 +1,5 @@
 ################################################################################
-# Babylon default unit configuration
+# Babylon additional unit configuration (BUILD_CFG)
 ################################################################################
 cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
