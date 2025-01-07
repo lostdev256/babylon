@@ -14,8 +14,8 @@
             "name": "project",
             "hidden": true,
             "cacheVariables": {
-                "CMAKE_CXX_STANDARD": "20",
                 "CMAKE_C_STANDARD": "17",
+                "CMAKE_CXX_STANDARD": "20",
                 "BABYLON_CL_WARNING_AS_ERROR": "TRUE",
                 "BABYLON_CL_ASAN": "FALSE",
                 "BABYLON_MODULES_BUILD_MODE": "STATIC",
