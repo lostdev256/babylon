@@ -15,7 +15,5 @@ include("${BABYLON_CMAKE_MODULES_DIR}/log.cmake")
 include("${BABYLON_CMAKE_MODULES_DIR}/sources.cmake")
 include("${BABYLON_CMAKE_MODULES_DIR}/units.cmake")
 
-include("${BABYLON_CMAKE_CFG_DIR}/common_cfg.cmake")
-
 babylon_init_units()
 babylon_collect_internal_units()

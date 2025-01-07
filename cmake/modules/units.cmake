@@ -76,7 +76,7 @@ endmacro()
 
 # Register Babylon unit
 function(babylon_register_unit UNIT_NAME)
-    set(SINGLE_VALUE_ARGS UNIT_TYPE ROOT_DIR OUTPUT_DIR OUTPUT_NAME)
+    set(SINGLE_VALUE_ARGS UNIT_TYPE ROOT_DIR BASE_BUILD_CFG BUILD_CFG OUTPUT_DIR OUTPUT_NAME)
     set(MULTI_VALUE_ARGS INCLUDE_DIRS SOURCE_SEARCH_MASKS SOURCE_SEARCH_MASKS_OS_WIN SOURCE_SEARCH_MASKS_OS_MAC DEPEND_UNITS)
     cmake_parse_arguments("ARG" "${OPTIONS}" "${SINGLE_VALUE_ARGS}" "${MULTI_VALUE_ARGS}" ${ARGN})
 
@@ -98,16 +98,28 @@ function(babylon_register_unit UNIT_NAME)
     set(UNIT_TYPE ${ARG_UNIT_TYPE})
 
     if(NOT ARG_ROOT_DIR)
-        set(ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+        set(ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
     else()
-        set(ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${ARG_ROOT_DIR})
+        set(ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/${ARG_ROOT_DIR}")
+    endif()
+
+    if(NOT ARG_BASE_BUILD_CFG)
+        set(BASE_BUILD_CFG "${BABYLON_CMAKE_MODULES_DIR}/cfg.cmake")
+    else()
+        set(BASE_BUILD_CFG "${ROOT_DIR}/${ARG_BASE_BUILD_CFG}")
+    endif()
+
+    if(NOT ARG_BUILD_CFG)
+        set(BUILD_CFG "")
+    else()
+        set(BUILD_CFG "${ROOT_DIR}/${ARG_BUILD_CFG}")
     endif()
 
     if(NOT ARG_OUTPUT_DIR)
-        set(OUTPUT_DIR ${ROOT_DIR})
+        set(OUTPUT_DIR "${ROOT_DIR}")
         babylon_log_warn("Babylon unit (${UNIT_NAME}): uses default output dir (${OUTPUT_DIR})")
     else()
-        set(OUTPUT_DIR ${ROOT_DIR}/${ARG_OUTPUT_DIR})
+        set(OUTPUT_DIR "${ROOT_DIR}/${ARG_OUTPUT_DIR}")
     endif()
 
     if(NOT ARG_OUTPUT_NAME)
@@ -118,24 +130,24 @@ function(babylon_register_unit UNIT_NAME)
 
     unset(INCLUDE_DIRS)
     foreach(DIR ${ARG_INCLUDE_DIRS})
-        if(IS_DIRECTORY ${ROOT_DIR}/${DIR})
-            list(APPEND INCLUDE_DIRS ${ROOT_DIR}/${DIR})
+        if(IS_DIRECTORY "${ROOT_DIR}/${DIR}")
+            list(APPEND INCLUDE_DIRS "${ROOT_DIR}/${DIR}")
         endif()
     endforeach()
 
     unset(SOURCE_SEARCH_MASKS)
     foreach(MASK ${ARG_SOURCE_SEARCH_MASKS})
-        list(APPEND SOURCE_SEARCH_MASKS ${ROOT_DIR}/${MASK})
+        list(APPEND SOURCE_SEARCH_MASKS "${ROOT_DIR}/${MASK}")
     endforeach()
 
     unset(SOURCE_SEARCH_MASKS_OS_WIN)
     foreach(MASK ${ARG_SOURCE_SEARCH_MASKS_OS_WIN})
-        list(APPEND SOURCE_SEARCH_MASKS_OS_WIN ${ROOT_DIR}/${MASK})
+        list(APPEND SOURCE_SEARCH_MASKS_OS_WIN "${ROOT_DIR}/${MASK}")
     endforeach()
 
     unset(SOURCE_SEARCH_MASKS_OS_MAC)
     foreach(MASK ${ARG_SOURCE_SEARCH_MASKS_OS_MAC})
-        list(APPEND SOURCE_SEARCH_MASKS_OS_MAC ${ROOT_DIR}/${MASK})
+        list(APPEND SOURCE_SEARCH_MASKS_OS_MAC "${ROOT_DIR}/${MASK}")
     endforeach()
 
     set(DEPEND_UNITS ${ARG_DEPEND_UNITS})
@@ -158,6 +170,8 @@ function(babylon_register_unit UNIT_NAME)
 
     babylon_set_unit_property(${UNIT_NAME} UNIT_TYPE "${UNIT_TYPE}")
     babylon_set_unit_property(${UNIT_NAME} ROOT_DIR "${ROOT_DIR}")
+    babylon_set_unit_property(${UNIT_NAME} BASE_BUILD_CFG "${BASE_BUILD_CFG}")
+    babylon_set_unit_property(${UNIT_NAME} BUILD_CFG "${BUILD_CFG}")
     babylon_set_unit_property(${UNIT_NAME} OUTPUT_DIR "${OUTPUT_DIR}")
     babylon_set_unit_property(${UNIT_NAME} OUTPUT_NAME "${OUTPUT_NAME}")
     babylon_set_unit_property(${UNIT_NAME} INCLUDE_DIRS "${INCLUDE_DIRS}")
@@ -245,7 +259,7 @@ function(babylon_unit_configure_sources UNIT_NAME)
 
     set(ROOT_DIR "")
     babylon_get_unit_property(${UNIT_NAME} ROOT_DIR ROOT_DIR)
-    if(NOT UNIT_TYPE)
+    if(NOT ROOT_DIR)
         babylon_log_fatal("Babylon unit (${UNIT_NAME}): ROOT_DIR not specified")
         return()
     endif()
@@ -306,38 +320,11 @@ function(babylon_unit_configure_output UNIT_NAME)
 
     # Configure
     set_target_properties(${UNIT_NAME} PROPERTIES
-        OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIR}
-        OUTPUT_DIRECTORY_RELEASE ${OUTPUT_DIR}
+        RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR}
+        LIBRARY_OUTPUT_DIRECTORY ${OUTPUT_DIR}
+        ARCHIVE_OUTPUT_DIRECTORY ${OUTPUT_DIR}
         TARGET_NAME ${OUTPUT_NAME}
     )
-
-    # TODO: разобраться и вынести куда надо
-    # if(BABYLON_OS_MAC)
-    #     set_target_properties(${BABYLON_UNIT_NAME} PROPERTIES
-    #         MACOSX_BUNDLE "ON"
-    #         MACOSX_BUNDLE_INFO_PLIST ${BABYLON_CMAKE_PLATFORM_CFG_DIR}/Info.plist.in
-    #         MACOSX_BUNDLE_NAME ${BABYLON_UNIT_NAME}
-    #         MACOSX_BUNDLE_VERSION ${PROJECT_VERSION}
-    #         MACOSX_BUNDLE_COPYRIGHT ""
-    #         MACOSX_BUNDLE_GUI_IDENTIFIER "org.${BABYLON_UNIT_NAME}.gui"
-    #         MACOSX_BUNDLE_ICON_FILE "Icon.icns"
-    #         MACOSX_BUNDLE_INFO_STRING ""
-    #         MACOSX_BUNDLE_LONG_VERSION_STRING ""
-    #         MACOSX_BUNDLE_SHORT_VERSION_STRING ""
-    #     )
-    # endif()
-    #
-    # if(APPLE)
-    #     if(BABYLON_APP_OUTPUT_NAME_DEBUG_POSTFIX AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-    #         set(output_name "${BABYLON_UNIT_OUTPUT_NAME}${BABYLON_APP_OUTPUT_NAME_DEBUG_POSTFIX}.app")
-    #     else()
-    #         set(output_name ${BABYLON_UNIT_OUTPUT_NAME})
-    #     endif()
-    #     set_target_properties(${BABYLON_UNIT_NAME} PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME ${output_name})
-    #     set_property(GLOBAL PROPERTY MACOSX_BUNDLE_BUNDLE_NAME ${output_name})
-    #     set_property(DIRECTORY ${BABYLON_UNIT_ROOT_DIR} PROPERTY MACOSX_BUNDLE_BUNDLE_NAME ${output_name})
-    #     babylon_log_info("output_name: ${output_name}")
-    # endif()
 endfunction()
 
 # Configure Babylon unit dependencies
@@ -373,14 +360,6 @@ function(babylon_unit_configure_dependencies UNIT_NAME)
     endif()
 
     babylon_unit_link_depend_units(${UNIT_NAME})
-
-    # TODO: разобраться и вынести куда надо
-    # if(BABYLON_OS_WIN)
-    #     target_link_libraries(${BABYLON_UNIT_NAME} PUBLIC gdi32 gdiplus user32 advapi32 ole32 shell32 comdlg32)
-    # elseif(BABYLON_OS_MAC)
-    #     find_library(Cocoa Cocoa)
-    #     target_link_libraries(${BABYLON_UNIT_NAME} PUBLIC $<$<PLATFORM_ID:Darwin>:${Cocoa}>)
-    # endif()
 endfunction()
 
 # Link depend Babylon units
@@ -462,30 +441,50 @@ function(babylon_unit_configure_build UNIT_NAME)
         return()
     endif()
 
+    # Helper
+    macro(reset_external_configure_function)
+        function(babylon_unit_external_configure_build UNIT_NAME)
+            babylon_log_error("Babylon unit (${UNIT_NAME}): function (babylon_unit_external_configure_build) doesn't exists")
+        endfunction()
+    endmacro()
+
     # Properties
-    set(COMPILE_DEFINES "")
-    babylon_get_unit_property(${UNIT_NAME} COMPILE_DEFINES COMPILE_DEFINES)
+    set(BASE_BUILD_CFG "")
+    babylon_get_unit_property(${UNIT_NAME} BASE_BUILD_CFG BASE_BUILD_CFG)
 
-    set(COMPILE_OPTIONS "")
-    babylon_get_unit_property(${UNIT_NAME} COMPILE_OPTIONS COMPILE_OPTIONS)
+    set(BUILD_CFG "")
+    babylon_get_unit_property(${UNIT_NAME} BUILD_CFG BUILD_CFG)
 
-    set(LINK_OPTIONS "")
-    babylon_get_unit_property(${UNIT_NAME} LINK_OPTIONS LINK_OPTIONS)
-
-    # Configure
-    set_target_properties(${UNIT_NAME} PROPERTIES
-        CXX_STANDARD ${CMAKE_CXX_STANDARD}
-        C_STANDARD ${CMAKE_C_STANDARD}
-    )
-
-    target_compile_definitions(${UNIT_NAME} PRIVATE ${COMPILE_DEFINES})
-
-    if(BABYLON_OS_WIN)
-        target_compile_definitions(${UNIT_NAME} PRIVATE BABYLON_OS_WIN=${BABYLON_OS_WIN})
-    elseif(BABYLON_OS_MAC)
-        target_compile_definitions(${UNIT_NAME} PRIVATE BABYLON_OS_MAC=${BABYLON_OS_MAC})
+    # Base configure
+    if(NOT BASE_BUILD_CFG)
+        babylon_log_error("Babylon unit (${UNIT_NAME}): BASE_BUILD_CFG not specified")
+        return()
     endif()
 
-    target_compile_options(${UNIT_NAME} PRIVATE ${COMPILE_OPTIONS})
-    target_link_options(${UNIT_NAME} PRIVATE ${LINK_OPTIONS})
+    if(NOT EXISTS ${BASE_BUILD_CFG})
+        babylon_log_error("Babylon unit (${UNIT_NAME}): BASE_BUILD_CFG (${BASE_BUILD_CFG}) doesn't exists")
+        return()
+    endif()
+
+    reset_external_configure_function()
+
+    include(${BASE_BUILD_CFG})
+    babylon_unit_external_configure_build(${UNIT_NAME})
+
+    reset_external_configure_function()
+
+    # Additional configure
+    if(NOT BUILD_CFG)
+        return()
+    endif()
+
+    if(NOT EXISTS ${BUILD_CFG})
+        babylon_log_error("Babylon unit (${UNIT_NAME}): BUILD_CFG (${BUILD_CFG}) doesn't exists")
+        return()
+    endif()
+
+    include(${BUILD_CFG})
+    babylon_unit_external_configure_build(${UNIT_NAME})
+
+    reset_external_configure_function()
 endfunction()

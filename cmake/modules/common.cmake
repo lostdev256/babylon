@@ -1,5 +1,5 @@
 ################################################################################
-# Babylon common tools
+# Babylon common settings/tools
 ################################################################################
 cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
@@ -9,14 +9,15 @@ endif()
 
 # Platform
 if(WIN32)
-    set(BABYLON_OS_WIN 1 CACHE INTERNAL "")
+    set(BABYLON_OS_WIN TRUE CACHE INTERNAL "" FORCE)
 elseif(APPLE AND CMAKE_SYSTEM_NAME MATCHES "Darwin")
-    set(BABYLON_OS_MAC 1 CACHE INTERNAL "")
+    set(BABYLON_OS_MAC TRUE CACHE INTERNAL "" FORCE)
 endif()
 
-if(BABYLON_OS_MAC)
-    set(BABYLON_CMAKE_PLATFORM_CFG_DIR "${BABYLON_CMAKE_CFG_DIR}/platforms/mac" CACHE INTERNAL "Babylon MacOS CMake cfg directory")
-endif()
+# TODO:
+# if(BABYLON_OS_MAC)
+#     set(BABYLON_CMAKE_PLATFORM_CFG_DIR "${BABYLON_CMAKE_CFG_DIR}/platforms/mac" CACHE INTERNAL "Babylon MacOS CMake cfg directory")
+# endif()
 
 # Build type
 if(NOT CMAKE_BUILD_TYPE)
@@ -39,3 +40,7 @@ endif()
 if(NOT BABYLON_MODULES_BUILD_MODE)
     set(BABYLON_MODULES_BUILD_MODE "STATIC" CACHE STRING "")
 endif()
+
+# Use solution folders feature
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER __CMAKE__)
