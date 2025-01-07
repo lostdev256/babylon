@@ -8,10 +8,10 @@ if(NOT BABYLON_ROOT_DIR)
 endif()
 
 set(BABYLON_CMAKE_MODULES_DIR "${CMAKE_CURRENT_LIST_DIR}/modules" CACHE INTERNAL "Babylon CMake modules directory")
-set(BABYLON_CMAKE_CFG_DIR "${CMAKE_CURRENT_LIST_DIR}/cfg" CACHE INTERNAL "Babylon CMake cfg directory")
+set(BABYLON_CMAKE_PLATFORMS_DIR "${CMAKE_CURRENT_LIST_DIR}/platforms" CACHE INTERNAL "Babylon CMake platforms directory")
 
-include("${BABYLON_CMAKE_MODULES_DIR}/common.cmake")
 include("${BABYLON_CMAKE_MODULES_DIR}/log.cmake")
+include("${BABYLON_CMAKE_MODULES_DIR}/common.cmake")
 include("${BABYLON_CMAKE_MODULES_DIR}/sources.cmake")
 include("${BABYLON_CMAKE_MODULES_DIR}/units.cmake")
 
