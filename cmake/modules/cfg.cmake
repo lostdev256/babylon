@@ -1,5 +1,5 @@
 ################################################################################
-# Babylon default unit configuration
+# Babylon base unit configuration (BASE_BUILD_CFG)
 ################################################################################
 cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
@@ -7,7 +7,7 @@ if(NOT BABYLON_ROOT_DIR)
     message(FATAL_ERROR "Babylon root directory not found")
 endif()
 
-# Default additional build configuration. Override this if needed in your cfg.cmake file
+# Default base build configuration. Override this if needed in your BASE_BUILD_CFG cfg.cmake file
 function(babylon_unit_external_configure_build UNIT_NAME)
     if(NOT TARGET ${UNIT_NAME})
         babylon_log_fatal("Babylon unit (${UNIT_NAME}) doesn't exists")
@@ -58,7 +58,7 @@ function(babylon_unit_external_configure_build UNIT_NAME)
     if(BABYLON_OS_MAC AND UNIT_TYPE STREQUAL "App")
         set_target_properties(${UNIT_NAME} PROPERTIES
             MACOSX_BUNDLE "ON"
-            MACOSX_BUNDLE_INFO_PLIST ${BABYLON_CMAKE_PLATFORMS_DIR}/mac/Info.plist.in
+            MACOSX_BUNDLE_INFO_PLIST ${BABYLON_CMAKE_PLATFORM_MODULES_DIR}/mac/Info.plist.in
             MACOSX_BUNDLE_NAME ${OUTPUT_NAME}
             MACOSX_BUNDLE_VERSION ${PROJECT_VERSION}
             MACOSX_BUNDLE_COPYRIGHT ""
@@ -71,8 +71,8 @@ function(babylon_unit_external_configure_build UNIT_NAME)
     endif()
 
     set_target_properties(${UNIT_NAME} PROPERTIES
-        CXX_STANDARD ${CMAKE_CXX_STANDARD}
         C_STANDARD ${CMAKE_C_STANDARD}
+        CXX_STANDARD ${CMAKE_CXX_STANDARD}
     )
 
     if(BABYLON_OS_WIN)
@@ -92,7 +92,7 @@ function(babylon_unit_external_configure_build UNIT_NAME)
     endif()
 
     if(PCH)
-        target_precompile_headers(${UNIT_NAME} PRIVATE "${ROOT_DIR}/${PCH}")
+        target_precompile_headers(${UNIT_NAME} PRIVATE "${PCH}")
     endif()
 
     target_compile_options(${UNIT_NAME} PRIVATE
@@ -109,22 +109,14 @@ function(babylon_unit_external_configure_build UNIT_NAME)
         # Соглашения о вызовах (stdcall для WinAPI)
         $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_MSVC}>:/Gz>
 
-        # Опреации с плавающей точкой
-        $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_CLANG}>:-ffloat-store>
-        $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_GNU}>:-ffloat-store>
+        # Операции с плавающей точкой
+        # $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_CLANG}>:-ffloat-store>
+        # $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_GNU}>:-ffloat-store>
         $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_MSVC}>:/fp:precise>
 
         # CRT
-        $<$<CONFIG:Debug>:
-            $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_CLANG}>:-DYNAMIC_CRT>
-            $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_GNU}>:-mwindows>
-            $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_MSVC}>:/MDd>
-        >
-        $<$<CONFIG:Release>:
-            $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_CLANG}>:-DYNAMIC_CRT>
-            $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_GNU}>:-mwindows>
-            $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_MSVC}>:/MD>
-        >
+        $<$<CONFIG:Debug>:$<$<BOOL:${BABYLON_CL_FLAGS_STYLE_MSVC}>:/MDd>>
+        $<$<CONFIG:Release>:$<$<BOOL:${BABYLON_CL_FLAGS_STYLE_MSVC}>:/MD>>
 
         # Предупреждения
         $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_CLANG}>:-Wall -Wextra $<$<BOOL:${BABYLON_CL_WARNING_AS_ERROR}>:-Werror>>
@@ -173,8 +165,8 @@ function(babylon_unit_external_configure_build UNIT_NAME)
 
         # Оптимизация сборки
         $<$<CONFIG:Debug>:
-            $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_CLANG}>:-incremental>
-            $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_GNU}>:-incremental>
+            # $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_CLANG}>:-incremental>
+            # $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_GNU}>:-incremental>
             $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_MSVC}>:/INCREMENTAL>
         >
         $<$<CONFIG:Release>:
@@ -192,8 +184,6 @@ function(babylon_unit_external_configure_build UNIT_NAME)
         >
 
         # Отладка
-        $<$<CONFIG:Debug>:
-            $<$<BOOL:${BABYLON_CL_FLAGS_STYLE_MSVC}>:/DEBUG>
-        >
+        $<$<CONFIG:Debug>:$<$<BOOL:${BABYLON_CL_FLAGS_STYLE_MSVC}>:/DEBUG>>
     )
 endfunction()

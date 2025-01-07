@@ -1,5 +1,5 @@
 ################################################################################
-# Babylon common settings/tools
+# Babylon common settings
 ################################################################################
 cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
@@ -8,23 +8,18 @@ if(NOT BABYLON_ROOT_DIR)
 endif()
 
 # Platform
-if(WIN32)
-    set(BABYLON_OS_WIN TRUE CACHE INTERNAL "" FORCE)
-elseif(APPLE AND CMAKE_SYSTEM_NAME MATCHES "Darwin")
+if(APPLE AND CMAKE_SYSTEM_NAME MATCHES "Darwin")
     set(BABYLON_OS_MAC TRUE CACHE INTERNAL "" FORCE)
+elseif(WIN32)
+    set(BABYLON_OS_WIN TRUE CACHE INTERNAL "" FORCE)
 endif()
-
-# TODO:
-# if(BABYLON_OS_MAC)
-#     set(BABYLON_CMAKE_PLATFORM_CFG_DIR "${BABYLON_CMAKE_CFG_DIR}/platforms/mac" CACHE INTERNAL "Babylon MacOS CMake cfg directory")
-# endif()
 
 # Build type
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type")
-    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release")
 endif()
-set(CMAKE_CONFIGURATION_TYPES "Debug" "Release" CACHE STRING "")
+set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release")
+set(CMAKE_CONFIGURATION_TYPES "Debug" "Release" CACHE STRING "" FORCE)
 
 # Compiler
 set(BABYLON_CL_FLAGS_STYLE_CLANG FALSE CACHE INTERNAL "" FORCE)
@@ -48,14 +43,14 @@ endif()
 set(BABYLON_CL_WARNING_AS_ERROR TRUE CACHE STRING "")
 set(BABYLON_CL_ASAN FALSE CACHE STRING "")
 
+# C standard
+if(NOT CMAKE_C_STANDARD)
+    set(CMAKE_C_STANDARD 17 CACHE STRING "")
+endif()
+
 # C++ standard
 if(NOT CMAKE_CXX_STANDARD)
     set(CMAKE_CXX_STANDARD 20 CACHE STRING "")
-endif()
-
-# C standard
-if(NOT CMAKE_C_STANDARD)
-    set(CMAKE_CXX_STANDARD ${CMAKE_C_STANDARD} CACHE STRING "")
 endif()
 
 # Modules build mode (STATIC|SHARED)
@@ -67,8 +62,11 @@ endif()
 if(NOT BABYLON_BASE_BUILD_CFG)
     set(BABYLON_BASE_BUILD_CFG "${BABYLON_CMAKE_MODULES_DIR}/cfg.cmake" CACHE STRING "" FORCE)
 else()
-    file(TO_CMAKE_PATH ${BABYLON_BASE_BUILD_CFG} BABYLON_BASE_BUILD_CFG_NORMALIZED)
-    set(BABYLON_BASE_BUILD_CFG ${BABYLON_BASE_BUILD_CFG_NORMALIZED} CACHE STRING "" FORCE)
+    macro(parse_cfg_path BASE_BUILD_CFG)
+        file(TO_CMAKE_PATH "${BASE_BUILD_CFG}" BASE_BUILD_CFG_NORMALIZED)
+        set(BABYLON_BASE_BUILD_CFG "${BASE_BUILD_CFG_NORMALIZED}" CACHE STRING "" FORCE)
+    endmacro()
+    parse_cfg_path("${BABYLON_BASE_BUILD_CFG}")
 endif()
 
 # Use solution folders feature

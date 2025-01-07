@@ -10,7 +10,7 @@ endif()
 # Search for sources by masks
 function(babylon_get_sources FILES)
     set(MULTI_VALUE_ARGS SEARCH_MASKS SEARCH_MASKS_OS_WIN SEARCH_MASKS_OS_MAC)
-    cmake_parse_arguments("ARG" "${OPTIONS}" "${SINGLE_VALUE_ARGS}" "${MULTI_VALUE_ARGS}" ${ARGN})
+    cmake_parse_arguments("ARG" "" "" "${MULTI_VALUE_ARGS}" ${ARGN})
 
     if(NOT ARG_SEARCH_MASKS)
         babylon_log_error("Not enough arguments")
