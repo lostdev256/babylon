@@ -58,9 +58,9 @@ function(babylon_unit_external_configure_build UNIT_NAME)
     if(BABYLON_OS_MAC AND UNIT_TYPE STREQUAL "App")
         set_target_properties(${UNIT_NAME} PROPERTIES
             MACOSX_BUNDLE "ON"
-            MACOSX_BUNDLE_INFO_PLIST ${BABYLON_CMAKE_PLATFORM_MODULES_DIR}/mac/Info.plist.in
-            MACOSX_BUNDLE_NAME ${OUTPUT_NAME}
-            MACOSX_BUNDLE_VERSION ${PROJECT_VERSION}
+            MACOSX_BUNDLE_INFO_PLIST "${BABYLON_CMAKE_PLATFORM_MODULES_DIR}/mac/Info.plist.in"
+            MACOSX_BUNDLE_NAME "${OUTPUT_NAME}"
+            MACOSX_BUNDLE_VERSION "${PROJECT_VERSION}"
             MACOSX_BUNDLE_COPYRIGHT ""
             MACOSX_BUNDLE_GUI_IDENTIFIER "org.${OUTPUT_NAME}.gui"
             MACOSX_BUNDLE_ICON_FILE "Icon.icns"
