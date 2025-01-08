@@ -10,7 +10,7 @@ AppArguments::AppArguments(int argc, char** argv)
     Parse(argc, argv);
 }
 
-void AppArguments::Parse(int argc, char** argv)
+void AppArguments::Parse(int /*argc*/, char** /*argv*/)
 {
     // TODO: Implement
 }
