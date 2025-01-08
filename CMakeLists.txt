@@ -3,18 +3,16 @@
 ################################################################################
 cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
-project(Babylon)
+if(NOT BABYLON_ROOT_DIR)
+    project(Babylon)
+    include(tools/cmake/babylon.cmake)
+endif()
 
-set(BABYLON_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Babylon root directory")
-
-include(${BABYLON_ROOT_DIR}/tools/cmake/babylon.cmake)
+babylon_init_unit_system()
+babylon_collect_internal_units()
 
 # Enable all Babylon modules if root project
-if(${BABYLON_ROOT_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
-#    if(BABYLON_OS_MAC)
-#        enable_language(OBJC)
-#        enable_language(OBJCXX)
-#    endif()
+if("${BABYLON_ROOT_DIR}" STREQUAL "${CMAKE_SOURCE_DIR}")
     babylon_enable_units(ALL)
     # TODO: хак для VisualStudio, что бы солющн назывался Babylon.sln, а не по последнему включенному модулю
     project(Babylon)
