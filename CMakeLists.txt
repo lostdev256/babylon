@@ -11,6 +11,10 @@ include(${BABYLON_ROOT_DIR}/tools/cmake/babylon.cmake)
 
 # Enable all Babylon modules if root project
 if(${BABYLON_ROOT_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
+#    if(BABYLON_OS_MAC)
+#        enable_language(OBJC)
+#        enable_language(OBJCXX)
+#    endif()
     babylon_enable_units(ALL)
     # TODO: хак для VisualStudio, что бы солющн назывался Babylon.sln, а не по последнему включенному модулю
     project(Babylon)
