@@ -244,7 +244,6 @@ function(babylon_enable_unit UNIT_NAME)
     endif()
 
     # Enable depend units
-    set(DEPEND_UNITS "")
     babylon_get_unit_property(${UNIT_NAME} DEPEND_UNITS DEPEND_UNITS)
     babylon_enable_units(${DEPEND_UNITS})
 
@@ -272,35 +271,28 @@ function(babylon_unit_configure_sources UNIT_NAME)
     endif()
 
     # Properties
-    set(UNIT_TYPE "")
     babylon_get_unit_property(${UNIT_NAME} UNIT_TYPE UNIT_TYPE)
     if(NOT UNIT_TYPE)
         babylon_log_fatal("Babylon unit (${UNIT_NAME}): UNIT_TYPE not specified")
         return()
     endif()
 
-    set(ROOT_DIR "")
     babylon_get_unit_property(${UNIT_NAME} ROOT_DIR ROOT_DIR)
     if(NOT ROOT_DIR)
         babylon_log_fatal("Babylon unit (${UNIT_NAME}): ROOT_DIR not specified")
         return()
     endif()
 
-    set(BUILD_MODE "")
     babylon_get_unit_property(${UNIT_NAME} BUILD_MODE BUILD_MODE)
     if(NOT BUILD_MODE)
         set(BUILD_MODE ${BABYLON_MODULES_BUILD_MODE})
     endif()
 
-    set(SOURCE_SEARCH_MASKS "")
-    set(SOURCE_SEARCH_MASKS_OS_WIN "")
-    set(SOURCE_SEARCH_MASKS_OS_MAC "")
     babylon_get_unit_property(${UNIT_NAME} SOURCE_SEARCH_MASKS SOURCE_SEARCH_MASKS)
     babylon_get_unit_property(${UNIT_NAME} SOURCE_SEARCH_MASKS_OS_WIN SOURCE_SEARCH_MASKS_OS_WIN)
     babylon_get_unit_property(${UNIT_NAME} SOURCE_SEARCH_MASKS_OS_MAC SOURCE_SEARCH_MASKS_OS_MAC)
 
     # Find and filter source files
-    set(SRC_FILES "")
     babylon_get_sources(SRC_FILES
         SEARCH_MASKS ${SOURCE_SEARCH_MASKS}
         SEARCH_MASKS_OS_WIN ${SOURCE_SEARCH_MASKS_OS_WIN}
@@ -326,14 +318,12 @@ function(babylon_unit_configure_output UNIT_NAME)
     endif()
 
     # Properties
-    set(OUTPUT_DIR "")
     babylon_get_unit_property(${UNIT_NAME} OUTPUT_DIR OUTPUT_DIR)
     if(NOT OUTPUT_DIR)
         babylon_log_fatal("Babylon unit (${UNIT_NAME}): OUTPUT_DIR not specified")
         return()
     endif()
 
-    set(OUTPUT_NAME "")
     babylon_get_unit_property(${UNIT_NAME} OUTPUT_NAME OUTPUT_NAME)
     if(NOT OUTPUT_NAME)
         babylon_log_fatal("Babylon unit (${UNIT_NAME}): OUTPUT_NAME not specified")
@@ -357,21 +347,18 @@ function(babylon_unit_configure_dependencies UNIT_NAME)
     endif()
 
     # Properties
-    set(UNIT_TYPE "")
     babylon_get_unit_property(${UNIT_NAME} UNIT_TYPE UNIT_TYPE)
     if(NOT UNIT_TYPE)
         babylon_log_fatal("Babylon unit (${UNIT_NAME}): UNIT_TYPE not specified")
         return()
     endif()
 
-    set(OUTPUT_DIR "")
     babylon_get_unit_property(${UNIT_NAME} OUTPUT_DIR OUTPUT_DIR)
     if(NOT OUTPUT_DIR)
         babylon_log_fatal("Babylon unit (${UNIT_NAME}): OUTPUT_DIR not specified")
         return()
     endif()
 
-    set(INCLUDE_DIRS "")
     babylon_get_unit_property(${UNIT_NAME} INCLUDE_DIRS INCLUDE_DIRS)
 
     # Configure
@@ -392,7 +379,6 @@ function(babylon_unit_link_depend_units UNIT_NAME)
     endif()
 
     # Properties
-    set(DEPEND_UNITS "")
     babylon_get_unit_property(${UNIT_NAME} DEPEND_UNITS DEPEND_UNITS)
 
     # Configure
@@ -434,14 +420,12 @@ function(babylon_unit_link_depend_unit UNIT_NAME DEPEND_UNIT)
     endif()
 
     # Properties
-    set(DEPEND_UNIT_TYPE "")
     babylon_get_unit_property(${DEPEND_UNIT} UNIT_TYPE DEPEND_UNIT_TYPE)
     if(NOT DEPEND_UNIT_TYPE)
         babylon_log_fatal("Babylon unit (${DEPEND_UNIT}): UNIT_TYPE not specified")
         return()
     endif()
 
-    set(DEPEND_OUTPUT_NAME "")
     babylon_get_unit_property(${DEPEND_UNIT} OUTPUT_NAME DEPEND_OUTPUT_NAME)
     if(NOT DEPEND_OUTPUT_NAME)
         babylon_log_fatal("Babylon unit (${DEPEND_UNIT}): OUTPUT_NAME not specified")
@@ -471,10 +455,7 @@ function(babylon_unit_configure_build UNIT_NAME)
     endmacro()
 
     # Properties
-    set(BASE_BUILD_CFG "")
     babylon_get_unit_property(${UNIT_NAME} BASE_BUILD_CFG BASE_BUILD_CFG)
-
-    set(BUILD_CFG "")
     babylon_get_unit_property(${UNIT_NAME} BUILD_CFG BUILD_CFG)
 
     # Base configure

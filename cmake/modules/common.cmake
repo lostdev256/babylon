@@ -14,6 +14,11 @@ elseif(WIN32)
     set(BABYLON_OS_WIN TRUE CACHE INTERNAL "" FORCE)
 endif()
 
+# Environment
+if(CMAKE_GENERATOR STREQUAL "Xcode")
+    set(CMAKE_XCODE_GENERATE_SCHEME TRUE)
+endif()
+
 # Build type
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type")

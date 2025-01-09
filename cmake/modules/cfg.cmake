@@ -15,38 +15,50 @@ function(babylon_unit_external_configure_build UNIT_NAME)
     endif()
 
     # Properties
-    set(UNIT_TYPE "")
     babylon_get_unit_property(${UNIT_NAME} UNIT_TYPE UNIT_TYPE)
     if(NOT UNIT_TYPE)
         babylon_log_fatal("Babylon unit (${UNIT_NAME}): UNIT_TYPE not specified")
         return()
     endif()
 
-    set(ROOT_DIR "")
     babylon_get_unit_property(${UNIT_NAME} ROOT_DIR ROOT_DIR)
     if(NOT ROOT_DIR)
         babylon_log_fatal("Babylon unit (${UNIT_NAME}): ROOT_DIR not specified")
         return()
     endif()
 
-    set(OUTPUT_NAME "")
     babylon_get_unit_property(${UNIT_NAME} OUTPUT_NAME OUTPUT_NAME)
     if(NOT OUTPUT_NAME)
         babylon_log_fatal("Babylon unit (${UNIT_NAME}): OUTPUT_NAME not specified")
         return()
     endif()
 
-    set(PCH "")
     babylon_get_unit_property(${UNIT_NAME} PCH PCH)
 
-    # Configure
-    if(MSVC)
+    set(IS_APP_UNIT FALSE)
+    if(UNIT_TYPE STREQUAL "App")
+        set(IS_APP_UNIT TRUE)
+    endif()
+
+    set(IS_STARTUP_UNIT FALSE)
+    if(IS_APP_UNIT)
         list(LENGTH BABYLON_APP_UNITS APPS_COUNT)
         if(APPS_COUNT GREATER 0)
             list(GET BABYLON_APP_UNITS -1 STARTUP_UNIT)
             if(STARTUP_UNIT STREQUAL ${UNIT_NAME})
-                set_property(DIRECTORY ${ROOT_DIR} PROPERTY VS_STARTUP_PROJECT ${UNIT_NAME})
+                set(IS_STARTUP_UNIT TRUE)
             endif()
+        endif()
+    endif()
+
+    # Configure
+    if(CMAKE_GENERATOR STREQUAL "Xcode" AND IS_STARTUP_UNIT)
+        set_target_properties(${UNIT_NAME} PROPERTIES XCODE_SCHEME_NAME "DefaultScheme")
+    endif()
+
+    if(MSVC)
+        if(IS_STARTUP_UNIT)
+            set_property(DIRECTORY ${ROOT_DIR} PROPERTY VS_STARTUP_PROJECT ${UNIT_NAME})
         endif()
 
         set_target_properties(${UNIT_NAME} PROPERTIES
@@ -55,7 +67,7 @@ function(babylon_unit_external_configure_build UNIT_NAME)
         )
     endif()
 
-    if(BABYLON_OS_MAC AND UNIT_TYPE STREQUAL "App")
+    if(BABYLON_OS_MAC AND IS_APP_UNIT)
         set_target_properties(${UNIT_NAME} PROPERTIES
             MACOSX_BUNDLE "ON"
             MACOSX_BUNDLE_INFO_PLIST "${BABYLON_CMAKE_PLATFORM_MODULES_DIR}/mac/Info.plist.in"
