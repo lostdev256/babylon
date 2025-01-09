@@ -26,6 +26,12 @@ endif()
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release")
 set(CMAKE_CONFIGURATION_TYPES "Debug" "Release" CACHE STRING "" FORCE)
 
+# Language
+if (BABYLON_OS_MAC)
+    enable_language(OBJC)
+    enable_language(OBJCXX)
+endif()
+
 # Compiler
 set(BABYLON_CL_FLAGS_STYLE_CLANG FALSE CACHE INTERNAL "" FORCE)
 set(BABYLON_CL_FLAGS_STYLE_GNU FALSE CACHE INTERNAL "" FORCE)

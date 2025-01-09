@@ -13,9 +13,6 @@ if(NOT BABYLON_ROOT_DIR)
     message(FATAL_ERROR "Babylon root directory not found")
 endif()
 
-enable_language(OBJC)
-enable_language(OBJCXX)
-
 set(BABYLON_CMAKE_MODULES_DIR "${CMAKE_CURRENT_LIST_DIR}/modules" CACHE INTERNAL "Babylon CMake modules directory")
 set(BABYLON_CMAKE_PLATFORM_MODULES_DIR "${CMAKE_CURRENT_LIST_DIR}/platforms" CACHE INTERNAL "Babylon CMake platform modules directory")
 
