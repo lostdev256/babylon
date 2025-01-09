@@ -14,6 +14,5 @@ babylon_collect_internal_units()
 # Enable all Babylon modules if root project
 if("${BABYLON_ROOT_DIR}" STREQUAL "${CMAKE_SOURCE_DIR}")
     babylon_enable_units(ALL)
-    # TODO: хак для VisualStudio, что бы солющн назывался Babylon.sln, а не по последнему включенному модулю
-    project(Babylon)
+    set(CMAKE_PROJECT_NAME Babylon)
 endif()
