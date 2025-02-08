@@ -69,16 +69,17 @@ function(babylon_unit_external_configure_build UNIT_NAME)
 
     if(BABYLON_OS_MAC AND IS_APP_UNIT)
         set_target_properties(${UNIT_NAME} PROPERTIES
-            MACOSX_BUNDLE "ON"
+            MACOSX_BUNDLE ON
             MACOSX_BUNDLE_INFO_PLIST "${BABYLON_CMAKE_PLATFORM_MODULES_DIR}/mac/Info.plist.in"
             MACOSX_BUNDLE_NAME "${OUTPUT_NAME}"
             MACOSX_BUNDLE_VERSION "${PROJECT_VERSION}"
             MACOSX_BUNDLE_COPYRIGHT ""
-            MACOSX_BUNDLE_GUI_IDENTIFIER "org.${OUTPUT_NAME}.gui"
+            MACOSX_BUNDLE_GUI_IDENTIFIER "lost.babylon.${OUTPUT_NAME}"
             MACOSX_BUNDLE_ICON_FILE "Icon.icns"
             MACOSX_BUNDLE_INFO_STRING ""
             MACOSX_BUNDLE_LONG_VERSION_STRING ""
             MACOSX_BUNDLE_SHORT_VERSION_STRING ""
+            XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "lost.babylon.${OUTPUT_NAME}"
         )
     endif()
 
