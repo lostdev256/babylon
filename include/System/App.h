@@ -4,6 +4,7 @@
 #include <System/AppArguments.h>
 #include <System/IAppConfigurator.h>
 #include <Platform/Entry.h>
+#include <Platform/IPlatformContext.h>
 
 namespace Babylon::System
 {
@@ -18,35 +19,29 @@ class App final : public Common::Singleton<App>
 public:
     /**
      * Точко входа в приложение
-     * @tparam TAppConfigurator Имя класса наследника Babylon::System::IAppConfigurator
+     * @tparam TAppConfigurator Класс наследник Babylon::System::IAppConfigurator
      * @param args Аргументы командной строки
      */
     template<class TAppConfigurator>
     static void Entry(AppArguments&& args);
 
     /**
-     * Выполняет инициализацию приложения и делегата
+     * Метод получения контекста платформы
+     * @tparam TPlatformContext Класс наследник Platform::IPlatformContext
+     * @return Контекст платформы
      */
-    void Init();
-
-    /**
-     * Выполняет де инициализацию приложения и делегата
-     */
-    void Deinit();
-
-    void Update();
-
-    /**
-     * Запускает приложение
-     */
-    void Run();
+    template<class TPlatformContext>
+    std::shared_ptr<TPlatformContext> GetPlatformContext();
 
 private:
-    void SetArguments(AppArguments&& args);
-    void SetConfigurator(std::unique_ptr<IAppConfigurator>&& configurator);
+    /**
+     * Выполняет инициализацию приложения
+     */
+    void Init(AppArguments&& args, IAppConfiguratorPtr&& configurator);
 
     AppArguments _arguments;
-    std::unique_ptr<IAppConfigurator> _configurator;
+    IAppConfiguratorPtr _configurator;
+    Platform::IPlatformContextPtr _platform_context;
 };
 
 template <class TAppConfigurator>
@@ -57,10 +52,16 @@ void App::Entry(AppArguments&& args)
 
     Finaliser guard;
     auto& app = Instance();
-    app.SetArguments(std::move(args));
-    app.SetConfigurator(std::move(configurator));
+    app.Init(std::move(args), std::move(configurator));
 
     Platform::Entry();
+}
+
+template<class TPlatformContext>
+std::shared_ptr<TPlatformContext> App::GetPlatformContext()
+{
+    static_assert(std::is_base_of_v<Platform::IPlatformContext, TPlatformContext>);
+    return std::dynamic_pointer_cast<TPlatformContext>(_platform_context);
 }
 
 } // namespace Babylon::System

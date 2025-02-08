@@ -7,10 +7,15 @@ namespace Babylon::System
 
 AppArguments::AppArguments(int argc, char** argv)
 {
-    Parse(argc, argv);
+    for (int i = 0; i < argc; ++i)
+    {
+        _raw_arguments.emplace_back(argv[i]);
+    }
+
+    Parse();
 }
 
-void AppArguments::Parse(int /*argc*/, char** /*argv*/)
+void AppArguments::Parse()
 {
     // TODO: Implement
 }

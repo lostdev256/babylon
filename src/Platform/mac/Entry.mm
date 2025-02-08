@@ -5,6 +5,7 @@
 #import <System/App.h>
 #import <System/AppArguments.h>
 #import <Platform/mac/AppDelegate.h>
+#import <Platform/mac/PlatformContext.h>
 
 #import <Cocoa/Cocoa.h>
 
@@ -67,15 +68,19 @@ void RunSystemApp()
 }
 */
 
-#if BABYLON_OS_MAC
+std::shared_ptr<IPlatformContext> CreatePlatformContext()
+{
+    return std::make_shared<Mac::PlatformContext>();
+}
 
 int Entry()
 {
     @autoreleasepool
     {
+        auto context = Babylon::System::App::Instance().GetPlatformContext<Mac::PlatformContext>();
         [NSApplication sharedApplication];
-        ::AppDelegate *delegate = [[::AppDelegate alloc] init];
-        [NSApp setDelegate:delegate];
+        //context->app_delegate = [[MacAppDelegate alloc] init];
+        //[NSApp setDelegate:context->app_delegate];
         [NSApp run];
         //NSApplicationMain(argc, const_cast<const char **>(argv));
 
@@ -83,7 +88,5 @@ int Entry()
         return 0;
     }
 }
-
-#endif
 
 } // namespace Babylon::Platform

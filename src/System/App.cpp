@@ -5,37 +5,11 @@
 namespace Babylon::System
 {
 
-void App::SetArguments(AppArguments&& arguments)
+void App::Init(AppArguments&& args, IAppConfiguratorPtr&& configurator)
 {
-    _arguments = std::move(arguments);
-}
-
-void App::SetConfigurator(std::unique_ptr<IAppConfigurator>&& configurator)
-{
+    _arguments = std::move(args);
     _configurator = std::move(configurator);
+    _platform_context = Platform::CreatePlatformContext();
 }
-
-// void App::Run()
-// {
-//     if (!_delegate)
-//     {
-//         return;
-//     }
-//
-//     Setup();
-//     _delegate->OnAppRun();
-//     //_loop.Run();
-//     Teardown();
-// }
-
-// void App::Setup()
-// {
-//     _delegate->OnAppSetup();
-// }
-//
-// void App::Teardown()
-// {
-//     _delegate->OnAppTeardown();
-// }
 
 } // namespace Babylon::System

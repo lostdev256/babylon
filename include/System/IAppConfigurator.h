@@ -6,6 +6,9 @@ namespace Babylon::System
 /**
  * Интерфейс конфигуратора приложения. Обязательно реализуется на стороне клиента.
  */
+class IAppConfigurator;
+using IAppConfiguratorPtr = std::unique_ptr<IAppConfigurator>;
+
 class IAppConfigurator
 {
 public:
