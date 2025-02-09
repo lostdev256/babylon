@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Babylon::Common
+namespace BN::Common
 {
 
 template<class T>
@@ -60,7 +60,7 @@ private:
 template<class T>
 T* Singleton<T>::__instance = nullptr;
 
-} // namespace Babylon::Common
+} // namespace BN::Common
 
 #ifndef SINGLETON_CLASS
 /**
@@ -78,7 +78,7 @@ private:                                                            \
     ClassName() = default;                                          \
     ~ClassName() = default;                                         \
                                                                     \
-    friend class Babylon::Common::Singleton<ClassName>;             \
-    friend class Babylon::Common::SingletonFinalizer<ClassName>;
+    friend class BN::Common::Singleton<ClassName>;             \
+    friend class BN::Common::SingletonFinalizer<ClassName>;
 
 #endif // SINGLETON_CLASS

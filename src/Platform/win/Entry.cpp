@@ -2,10 +2,10 @@
 
 #include <Platform/Entry.h>
 
-namespace Babylon::Platform
+namespace BN::Platform
 {
 
-#if BABYLON_OS_WIN
+#if BN_OS_WIN
 
 int Entry()
 {
@@ -14,4 +14,4 @@ int Entry()
 
 #endif
 
-} // namespace Babylon::Platform
+} // namespace BN::Platform

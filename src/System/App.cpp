@@ -2,7 +2,7 @@
 
 #include <System/App.h>
 
-namespace Babylon::System
+namespace BN::System
 {
 
 void App::Init(AppArguments&& args, IAppConfiguratorPtr&& configurator)
@@ -12,4 +12,4 @@ void App::Init(AppArguments&& args, IAppConfiguratorPtr&& configurator)
     _platform_context = Platform::CreatePlatformContext();
 }
 
-} // namespace Babylon::System
+} // namespace BN::System

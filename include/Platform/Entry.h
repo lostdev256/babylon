@@ -1,8 +1,8 @@
 #pragma once
 
-namespace Babylon::Platform
+namespace BN::Platform
 {
 
 int Entry();
 
-} // namespace Babylon::Platform
+} // namespace BN::Platform

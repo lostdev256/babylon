@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Babylon::System
+namespace BN::System
 {
 
 /**
@@ -20,4 +20,4 @@ public:
     virtual void Configure() = 0;
 };
 
-} // namespace Babylon::System
+} // namespace BN::System

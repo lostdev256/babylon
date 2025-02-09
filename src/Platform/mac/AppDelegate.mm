@@ -62,7 +62,7 @@
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
-    //Babylon::System::App::Instance().Teardown();
+    //BN::System::App::Instance().Teardown();
 }
 
 - (void)applicationWillHide:(NSNotification *)notification

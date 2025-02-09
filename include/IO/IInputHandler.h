@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Babylon::IO
+namespace BN::IO
 {
 
 /**
@@ -12,4 +12,4 @@ public:
     virtual ~IInputHandler() = default;
 };
 
-} // namespace Babylon::IO
+} // namespace BN::IO

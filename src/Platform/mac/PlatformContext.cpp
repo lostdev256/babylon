@@ -2,7 +2,7 @@
 
 #include <Platform/mac/PlatformContext.h>
 
-namespace Babylon::Platform::Mac
+namespace BN::Platform::Mac
 {
 
-} // namespace Babylon::Platform::Mac
+} // namespace BN::Platform::Mac

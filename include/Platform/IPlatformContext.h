@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Babylon::Platform
+namespace BN::Platform
 {
 
 class IPlatformContext;
@@ -14,4 +14,4 @@ public:
 
 std::shared_ptr<IPlatformContext> CreatePlatformContext();
 
-} // namespace Babylon::Platform
+} // namespace BN::Platform

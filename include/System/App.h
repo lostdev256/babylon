@@ -6,7 +6,7 @@
 #include <Platform/Entry.h>
 #include <Platform/IPlatformContext.h>
 
-namespace Babylon::System
+namespace BN::System
 {
 
 /**
@@ -19,7 +19,7 @@ class App final : public Common::Singleton<App>
 public:
     /**
      * Точко входа в приложение
-     * @tparam TAppConfigurator Класс наследник Babylon::System::IAppConfigurator
+     * @tparam TAppConfigurator Класс наследник BN::System::IAppConfigurator
      * @param args Аргументы командной строки
      */
     template<class TAppConfigurator>
@@ -64,4 +64,4 @@ std::shared_ptr<TPlatformContext> App::GetPlatformContext()
     return std::dynamic_pointer_cast<TPlatformContext>(_platform_context);
 }
 
-} // namespace Babylon::System
+} // namespace BN::System

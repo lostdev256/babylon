@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Babylon::System
+namespace BN::System
 {
 
 /**
@@ -17,4 +17,4 @@ public:
     virtual void Draw() = 0;
 };
 
-} // namespace Babylon::System
+} // namespace BN::System

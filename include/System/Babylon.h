@@ -4,6 +4,6 @@
 
 /**
  * Точка входа в приложение
- * @tparam TAppConfigurator Имя класса реализующего Babylon::System::IAppConfigurator
+ * @tparam TAppConfigurator Имя класса реализующего BN::System::IAppConfigurator
  */
-#define BABYLON_ENTRY_POINT(TAppConfigurator) BABYLON_ENTRY_POINT_IMPL(TAppConfigurator)
+#define BN_ENTRY_POINT(TAppConfigurator) BN_ENTRY_POINT_IMPL(TAppConfigurator)

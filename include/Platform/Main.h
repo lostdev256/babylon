@@ -2,24 +2,24 @@
 
 #include <System/App.h>
 
-#if BABYLON_OS_MAC
+#if BN_OS_MAC
 
-#define BABYLON_ENTRY_POINT_IMPL(TAppConfigurator)                  \
-int main(int argc, char** argv)                                     \
-{                                                                   \
-    Babylon::System::App::Entry<TAppConfigurator>({ argc, argv });  \
-    return 0;                                                       \
+#define BN_ENTRY_POINT_IMPL(TAppConfigurator)                  \
+int main(int argc, char** argv)                                \
+{                                                              \
+    BN::System::App::Entry<TAppConfigurator>({ argc, argv });  \
+    return 0;                                                  \
 }
 
-#elif BABYLON_OS_WIN
+#elif BN_OS_WIN
 
 #include <Windows.h>
 
-#define BABYLON_ENTRY_POINT_IMPL(TAppConfigurator)                  \
-int main(int argc, char** argv)                                     \
-{                                                                   \
-    Babylon::System::App::Entry<TAppConfigurator>({ argc, argv });  \
-    return 0;                                                       \
+#define BN_ENTRY_POINT_IMPL(TAppConfigurator)                  \
+int main(int argc, char** argv)                                \
+{                                                              \
+    BN::System::App::Entry<TAppConfigurator>({ argc, argv });  \
+    return 0;                                                  \
 }
 
 #else

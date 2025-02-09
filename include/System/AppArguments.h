@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Babylon::System
+namespace BN::System
 {
 
 class AppArguments
@@ -16,4 +16,4 @@ private:
     std::map<std::string, std::string> _arguments;
 };
 
-} // namespace Babylon::System
+} // namespace BN::System

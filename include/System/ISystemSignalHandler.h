@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Babylon::System
+namespace BN::System
 {
 
 /**
@@ -12,4 +12,4 @@ public:
     virtual ~ISystemSignalHandler() = default;
 };
 
-} // namespace Babylon::System
+} // namespace BN::System

@@ -2,7 +2,7 @@
 
 #include <System/IAppLoopController.h>
 
-namespace Babylon::System
+namespace BN::System
 {
 
 /**
@@ -20,4 +20,4 @@ private:
     std::vector<IAppLoopControllerPtr> _controllers;
 };
 
-} // namespace Babylon::System
+} // namespace BN::System

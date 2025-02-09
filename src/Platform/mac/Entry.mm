@@ -9,7 +9,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-namespace Babylon::Platform
+namespace BN::Platform
 {
 
 /*
@@ -77,7 +77,7 @@ int Entry()
 {
     @autoreleasepool
     {
-        auto context = Babylon::System::App::Instance().GetPlatformContext<Mac::PlatformContext>();
+        auto context = BN::System::App::Instance().GetPlatformContext<Mac::PlatformContext>();
         [NSApplication sharedApplication];
         //context->app_delegate = [[MacAppDelegate alloc] init];
         //[NSApp setDelegate:context->app_delegate];
@@ -89,4 +89,4 @@ int Entry()
     }
 }
 
-} // namespace Babylon::Platform
+} // namespace BN::Platform
