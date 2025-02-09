@@ -10,10 +10,10 @@
     ],
     "configurePresets": [
         {
-            "name": "babylon_mac",
+            "name": "bn_mac",
             "hidden": true,
             "inherits": [
-                "babylon_common"
+                "bn_common"
             ],
             "toolset": {
                 "value": "buildsystem=12",
@@ -26,43 +26,43 @@
             }
         },
         {
-            "name": "babylon_mac_xcode",
+            "name": "bn_mac_xcode",
             "hidden": true,
             "generator": "Xcode",
             "inherits": [
-                "babylon_mac"
+                "bn_mac"
             ]
         },
         {
-            "name": "babylon_mac_ninja",
+            "name": "bn_mac_ninja",
             "hidden": true,
             "generator": "Ninja",
             "inherits": [
-                "babylon_mac"
+                "bn_mac"
             ]
         },
         {
-            "name": "babylon_mac_ninja_debug",
+            "name": "bn_mac_ninja_debug",
             "hidden": true,
             "inherits": [
-                "babylon_mac_ninja",
-                "babylon_debug"
+                "bn_mac_ninja",
+                "bn_debug"
             ]
         },
         {
-            "name": "babylon_mac_ninja_release",
+            "name": "bn_mac_ninja_release",
             "hidden": true,
             "inherits": [
-                "babylon_mac_ninja",
-                "babylon_release"
+                "bn_mac_ninja",
+                "bn_release"
             ]
         },
         {
-            "name": "babylon_mac_ninja_profile",
+            "name": "bn_mac_ninja_profile",
             "hidden": true,
             "inherits": [
-                "babylon_mac_ninja",
-                "babylon_profile"
+                "bn_mac_ninja",
+                "bn_profile"
             ]
         }
     ]

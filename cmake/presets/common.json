@@ -7,26 +7,26 @@
     },
     "configurePresets": [
         {
-            "name": "babylon_common",
+            "name": "bn_common",
             "hidden": true,
             "binaryDir": "${sourceDir}/build/${presetName}"
         },
         {
-            "name": "babylon_debug",
+            "name": "bn_debug",
             "hidden": true,
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
             }
         },
         {
-            "name": "babylon_release",
+            "name": "bn_release",
             "hidden": true,
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
         },
         {
-            "name": "babylon_profile",
+            "name": "bn_profile",
             "hidden": true,
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Profile"
