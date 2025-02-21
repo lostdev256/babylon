@@ -2,7 +2,10 @@
 
 namespace BN::Common
 {
-
+/**
+ * Финализатор для BN::Common::Singleton
+ * @tparam T Класс-наследник шаблона BN::Common::Singleton
+ */
 template<class T>
 class SingletonFinalizer final
 {
@@ -23,48 +26,53 @@ public:
     SingletonFinalizer& operator=(SingletonFinalizer&& other) = delete;
 };
 
+/**
+ * Шаблон синглтона
+ * @tparam T Класс-наследник данного шаблона
+ */
 template<class T>
 class Singleton
 {
 public:
-    using Finaliser = SingletonFinalizer<T>;
+    using Finalizer = SingletonFinalizer<T>;
 
     static T& Instance()
     {
         CreateInstance();
-        return *__instance;
+        return *_instance_;
     }
 
 protected:
     static void CreateInstance()
     {
-        if (!__instance)
+        if (!_instance_)
         {
-            __instance = new T();
+            _instance_ = new T();
         }
     }
 
     static void DestroyInstance()
     {
-        if (__instance)
+        if (_instance_)
         {
-            delete __instance;
-            __instance = nullptr;
+            delete _instance_;
+            _instance_ = nullptr;
         }
     }
 
 private:
-    static T* __instance;
+    static T* _instance_;
 };
 
 template<class T>
-T* Singleton<T>::__instance = nullptr;
+T* Singleton<T>::_instance_ = nullptr;
 
 } // namespace BN::Common
 
 #ifndef SINGLETON_CLASS
 /**
- * TODO: add description
+ * Макрос необходимо использовать в связке с наследованием от BN::Common::Singleton
+ * @tparam ClassName Имя класса-наследника BN::Common::Singleton
  */
 #define SINGLETON_CLASS(ClassName)                                  \
                                                                     \
@@ -78,7 +86,7 @@ private:                                                            \
     ClassName() = default;                                          \
     ~ClassName() = default;                                         \
                                                                     \
-    friend class BN::Common::Singleton<ClassName>;             \
+    friend class BN::Common::Singleton<ClassName>;                  \
     friend class BN::Common::SingletonFinalizer<ClassName>;
 
 #endif // SINGLETON_CLASS

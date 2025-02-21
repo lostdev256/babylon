@@ -15,7 +15,7 @@ public:
      * Метод обновления
      * @param dt Дельта времени прошедшего с предыдущего обновления
      */
-    virtual void Update(float dt) = 0;
+    virtual void Update(double dt) = 0;
 };
 
 } // namespace BN::System

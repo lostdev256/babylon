@@ -4,6 +4,6 @@
 
 /**
  * Точка входа в приложение
- * @tparam TAppConfigurator Имя класса реализующего BN::System::IAppConfigurator
+ * @tparam TAppConfigurator Класс реализующий BN::System::IAppConfigurator
  */
 #define BN_ENTRY_POINT(TAppConfigurator) BN_ENTRY_POINT_IMPL(TAppConfigurator)

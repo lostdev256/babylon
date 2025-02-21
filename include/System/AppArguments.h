@@ -3,6 +3,9 @@
 namespace BN::System
 {
 
+/**
+ * Контейнер для аргументов командной строки.
+ */
 class AppArguments
 {
 public:

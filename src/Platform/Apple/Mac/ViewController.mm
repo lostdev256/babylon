@@ -1,6 +1,6 @@
 #import <pch.h>
 
-#import <Platform/mac/ViewController.h>
+#import <Platform/Apple/Mac/ViewController.h>
 
 @implementation ViewController
 
