@@ -12,6 +12,13 @@ using IAppControllerPtr = std::shared_ptr<IAppController>;
 class IAppController
 {
 public:
+    /**
+     * Создание платформа-зависимого экземпляра класса. Реализуется конкретной платформой
+     * @return Указатель на интерфейс
+     */
+    static IAppControllerPtr Create();
+
+public:
     virtual ~IAppController() = default;
 
     /**

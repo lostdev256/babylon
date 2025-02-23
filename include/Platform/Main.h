@@ -13,8 +13,6 @@ int main(int argc, char** argv)                                \
 
 #elif BN_OS_WIN
 
-#include <Windows.h>
-
 #define BN_ENTRY_POINT_IMPL(TAppConfigurator)                  \
 int main(int argc, char** argv)                                \
 {                                                              \

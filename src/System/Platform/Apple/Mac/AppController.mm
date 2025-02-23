@@ -1,21 +1,26 @@
 #include <pch.h>
 
-#include <Platform/Apple/Mac/AppController.h>
+#include <System/Platform/Apple/Mac/AppController.h>
 
-#import <Platform/Apple/Mac/AppDelegate.h>
+namespace BN::System
+{
 
-#import <Foundation/Foundation.h>
-#import <Cocoa/Cocoa.h>
+    IAppControllerPtr IAppController::Create()
+    {
+        return std::make_shared<Platform::AppController>();
+    }
 
-namespace BN::Platform::Apple::Mac
+} // namespace BN::System
+
+namespace BN::System::Platform
 {
 
 void AppController::Control()
 {
     @autoreleasepool {
         NSApplication *app = [NSApplication sharedApplication];
-        AppDelegate *delegate = [[AppDelegate alloc] init];
-        [app setDelegate:delegate];
+        _delegate = [[AppDelegate alloc] init];
+        [app setDelegate:_delegate];
         [app run];
     }
 
@@ -35,4 +40,4 @@ void AppController::Control()
     */
 }
 
-} // namespace BN::Platform::Apple::Mac
+} // namespace BN::System::Platform
