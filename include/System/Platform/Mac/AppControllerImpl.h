@@ -6,7 +6,7 @@
 namespace BN::System::Platform
 {
 
-class AppController final : public IAppController
+class AppControllerImpl final : public IAppController
 {
 public:
     void Control() override;

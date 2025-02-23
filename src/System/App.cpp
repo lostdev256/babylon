@@ -11,7 +11,7 @@ bool App::Init(AppArguments&& args, IAppConfiguratorPtr&& configurator)
 {
     _arguments = std::move(args);
     _configurator = std::move(configurator);
-    _controller = IAppController::Create();
+    _controller = IAppController::CreateImpl();
 
     if (!_controller)
     {

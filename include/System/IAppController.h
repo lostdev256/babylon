@@ -16,7 +16,7 @@ public:
      * Создание платформа-зависимого экземпляра класса. Реализуется конкретной платформой
      * @return Указатель на интерфейс
      */
-    static IAppControllerPtr Create();
+    static IAppControllerPtr CreateImpl();
 
 public:
     virtual ~IAppController() = default;

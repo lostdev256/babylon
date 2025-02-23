@@ -47,11 +47,11 @@
 }
 
 // Функция, вызываемая на каждом кадре (V-Sync)
-static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink,
-                                    const CVTimeStamp *now,
-                                    const CVTimeStamp *outputTime,
-                                    CVOptionFlags flagsIn,
-                                    CVOptionFlags *flagsOut,
+static CVReturn DisplayLinkCallback(CVDisplayLinkRef /*displayLink*/,
+                                    const CVTimeStamp */*now*/,
+                                    const CVTimeStamp */*outputTime*/,
+                                    CVOptionFlags /*flagsIn*/,
+                                    CVOptionFlags */*flagsOut*/,
                                     void *context) {
     AppDelegate *self = (__bridge AppDelegate *)context;
     [self onFrame];
@@ -59,7 +59,7 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink,
 }
 
 - (void)onFrame {
-/*
+
     uint64_t end = mach_absolute_time();
 
     mach_timebase_info_data_t info;
@@ -70,7 +70,7 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink,
 
     //NSLog(@"Frame tick: %@", [NSDate date]);
     start = mach_absolute_time();
-*/
+
 }
 
 

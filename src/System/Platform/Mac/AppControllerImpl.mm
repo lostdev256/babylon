@@ -1,13 +1,13 @@
 #include <pch.h>
 
-#include <System/Platform/Apple/Mac/AppController.h>
+#include <System/Platform/Mac/AppControllerImpl.h>
 
 namespace BN::System
 {
 
-    IAppControllerPtr IAppController::Create()
+    IAppControllerPtr IAppController::CreateImpl()
     {
-        return std::make_shared<Platform::AppController>();
+        return std::make_shared<Platform::AppControllerImpl>();
     }
 
 } // namespace BN::System
@@ -15,7 +15,7 @@ namespace BN::System
 namespace BN::System::Platform
 {
 
-void AppController::Control()
+void AppControllerImpl::Control()
 {
     @autoreleasepool {
         NSApplication *app = [NSApplication sharedApplication];

@@ -9,7 +9,6 @@ namespace BN::Place
 class PlaceNode
 {
 public:
-    PlaceNode() = default;
     virtual ~PlaceNode() = default;
 };
 
