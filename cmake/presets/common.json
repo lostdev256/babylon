@@ -1,0 +1,36 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 30,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "bn_common",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/build/${presetName}"
+        },
+        {
+            "name": "bn_debug",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "bn_release",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "bn_profile",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Profile"
+            }
+        }
+    ]
+}
