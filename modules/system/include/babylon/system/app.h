@@ -11,7 +11,7 @@ namespace babylon::System
 /**
  * Класс приложения Babylon
  */
-class app final : public Common::Singleton<app>
+class app final : public common::singleton<app>
 {
     SINGLETON_CLASS(app)
 
@@ -48,7 +48,7 @@ void app::Entry(AppArguments&& args)
     static_assert(std::is_base_of_v<IAppConfigurator, TAppConfigurator>);
     auto configurator = std::make_unique<TAppConfigurator>();
 
-    Finalizer guard;
+    finalizer guard;
     auto& app = Instance();
     if (app.Init(std::move(args), std::move(configurator)))
     {

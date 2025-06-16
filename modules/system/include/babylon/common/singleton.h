@@ -1,29 +1,29 @@
 #pragma once
 
-namespace babylon::Common
+namespace babylon::common
 {
 /**
- * Финализатор для babylon::Common::Singleton
- * @tparam T Класс-наследник шаблона babylon::Common::Singleton
+ * Финализатор для babylon::common::singleton
+ * @tparam T Класс-наследник шаблона babylon::common::singleton
  */
 template<class T>
-class SingletonFinalizer final
+class singleton_finalizer final
 {
 public:
-    SingletonFinalizer()
+    singleton_finalizer()
     {
-        T::CreateInstance();
+        T::create_instance();
     }
 
-    ~SingletonFinalizer()
+    ~singleton_finalizer()
     {
-        T::DestroyInstance();
+        T::destroy_instance();
     }
 
-    SingletonFinalizer(const SingletonFinalizer& other) = delete;
-    SingletonFinalizer& operator=(const SingletonFinalizer& other) = delete;
-    SingletonFinalizer(SingletonFinalizer&& other) = delete;
-    SingletonFinalizer& operator=(SingletonFinalizer&& other) = delete;
+    singleton_finalizer(const singleton_finalizer& other) = delete;
+    singleton_finalizer& operator=(const singleton_finalizer& other) = delete;
+    singleton_finalizer(singleton_finalizer&& other) = delete;
+    singleton_finalizer& operator=(singleton_finalizer&& other) = delete;
 };
 
 /**
@@ -34,16 +34,16 @@ template<class T>
 class singleton
 {
 public:
-    using Finalizer = SingletonFinalizer<T>;
+    using finalizer = singleton_finalizer<T>;
 
-    static T& Instance()
+    static T& instance()
     {
-        CreateInstance();
+        create_instance();
         return *_instance_;
     }
 
 protected:
-    static void CreateInstance()
+    static void create_instance()
     {
         if (!_instance_)
         {
@@ -51,7 +51,7 @@ protected:
         }
     }
 
-    static void DestroyInstance()
+    static void destroy_instance()
     {
         if (_instance_)
         {
@@ -67,26 +67,26 @@ private:
 template<class T>
 T* singleton<T>::_instance_ = nullptr;
 
-} // namespace babylon::Common
+} // namespace babylon::common
 
 #ifndef SINGLETON_CLASS
 /**
- * Макрос необходимо использовать в связке с наследованием от babylon::Common::Singleton
- * @tparam ClassName Имя класса-наследника babylon::Common::Singleton
+ * Макрос необходимо использовать в связке с наследованием от babylon::common::singleton
+ * @tparam self_name Имя класса-наследника babylon::common::singleton
  */
-#define SINGLETON_CLASS(ClassName)                                  \
+#define SINGLETON_CLASS(self_name)                                  \
                                                                     \
 public:                                                             \
-    ClassName(const ClassName& other) = delete;                     \
-    ClassName(ClassName&& other) = delete;                          \
-    ClassName& operator=(const ClassName& other) = delete;          \
-    ClassName& operator=(ClassName&& other) = delete;               \
+    self_name(const self_name& other) = delete;                     \
+    self_name(self_name&& other) = delete;                          \
+    self_name& operator=(const self_name& other) = delete;          \
+    self_name& operator=(self_name&& other) = delete;               \
                                                                     \
 private:                                                            \
-    ClassName() = default;                                          \
-    ~ClassName() = default;                                         \
+    self_name() = default;                                          \
+    ~self_name() = default;                                         \
                                                                     \
-    friend class babylon::Common::Singleton<ClassName>;                  \
-    friend class babylon::Common::SingletonFinalizer<ClassName>;
+    friend class babylon::common::singleton<self_name>;             \
+    friend class babylon::common::singleton_finalizer<self_name>;
 
 #endif // SINGLETON_CLASS

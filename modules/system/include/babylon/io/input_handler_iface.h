@@ -1,6 +1,6 @@
 #pragma once
 
-namespace babylon::IO
+namespace babylon::io
 {
 
 /**
@@ -12,4 +12,4 @@ public:
     virtual ~input_handler_iface() = default;
 };
 
-} // namespace babylon::IO
+} // namespace babylon::io
