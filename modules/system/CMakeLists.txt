@@ -11,6 +11,6 @@ bn_register_unit(BabylonSystem
     PCH include/pch.h
     INCLUDE_DIRS include
     SOURCE_SEARCH_MASKS include/*.h include/*.cpp src/*.h src/*.cpp
-    SOURCE_SEARCH_MASKS_OS_WIN include/Platform/Win/*.h src/Platform/Win/*.cpp
-    SOURCE_SEARCH_MASKS_OS_MAC include/Platform/Mac/*.h src/Platform/Mac/*.mm
+    SOURCE_SEARCH_MASKS_OS_WIN include/babylon/platform/win/*.h src/platform/win/*.cpp
+    SOURCE_SEARCH_MASKS_OS_MAC include/babylon/platform/mac/*.h src/platform/mac/*.mm
 )
