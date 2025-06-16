@@ -4,7 +4,7 @@
 
 #include <Platform/Platform.h>
 
-namespace BN::System
+namespace babylon::System
 {
 
 bool App::Init(AppArguments&& args, IAppConfiguratorPtr&& configurator)
@@ -26,4 +26,4 @@ void App::Run() const
     _controller->Control();
 }
 
-} // namespace BN::System
+} // namespace babylon::System

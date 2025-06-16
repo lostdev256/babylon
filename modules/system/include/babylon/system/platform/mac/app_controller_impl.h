@@ -3,7 +3,7 @@
 #include <System/IAppController.h>
 #include <Platform/Apple/Mac/AppDelegate.h>
 
-namespace BN::System::Platform
+namespace babylon::System::Platform
 {
 
 class app_controller_impl final : public IAppController
@@ -15,4 +15,4 @@ private:
     //AppDelegate* _delegate;
 };
 
-} // namespace BN::System::Platform
+} // namespace babylon::System::Platform

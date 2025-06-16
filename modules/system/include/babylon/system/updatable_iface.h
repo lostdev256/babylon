@@ -1,6 +1,6 @@
 #pragma once
 
-namespace BN::System
+namespace babylon::System
 {
 
 /**
@@ -18,4 +18,4 @@ public:
     virtual void Update(double dt) = 0;
 };
 
-} // namespace BN::System
+} // namespace babylon::System

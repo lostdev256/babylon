@@ -2,7 +2,7 @@
 
 #include <Place/Platform/Mac/PlaceImpl.h>
 
-namespace BN::Place
+namespace babylon::Place
 {
 
     PlacePtr Place::CreateImpl()
@@ -10,9 +10,9 @@ namespace BN::Place
         return std::make_shared<Platform::PlaceImpl>();
     }
 
-} // namespace BN::Place
+} // namespace babylon::Place
 
-namespace BN::Place::Platform
+namespace babylon::Place::Platform
 {
 
-} // namespace BN::Place::Platform
+} // namespace babylon::Place::Platform

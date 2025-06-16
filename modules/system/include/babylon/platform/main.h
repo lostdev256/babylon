@@ -7,7 +7,7 @@
 #define BN_ENTRY_POINT_IMPL(TAppConfigurator)                  \
 int main(int argc, char** argv)                                \
 {                                                              \
-    BN::System::App::Entry<TAppConfigurator>({ argc, argv });  \
+    babylon::System::App::Entry<TAppConfigurator>({ argc, argv });  \
     return 0;                                                  \
 }
 
@@ -16,7 +16,7 @@ int main(int argc, char** argv)                                \
 #define BN_ENTRY_POINT_IMPL(TAppConfigurator)                  \
 int main(int argc, char** argv)                                \
 {                                                              \
-    BN::System::App::Entry<TAppConfigurator>({ argc, argv });  \
+    babylon::System::App::Entry<TAppConfigurator>({ argc, argv });  \
     return 0;                                                  \
 }
 

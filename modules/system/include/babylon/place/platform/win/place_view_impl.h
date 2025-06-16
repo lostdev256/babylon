@@ -2,7 +2,7 @@
 
 #include <Place/PlaceView.h>
 
-namespace BN::Place::Platform
+namespace babylon::Place::Platform
 {
 
 /**
@@ -14,4 +14,4 @@ public:
     bool Create() override;
 };
 
-} // namespace BN::Place::Platform
+} // namespace babylon::Place::Platform

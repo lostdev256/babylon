@@ -5,7 +5,7 @@
 namespace App
 {
 
-class app_configurator final : public BN::System::IAppConfigurator
+class app_configurator final : public babylon::System::IAppConfigurator
 {
 public:
     void Configure() override;

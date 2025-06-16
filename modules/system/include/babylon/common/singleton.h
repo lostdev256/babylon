@@ -1,10 +1,10 @@
 #pragma once
 
-namespace BN::Common
+namespace babylon::Common
 {
 /**
- * Финализатор для BN::Common::Singleton
- * @tparam T Класс-наследник шаблона BN::Common::Singleton
+ * Финализатор для babylon::Common::Singleton
+ * @tparam T Класс-наследник шаблона babylon::Common::Singleton
  */
 template<class T>
 class SingletonFinalizer final
@@ -67,12 +67,12 @@ private:
 template<class T>
 T* singleton<T>::_instance_ = nullptr;
 
-} // namespace BN::Common
+} // namespace babylon::Common
 
 #ifndef SINGLETON_CLASS
 /**
- * Макрос необходимо использовать в связке с наследованием от BN::Common::Singleton
- * @tparam ClassName Имя класса-наследника BN::Common::Singleton
+ * Макрос необходимо использовать в связке с наследованием от babylon::Common::Singleton
+ * @tparam ClassName Имя класса-наследника babylon::Common::Singleton
  */
 #define SINGLETON_CLASS(ClassName)                                  \
                                                                     \
@@ -86,7 +86,7 @@ private:                                                            \
     ClassName() = default;                                          \
     ~ClassName() = default;                                         \
                                                                     \
-    friend class BN::Common::Singleton<ClassName>;                  \
-    friend class BN::Common::SingletonFinalizer<ClassName>;
+    friend class babylon::Common::Singleton<ClassName>;                  \
+    friend class babylon::Common::SingletonFinalizer<ClassName>;
 
 #endif // SINGLETON_CLASS

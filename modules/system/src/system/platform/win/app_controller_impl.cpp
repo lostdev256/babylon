@@ -2,7 +2,7 @@
 
 #include <System/Platform/Win/AppControllerImpl.h>
 
-namespace BN::System
+namespace babylon::System
 {
 
     IAppControllerPtr IAppController::CreateImpl()
@@ -10,13 +10,13 @@ namespace BN::System
         return std::make_shared<Platform::AppControllerImpl>();
     }
 
-} // namespace BN::System
+} // namespace babylon::System
 
-namespace BN::System::Platform
+namespace babylon::System::Platform
 {
 
 void AppControllerImpl::Control()
 {
 }
 
-} // namespace BN::System::Platform
+} // namespace babylon::System::Platform

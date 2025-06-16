@@ -1,6 +1,6 @@
 #pragma once
 
-namespace BN::System
+namespace babylon::System
 {
 
 /**
@@ -12,4 +12,4 @@ public:
     virtual ~system_signal_handler_iface() = default;
 };
 
-} // namespace BN::System
+} // namespace babylon::System

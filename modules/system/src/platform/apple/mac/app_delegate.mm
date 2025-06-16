@@ -111,7 +111,7 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef /*displayLink*/,
 {
     CVDisplayLinkStop(displayLink);
     CVDisplayLinkRelease(displayLink);
-    //BN::System::App::Instance().Teardown();
+    //babylon::System::App::Instance().Teardown();
 }
 /*
 - (void)applicationWillHide:(NSNotification *)notification

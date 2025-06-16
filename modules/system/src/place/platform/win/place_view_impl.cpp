@@ -2,7 +2,7 @@
 
 #include <Place/Platform/Win/PlaceViewImpl.h>
 
-namespace BN::Place
+namespace babylon::Place
 {
 
 PlaceViewPtr PlaceView::CreateImpl()
@@ -10,9 +10,9 @@ PlaceViewPtr PlaceView::CreateImpl()
     return std::make_shared<Platform::PlaceViewImpl>();
 }
 
-} // namespace BN::Place
+} // namespace babylon::Place
 
-namespace BN::Place::Platform
+namespace babylon::Place::Platform
 {
 
 bool PlaceViewImpl::Create()
@@ -20,4 +20,4 @@ bool PlaceViewImpl::Create()
     return true;
 }
 
-} // namespace BN::Place::Platform
+} // namespace babylon::Place::Platform

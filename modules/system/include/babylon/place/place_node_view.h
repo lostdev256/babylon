@@ -1,6 +1,6 @@
 #pragma once
 
-namespace BN::Place
+namespace babylon::Place
 {
 
 /**
@@ -15,4 +15,4 @@ public:
     virtual bool Create() = 0;
 };
 
-} // namespace BN::Place
+} // namespace babylon::Place

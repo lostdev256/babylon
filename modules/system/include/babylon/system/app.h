@@ -5,7 +5,7 @@
 #include <System/IAppConfigurator.h>
 #include <System/IAppController.h>
 
-namespace BN::System
+namespace babylon::System
 {
 
 /**
@@ -18,7 +18,7 @@ class app final : public Common::Singleton<app>
 public:
     /**
      * Точко входа в приложение
-     * @tparam TAppConfigurator Класс реализующий BN::System::IAppConfigurator
+     * @tparam TAppConfigurator Класс реализующий babylon::System::IAppConfigurator
      * @param args Аргументы командной строки
      */
     template<class TAppConfigurator>
@@ -56,4 +56,4 @@ void app::Entry(AppArguments&& args)
     }
 }
 
-} // namespace BN::System
+} // namespace babylon::System

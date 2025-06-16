@@ -2,7 +2,7 @@
 
 #include <Place/PlaceNodeView.h>
 
-namespace BN::Place
+namespace babylon::Place
 {
 
 /**
@@ -17,4 +17,4 @@ public:
     static PlaceViewPtr CreateImpl();
 };
 
-} // namespace BN::Place
+} // namespace babylon::Place

@@ -2,7 +2,7 @@
 
 #include <System/AppArguments.h>
 
-namespace BN::System
+namespace babylon::System
 {
 
 AppArguments::AppArguments(int argc, char** argv)
@@ -20,4 +20,4 @@ void AppArguments::Parse()
     // TODO: Implement
 }
 
-} // namespace BN::System
+} // namespace babylon::System

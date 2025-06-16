@@ -2,7 +2,7 @@
 
 #include <System/Platform/Mac/AppControllerImpl.h>
 
-namespace BN::System
+namespace babylon::System
 {
 
     IAppControllerPtr IAppController::CreateImpl()
@@ -10,9 +10,9 @@ namespace BN::System
         return std::make_shared<Platform::AppControllerImpl>();
     }
 
-} // namespace BN::System
+} // namespace babylon::System
 
-namespace BN::System::Platform
+namespace babylon::System::Platform
 {
 
 void AppControllerImpl::Control()
@@ -27,7 +27,7 @@ void AppControllerImpl::Control()
     /*
     @autoreleasepool
     {
-        auto context = BN::System::App::Instance().GetPlatformContext<Mac::PlatformContext>();
+        auto context = babylon::System::App::Instance().GetPlatformContext<Mac::PlatformContext>();
         [NSApplication sharedApplication];
         //context->app_delegate = [[MacAppDelegate alloc] init];
         //[NSApp setDelegate:context->app_delegate];
@@ -40,4 +40,4 @@ void AppControllerImpl::Control()
     */
 }
 
-} // namespace BN::System::Platform
+} // namespace babylon::System::Platform

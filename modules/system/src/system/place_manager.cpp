@@ -2,6 +2,6 @@
 
 #include <Place/PlaceManager.h>
 
-namespace BN::System
+namespace babylon::System
 {
-} // namespace BN::System
+} // namespace babylon::System

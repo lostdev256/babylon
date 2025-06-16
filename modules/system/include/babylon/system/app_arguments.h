@@ -1,6 +1,6 @@
 #pragma once
 
-namespace BN::System
+namespace babylon::System
 {
 
 /**
@@ -19,4 +19,4 @@ private:
     std::map<std::string, std::string> _arguments;
 };
 
-} // namespace BN::System
+} // namespace babylon::System

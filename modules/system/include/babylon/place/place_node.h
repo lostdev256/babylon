@@ -1,6 +1,6 @@
 #pragma once
 
-namespace BN::Place
+namespace babylon::Place
 {
 
 /**
@@ -12,4 +12,4 @@ public:
     virtual ~place_node() = default;
 };
 
-} // namespace BN::Place
+} // namespace babylon::Place
