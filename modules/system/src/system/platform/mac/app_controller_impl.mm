@@ -1,25 +1,25 @@
 #include <pch.h>
 
-#include <System/Platform/Mac/AppControllerImpl.h>
+#include <babylon/system/platform/mac/app_controller_impl.h>
 
-namespace babylon::System
+namespace babylon::system
 {
 
-    IAppControllerPtr IAppController::CreateImpl()
+    app_controller_iface_ptr app_controller_iface::create_impl()
     {
-        return std::make_shared<Platform::AppControllerImpl>();
+        return std::make_shared<platform::app_controller_impl>();
     }
 
-} // namespace babylon::System
+} // namespace babylon::system
 
-namespace babylon::System::Platform
+namespace babylon::system::platform
 {
 
-void AppControllerImpl::Control()
+void app_controller_impl::control()
 {
     @autoreleasepool {
         NSApplication *app = [NSApplication sharedApplication];
-        _delegate = [[AppDelegate alloc] init];
+        _delegate = [[app_delegate alloc] init];
         [app setDelegate:_delegate];
         [app run];
     }
@@ -27,7 +27,7 @@ void AppControllerImpl::Control()
     /*
     @autoreleasepool
     {
-        auto context = babylon::System::App::Instance().GetPlatformContext<Mac::PlatformContext>();
+        auto context = babylon::system::app::instance().GetPlatformContext<mac::PlatformContext>();
         [NSApplication sharedApplication];
         //context->app_delegate = [[MacAppDelegate alloc] init];
         //[NSApp setDelegate:context->app_delegate];
@@ -40,4 +40,4 @@ void AppControllerImpl::Control()
     */
 }
 
-} // namespace babylon::System::Platform
+} // namespace babylon::system::platform

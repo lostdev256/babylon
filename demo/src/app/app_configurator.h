@@ -1,14 +1,14 @@
 #pragma once
 
-#include <System/IAppConfigurator.h>
+#include <babylon/system/app_configurator_iface.h>
 
 namespace App
 {
 
-class app_configurator final : public babylon::System::IAppConfigurator
+class app_configurator final : public babylon::system::app_configurator_iface
 {
 public:
-    void Configure() override;
+    void configure() override;
 };
 
 } // namespace App

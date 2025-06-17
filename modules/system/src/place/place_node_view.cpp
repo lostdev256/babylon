@@ -1,8 +1,8 @@
 #include <pch.h>
 
-#include <Place/PlaceNodeView.h>
+#include <babylon/place/place_node_view.h>
 
-namespace babylon::Place
+namespace babylon::place
 {
 
-} // namespace babylon::Place
+} // namespace babylon::place

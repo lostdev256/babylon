@@ -1,23 +1,23 @@
 #include <pch.h>
 
-#include <System/AppArguments.h>
+#include <babylon/system/app_arguments.h>
 
-namespace babylon::System
+namespace babylon::system
 {
 
-AppArguments::AppArguments(int argc, char** argv)
+app_arguments::app_arguments(int argc, char** argv)
 {
     for (int i = 0; i < argc; ++i)
     {
         _raw_arguments.emplace_back(argv[i]);
     }
 
-    Parse();
+    parse();
 }
 
-void AppArguments::Parse()
+void app_arguments::parse()
 {
     // TODO: Implement
 }
 
-} // namespace babylon::System
+} // namespace babylon::system

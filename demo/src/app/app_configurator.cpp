@@ -5,9 +5,9 @@
 namespace App
 {
 
-void app_configurator::Configure()
+void app_configurator::configure()
 {
-    std::cout << "AppConfigurator::Configure()" << std::endl;
+    std::cout << "AppConfigurator::configure()" << std::endl;
 }
 
 } // namespace App

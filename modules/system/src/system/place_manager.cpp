@@ -1,7 +1,7 @@
 #include <pch.h>
 
-#include <Place/PlaceManager.h>
+#include <babylon/place/place_manager.h>
 
-namespace babylon::System
+namespace babylon::system
 {
-} // namespace babylon::System
+} // namespace babylon::system

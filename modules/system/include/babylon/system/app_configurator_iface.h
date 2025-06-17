@@ -1,13 +1,13 @@
 #pragma once
 
-namespace babylon::System
+namespace babylon::system
 {
 
 /**
  * Интерфейс конфигуратора приложения. Обязательно реализуется на стороне клиента.
  */
 class app_configurator_iface;
-using IAppConfiguratorPtr = std::unique_ptr<app_configurator_iface>;
+using app_configurator_iface_ptr = std::unique_ptr<app_configurator_iface>;
 
 class app_configurator_iface
 {
@@ -17,7 +17,7 @@ public:
     /**
      * Метод должен реализовать стартовую логику приложения (подключить необходимые для старта модули и виджеты)
      */
-    virtual void Configure() = 0;
+    virtual void configure() = 0;
 };
 
-} // namespace babylon::System
+} // namespace babylon::system

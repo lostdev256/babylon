@@ -1,14 +1,14 @@
 #pragma once
 
-#include <System/IAppController.h>
+#include <babylon/system/app_controller_iface.h>
 
-namespace babylon::System::Platform
+namespace babylon::system::platform
 {
 
-class app_controller_impl final : public IAppController
+class app_controller_impl final : public app_controller_iface
 {
 public:
-    void Control() override;
+    void control() override;
 };
 
-} // namespace babylon::System::Platform
+} // namespace babylon::system::platform

@@ -1,18 +1,18 @@
 #pragma once
 
-#include <System/IAppController.h>
-#include <Platform/Apple/Mac/AppDelegate.h>
+#include <babylon/system/app_controller_iface.h>
+#include <babylon/platform/mac/app_delegate.h>
 
-namespace babylon::System::Platform
+namespace babylon::system::platform
 {
 
-class app_controller_impl final : public IAppController
+class app_controller_impl final : public app_controller_iface
 {
 public:
-    void Control() override;
+    void control() override;
 
 private:
-    //AppDelegate* _delegate;
+    //app_delegate* _delegate;
 };
 
-} // namespace babylon::System::Platform
+} // namespace babylon::system::platform

@@ -1,15 +1,15 @@
 #pragma once
 
-#include <Place/Place.h>
+#include <babylon/place/place.h>
 
-namespace babylon::Place::Platform
+namespace babylon::place::platform
 {
 
 /**
  *
  */
-class place_impl final : public Place
+class place_impl final : public place
 {
 };
 
-} // namespace babylon::Place::Platform
+} // namespace babylon::place::platform

@@ -1,22 +1,22 @@
 #include <pch.h>
 
-#include <System/Platform/Win/AppControllerImpl.h>
+#include <babylon/system/platform/win/app_controller_impl.h>
 
-namespace babylon::System
+namespace babylon::system
 {
 
-    IAppControllerPtr IAppController::CreateImpl()
+    app_controller_iface_ptr app_controller_iface::create_impl()
     {
-        return std::make_shared<Platform::AppControllerImpl>();
+        return std::make_shared<platform::app_controller_impl>();
     }
 
-} // namespace babylon::System
+} // namespace babylon::system
 
-namespace babylon::System::Platform
+namespace babylon::system::platform
 {
 
-void AppControllerImpl::Control()
+void app_controller_impl::control()
 {
 }
 
-} // namespace babylon::System::Platform
+} // namespace babylon::system::platform

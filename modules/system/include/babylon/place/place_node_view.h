@@ -1,6 +1,6 @@
 #pragma once
 
-namespace babylon::Place
+namespace babylon::place
 {
 
 /**
@@ -12,7 +12,7 @@ public:
     place_node_view() = default;
     virtual ~place_node_view() = default;
 
-    virtual bool Create() = 0;
+    virtual bool create() = 0;
 };
 
-} // namespace babylon::Place
+} // namespace babylon::place

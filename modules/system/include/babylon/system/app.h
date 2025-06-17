@@ -1,11 +1,11 @@
 #pragma once
 
-#include <Common/Singleton.h>
-#include <System/AppArguments.h>
-#include <System/IAppConfigurator.h>
-#include <System/IAppController.h>
+#include <babylon/common/singleton.h>
+#include <babylon/system/app_arguments.h>
+#include <babylon/system/app_configurator_iface.h>
+#include <babylon/system/app_controller_iface.h>
 
-namespace babylon::System
+namespace babylon::system
 {
 
 /**
@@ -18,11 +18,11 @@ class app final : public common::singleton<app>
 public:
     /**
      * Точко входа в приложение
-     * @tparam TAppConfigurator Класс реализующий babylon::System::IAppConfigurator
+     * @tparam TConfigurator Класс реализующий babylon::system::app_configurator_iface
      * @param args Аргументы командной строки
      */
-    template<class TAppConfigurator>
-    static void Entry(AppArguments&& args);
+    template<class TConfigurator>
+    static void entry(app_arguments&& args);
 
 private:
     /**
@@ -30,30 +30,30 @@ private:
      * @param args Аргументы командной строки
      * @param configurator Конфигуратор приложения
      */
-    bool Init(AppArguments&& args, IAppConfiguratorPtr&& configurator);
+    bool init(app_arguments&& args, app_configurator_iface_ptr&& configurator);
 
     /**
      * Выполняет запуск основной логики работы приложения
      */
-    void Run() const;
+    void run() const;
 
-    AppArguments _arguments;
-    IAppConfiguratorPtr _configurator;
-    IAppControllerPtr _controller;
+    app_arguments _arguments;
+    app_configurator_iface_ptr _configurator;
+    app_controller_iface_ptr _controller;
 };
 
-template <class TAppConfigurator>
-void app::Entry(AppArguments&& args)
+template <class TConfigurator>
+void app::entry(app_arguments&& args)
 {
-    static_assert(std::is_base_of_v<IAppConfigurator, TAppConfigurator>);
-    auto configurator = std::make_unique<TAppConfigurator>();
+    static_assert(std::is_base_of_v<app_configurator_iface, TConfigurator>);
+    auto configurator = std::make_unique<TConfigurator>();
 
     finalizer guard;
-    auto& app = Instance();
-    if (app.Init(std::move(args), std::move(configurator)))
+    auto& app = instance();
+    if (app.init(std::move(args), std::move(configurator)))
     {
-        app.Run();
+        app.run();
     }
 }
 
-} // namespace babylon::System
+} // namespace babylon::system

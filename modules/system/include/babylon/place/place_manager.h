@@ -1,10 +1,10 @@
 #pragma once
 
-namespace babylon::Place
+namespace babylon::place
 {
 
 class place_manager
 {
 };
 
-} // namespace babylon::Place
+} // namespace babylon::place

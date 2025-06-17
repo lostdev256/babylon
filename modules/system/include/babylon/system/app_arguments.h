@@ -1,6 +1,6 @@
 #pragma once
 
-namespace babylon::System
+namespace babylon::system
 {
 
 /**
@@ -13,10 +13,10 @@ public:
     app_arguments(int argc, char** argv);
 
 private:
-    void Parse();
+    void parse();
 
     std::vector<std::string> _raw_arguments;
     std::map<std::string, std::string> _arguments;
 };
 
-} // namespace babylon::System
+} // namespace babylon::system

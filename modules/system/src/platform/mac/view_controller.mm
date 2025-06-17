@@ -1,8 +1,8 @@
 #import <pch.h>
 
-#import <Platform/Apple/Mac/ViewController.h>
+#import <babylon/platform/mac/view_controller.h>
 
-@implementation ViewController
+@implementation view_controller
 
 -(void)loadView
 {

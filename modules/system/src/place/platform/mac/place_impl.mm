@@ -1,18 +1,18 @@
 #include <pch.h>
 
-#include <Place/Platform/Mac/PlaceImpl.h>
+#include <babylon/place/platform/mac/place_impl.h>
 
-namespace babylon::Place
+namespace babylon::place
 {
 
-    PlacePtr Place::CreateImpl()
+    place_ptr place::create_impl()
     {
-        return std::make_shared<Platform::PlaceImpl>();
+        return std::make_shared<platform::place_impl>();
     }
 
-} // namespace babylon::Place
+} // namespace babylon::place
 
-namespace babylon::Place::Platform
+namespace babylon::place::platform
 {
 
-} // namespace babylon::Place::Platform
+} // namespace babylon::place::platform

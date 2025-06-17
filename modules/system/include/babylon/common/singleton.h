@@ -72,21 +72,21 @@ T* singleton<T>::_instance_ = nullptr;
 #ifndef SINGLETON_CLASS
 /**
  * Макрос необходимо использовать в связке с наследованием от babylon::common::singleton
- * @tparam self_name Имя класса-наследника babylon::common::singleton
+ * @tparam T Имя класса-наследника babylon::common::singleton
  */
-#define SINGLETON_CLASS(self_name)                                  \
-                                                                    \
-public:                                                             \
-    self_name(const self_name& other) = delete;                     \
-    self_name(self_name&& other) = delete;                          \
-    self_name& operator=(const self_name& other) = delete;          \
-    self_name& operator=(self_name&& other) = delete;               \
-                                                                    \
-private:                                                            \
-    self_name() = default;                                          \
-    ~self_name() = default;                                         \
-                                                                    \
-    friend class babylon::common::singleton<self_name>;             \
-    friend class babylon::common::singleton_finalizer<self_name>;
+#define SINGLETON_CLASS(T)                                  \
+                                                            \
+public:                                                     \
+    T(const T& other) = delete;                             \
+    T(T&& other) = delete;                                  \
+    T& operator=(const T& other) = delete;                  \
+    T& operator=(T&& other) = delete;                       \
+                                                            \
+private:                                                    \
+    T() = default;                                          \
+    ~T() = default;                                         \
+                                                            \
+    friend class babylon::common::singleton<T>;             \
+    friend class babylon::common::singleton_finalizer<T>;
 
 #endif // SINGLETON_CLASS

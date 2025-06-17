@@ -1,9 +1,9 @@
 #pragma once
 
-#include <Platform/Main.h>
+#include <babylon/platform/main.h>
 
 /**
  * Точка входа в приложение
- * @tparam TAppConfigurator Класс реализующий babylon::System::IAppConfigurator
+ * @tparam TConfigurator Класс реализующий babylon::system::app_configurator_iface
  */
-#define BN_ENTRY_POINT(TAppConfigurator) BN_ENTRY_POINT_IMPL(TAppConfigurator)
+#define BN_ENTRY_POINT(TConfigurator) BN_ENTRY_POINT_IMPL(TConfigurator)

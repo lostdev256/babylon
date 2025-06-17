@@ -1,17 +1,17 @@
 #pragma once
 
-#include <Place/PlaceView.h>
+#include <babylon/place/place_view.h>
 
-namespace babylon::Place::Platform
+namespace babylon::place::platform
 {
 
 /**
  *
  */
-class place_view_impl final : public PlaceView
+class place_view_impl final : public place_view
 {
 public:
-    bool Create() override;
+    bool create() override;
 };
 
-} // namespace babylon::Place::Platform
+} // namespace babylon::place::platform

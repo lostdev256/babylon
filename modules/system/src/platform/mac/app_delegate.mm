@@ -1,14 +1,14 @@
 #import <pch.h>
 
-#import <Platform/Apple/Mac/AppDelegate.h>
-#import <Platform/Apple/Mac/ViewController.h>
+#import <babylon/platform/mac/app_delegate.h>
+#import <babylon/platform/mac/view_controller.h>
 
-#import <System/App.h>
+#import <babylon/system/app.h>
 
 #import <CoreVideo/CoreVideo.h>
 #import <mach/mach_time.h>
 
-@implementation AppDelegate {
+@implementation app_delegate {
     CVDisplayLinkRef displayLink;
     uint64_t start;
 }
@@ -39,7 +39,7 @@
 
     int mask = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable;
     _window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 700, 450) styleMask:mask backing:NSBackingStoreBuffered defer:NO];
-    _controller = [[ViewController alloc] init];
+    _controller = [[view_controller alloc] init];
 
     [_window.contentView addSubview:_controller.view];
 
@@ -53,7 +53,7 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef /*displayLink*/,
                                     CVOptionFlags /*flagsIn*/,
                                     CVOptionFlags */*flagsOut*/,
                                     void *context) {
-    AppDelegate *self = (__bridge AppDelegate *)context;
+    app_delegate *self = (__bridge app_delegate *)context;
     [self onFrame];
     return kCVReturnSuccess;
 }
@@ -111,7 +111,7 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef /*displayLink*/,
 {
     CVDisplayLinkStop(displayLink);
     CVDisplayLinkRelease(displayLink);
-    //babylon::System::App::Instance().Teardown();
+    //babylon::system::app::instance().Teardown();
 }
 /*
 - (void)applicationWillHide:(NSNotification *)notification

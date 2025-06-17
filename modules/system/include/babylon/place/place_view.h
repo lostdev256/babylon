@@ -1,20 +1,20 @@
 #pragma once
 
-#include <Place/PlaceNodeView.h>
+#include <babylon/place/place_node_view.h>
 
-namespace babylon::Place
+namespace babylon::place
 {
 
 /**
  *
  */
 class place_view;
-using PlaceViewPtr = std::shared_ptr<place_view>;
+using place_view_ptr = std::shared_ptr<place_view>;
 
-class place_view : public PlaceNodeView
+class place_view : public place_node_view
 {
 public:
-    static PlaceViewPtr CreateImpl();
+    static place_view_ptr create_impl();
 };
 
-} // namespace babylon::Place
+} // namespace babylon::place

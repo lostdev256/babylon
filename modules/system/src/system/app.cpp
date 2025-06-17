@@ -1,17 +1,17 @@
 #include <pch.h>
 
-#include <System/App.h>
+#include <babylon/system/app.h>
 
-#include <Platform/Platform.h>
+#include <babylon/platform/platform.h>
 
-namespace babylon::System
+namespace babylon::system
 {
 
-bool App::Init(AppArguments&& args, IAppConfiguratorPtr&& configurator)
+bool app::init(app_arguments&& args, app_configurator_iface_ptr&& configurator)
 {
     _arguments = std::move(args);
     _configurator = std::move(configurator);
-    _controller = IAppController::CreateImpl();
+    _controller = app_controller_iface::create_impl();
 
     if (!_controller)
     {
@@ -21,9 +21,9 @@ bool App::Init(AppArguments&& args, IAppConfiguratorPtr&& configurator)
     return true;
 }
 
-void App::Run() const
+void app::run() const
 {
-    _controller->Control();
+    _controller->control();
 }
 
-} // namespace babylon::System
+} // namespace babylon::system

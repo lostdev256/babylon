@@ -1,20 +1,20 @@
 #pragma once
 
-#include <Place/PlaceNode.h>
+#include <babylon/place/place_node.h>
 
-namespace babylon::Place
+namespace babylon::place
 {
 
 /**
  * Класс базового узла размещения
  */
 class place;
-using PlacePtr = std::shared_ptr<place>;
+using place_ptr = std::shared_ptr<place>;
 
-class place : public PlaceNode
+class place : public place_node
 {
 public:
-    static PlacePtr CreateImpl();
+    static place_ptr create_impl();
 };
 
-} // namespace babylon::Place
+} // namespace babylon::place

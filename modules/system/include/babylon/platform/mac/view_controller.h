@@ -1,6 +1,6 @@
 #import <Cocoa/Cocoa.h>
 
-@interface ViewController : NSViewController
+@interface view_controller : NSViewController
 {
 }
 
