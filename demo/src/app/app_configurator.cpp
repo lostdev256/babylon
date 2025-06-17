@@ -1,5 +1,3 @@
-#include <pch.h>
-
 #include "app_configurator.h"
 
 namespace app

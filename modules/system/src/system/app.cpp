@@ -1,5 +1,3 @@
-#include <pch.h>
-
 #include <babylon/system/app.h>
 
 #include <babylon/platform/platform.h>

@@ -1,5 +1,3 @@
-#include <pch.h>
-
 #include <babylon/system/Babylon.h>
 #include <app/app_configurator.h>
 

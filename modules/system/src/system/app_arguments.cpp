@@ -1,5 +1,3 @@
-#include <pch.h>
-
 #include <babylon/system/app_arguments.h>
 
 namespace babylon::system

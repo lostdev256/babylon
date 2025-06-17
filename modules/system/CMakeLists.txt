@@ -8,7 +8,7 @@ babylon_register_unit(BabylonSystem
     UNIT_TYPE Module
     BUILD_CFG tools/cmake/cfg.cmake
     OUTPUT_DIR lib
-    PCH include/pch.h
+    PCH src/pch.h
     INCLUDE_DIRS include
     SOURCE_SEARCH_MASKS include/*.h include/*.cpp src/*.h src/*.cpp
     SOURCE_SEARCH_MASKS_OS_WIN include/babylon/platform/win/*.h src/platform/win/*.cpp

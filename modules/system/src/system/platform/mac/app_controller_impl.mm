@@ -1,5 +1,3 @@
-#include <pch.h>
-
 #include <babylon/system/platform/mac/app_controller_impl.h>
 
 namespace babylon::system

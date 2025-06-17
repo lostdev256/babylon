@@ -1,5 +1,3 @@
-#include <pch.h>
-
 #include <babylon/place/platform/mac/place_impl.h>
 
 namespace babylon::place
