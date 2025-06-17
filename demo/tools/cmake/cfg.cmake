@@ -3,7 +3,7 @@
 ################################################################################
 cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
-if(NOT BN_ROOT_DIR)
+if(NOT BABYLON_ROOT_DIR)
     message(FATAL_ERROR "Babylon root directory not found")
 endif()
 

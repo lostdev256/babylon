@@ -13,14 +13,14 @@
 #include <chrono>
 //#include <time.h>
 
-#if BN_OS_MAC
+#if BABYLON_OS_MAC
 #if __OBJC__
 
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
 
 #endif
-#elif BN_OS_WIN
+#elif BABYLON_OS_WIN
 
 #include <Windows.h>
 

@@ -2,12 +2,12 @@
 
 #include "app_configurator.h"
 
-namespace App
+namespace app
 {
 
 void app_configurator::configure()
 {
-    std::cout << "AppConfigurator::configure()" << std::endl;
+    std::cout << "app_configurator::configure()" << std::endl;
 }
 
-} // namespace App
+} // namespace app

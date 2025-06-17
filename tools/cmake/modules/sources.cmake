@@ -3,7 +3,7 @@
 ################################################################################
 cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
-if(NOT BN_ROOT_DIR)
+if(NOT BABYLON_ROOT_DIR)
     message(FATAL_ERROR "Babylon root directory not found")
 endif()
 
@@ -26,16 +26,16 @@ function(bn_get_sources FILES)
     unset(RESULT_FILES)
 
     foreach(FOUND_FILE ${FOUND_FILES})
-        if((NOT BN_OS_WIN AND FOUND_FILE IN_LIST FOUND_FILES_OS_WIN) OR
-           (NOT BN_OS_MAC AND FOUND_FILE IN_LIST FOUND_FILES_OS_MAC))
+        if((NOT BABYLON_OS_WIN AND FOUND_FILE IN_LIST FOUND_FILES_OS_WIN) OR
+           (NOT BABYLON_OS_MAC AND FOUND_FILE IN_LIST FOUND_FILES_OS_MAC))
             continue()
         endif()
         list(APPEND RESULT_FILES ${FOUND_FILE})
     endforeach()
 
-    if(BN_OS_WIN)
+    if(BABYLON_OS_WIN)
         list(APPEND RESULT_FILES ${FOUND_FILES_OS_WIN})
-    elseif(BN_OS_MAC)
+    elseif(BABYLON_OS_MAC)
         list(APPEND RESULT_FILES ${FOUND_FILES_OS_MAC})
     endif()
 
