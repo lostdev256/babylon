@@ -8,7 +8,7 @@ if(NOT BABYLON_ROOT_DIR)
 endif()
 
 # Init Babylon unit system
-function(bn_init_unit_system)
+function(babylon_init_unit_system)
     get_cmake_property(CACHE_VARIABLES CACHE_VARIABLES)
     foreach(CACHE_VARIABLE ${CACHE_VARIABLES})
         if(CACHE_VARIABLE MATCHES ".+_BABYLON_UNIT_PROP_.+")
@@ -24,9 +24,9 @@ function(bn_init_unit_system)
 endfunction()
 
 # Get Babylon unit property
-function(bn_get_unit_property UNIT_NAME PROP_NAME PROP_VALUE)
+function(babylon_get_unit_property UNIT_NAME PROP_NAME PROP_VALUE)
     if(NOT UNIT_NAME OR NOT PROP_NAME)
-        bn_log_error("Not enough arguments")
+        babylon_log_error("Not enough arguments")
         unset(${PROP_VALUE} PARENT_SCOPE)
         return()
     endif()
@@ -41,12 +41,12 @@ function(bn_get_unit_property UNIT_NAME PROP_NAME PROP_VALUE)
 endfunction()
 
 # Set Babylon unit property
-function(bn_set_unit_property UNIT_NAME PROP_NAME PROP_VALUE)
+function(babylon_set_unit_property UNIT_NAME PROP_NAME PROP_VALUE)
     set(OPTIONS OVERRIDE)
     cmake_parse_arguments("ARG" "${OPTIONS}" "" "" ${ARGN})
 
     if(NOT UNIT_NAME OR NOT PROP_NAME)
-        bn_log_error("Not enough arguments")
+        babylon_log_error("Not enough arguments")
         return()
     endif()
 
@@ -54,10 +54,10 @@ function(bn_set_unit_property UNIT_NAME PROP_NAME PROP_VALUE)
 
     if(DEFINED ${UNIT_PROP_NAME})
         if(NOT ARG_OVERRIDE)
-            bn_log_warn("The property ${UNIT_PROP_NAME} is already set. A new one will not be set")
+            babylon_log_warn("The property ${UNIT_PROP_NAME} is already set. A new one will not be set")
             return()
         else()
-            bn_log_warn("The property ${UNIT_PROP_NAME} is already set. It will be overwritten")
+            babylon_log_warn("The property ${UNIT_PROP_NAME} is already set. It will be overwritten")
         endif()
     endif()
 
@@ -65,7 +65,7 @@ function(bn_set_unit_property UNIT_NAME PROP_NAME PROP_VALUE)
 endfunction()
 
 # Search Babylon root dir for units and include they
-macro(bn_collect_internal_units)
+macro(babylon_collect_internal_units)
     file(GLOB SUB_DIRS LIST_DIRECTORIES true RELATIVE "${BABYLON_ROOT_DIR}" "modules/*")
     foreach(DIR ${SUB_DIRS})
         if(IS_DIRECTORY "${BABYLON_ROOT_DIR}/${DIR}" AND EXISTS "${BABYLON_ROOT_DIR}/${DIR}/CMakeLists.txt")
@@ -75,24 +75,24 @@ macro(bn_collect_internal_units)
 endmacro()
 
 # Register Babylon unit
-function(bn_register_unit UNIT_NAME)
+function(babylon_register_unit UNIT_NAME)
     set(SINGLE_VALUE_ARGS UNIT_TYPE ROOT_DIR BASE_BUILD_CFG BUILD_CFG BUILD_MODE OUTPUT_DIR OUTPUT_NAME PCH)
     set(MULTI_VALUE_ARGS INCLUDE_DIRS SOURCE_SEARCH_MASKS SOURCE_SEARCH_MASKS_OS_WIN SOURCE_SEARCH_MASKS_OS_MAC DEPEND_UNITS)
     cmake_parse_arguments("ARG" "" "${SINGLE_VALUE_ARGS}" "${MULTI_VALUE_ARGS}" ${ARGN})
 
     if(NOT UNIT_NAME)
-        bn_log_fatal("UNIT_NAME not specified")
+        babylon_log_fatal("UNIT_NAME not specified")
         return()
     endif()
 
     if(UNIT_NAME IN_LIST BABYLON_UNITS_AVAILABLE)
-        bn_log_warn("Babylon unit (${UNIT_NAME}) already registered")
+        babylon_log_warn("Babylon unit (${UNIT_NAME}) already registered")
         return()
     endif()
 
     # Handle parameters
     if(NOT ARG_UNIT_TYPE)
-        bn_log_fatal("Babylon unit (${UNIT_NAME}): UNIT_TYPE not specified")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}): UNIT_TYPE not specified")
         return()
     endif()
     set(UNIT_TYPE ${ARG_UNIT_TYPE})
@@ -123,7 +123,7 @@ function(bn_register_unit UNIT_NAME)
 
     if(NOT ARG_OUTPUT_DIR)
         set(OUTPUT_DIR "${ROOT_DIR}")
-        bn_log_warn("Babylon unit (${UNIT_NAME}): uses default output dir (${OUTPUT_DIR})")
+        babylon_log_warn("Babylon unit (${UNIT_NAME}): uses default output dir (${OUTPUT_DIR})")
     else()
         set(OUTPUT_DIR "${ROOT_DIR}/${ARG_OUTPUT_DIR}")
     endif()
@@ -178,7 +178,7 @@ function(bn_register_unit UNIT_NAME)
             set(BABYLON_MODULE_UNITS "${BABYLON_MODULE_UNITS};${UNIT_NAME}" CACHE INTERNAL "" FORCE)
         endif()
     else()
-        bn_log_fatal("Babylon unit (${UNIT_NAME}): unknown UNIT_TYPE (${UNIT_TYPE})")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}): unknown UNIT_TYPE (${UNIT_TYPE})")
         return()
     endif()
 
@@ -188,25 +188,25 @@ function(bn_register_unit UNIT_NAME)
         set(BABYLON_UNITS_AVAILABLE "${BABYLON_UNITS_AVAILABLE};${UNIT_NAME}" CACHE INTERNAL "" FORCE)
     endif()
 
-    bn_set_unit_property(${UNIT_NAME} UNIT_TYPE "${UNIT_TYPE}")
-    bn_set_unit_property(${UNIT_NAME} ROOT_DIR "${ROOT_DIR}")
-    bn_set_unit_property(${UNIT_NAME} BASE_BUILD_CFG "${BASE_BUILD_CFG}")
-    bn_set_unit_property(${UNIT_NAME} BUILD_CFG "${BUILD_CFG}")
-    bn_set_unit_property(${UNIT_NAME} BUILD_MODE "${BUILD_MODE}")
-    bn_set_unit_property(${UNIT_NAME} OUTPUT_DIR "${OUTPUT_DIR}")
-    bn_set_unit_property(${UNIT_NAME} OUTPUT_NAME "${OUTPUT_NAME}")
-    bn_set_unit_property(${UNIT_NAME} PCH "${PCH}")
-    bn_set_unit_property(${UNIT_NAME} INCLUDE_DIRS "${INCLUDE_DIRS}")
-    bn_set_unit_property(${UNIT_NAME} SOURCE_SEARCH_MASKS "${SOURCE_SEARCH_MASKS}")
-    bn_set_unit_property(${UNIT_NAME} SOURCE_SEARCH_MASKS_OS_WIN "${SOURCE_SEARCH_MASKS_OS_WIN}")
-    bn_set_unit_property(${UNIT_NAME} SOURCE_SEARCH_MASKS_OS_MAC "${SOURCE_SEARCH_MASKS_OS_MAC}")
-    bn_set_unit_property(${UNIT_NAME} DEPEND_UNITS "${DEPEND_UNITS}")
+    babylon_set_unit_property(${UNIT_NAME} UNIT_TYPE "${UNIT_TYPE}")
+    babylon_set_unit_property(${UNIT_NAME} ROOT_DIR "${ROOT_DIR}")
+    babylon_set_unit_property(${UNIT_NAME} BASE_BUILD_CFG "${BASE_BUILD_CFG}")
+    babylon_set_unit_property(${UNIT_NAME} BUILD_CFG "${BUILD_CFG}")
+    babylon_set_unit_property(${UNIT_NAME} BUILD_MODE "${BUILD_MODE}")
+    babylon_set_unit_property(${UNIT_NAME} OUTPUT_DIR "${OUTPUT_DIR}")
+    babylon_set_unit_property(${UNIT_NAME} OUTPUT_NAME "${OUTPUT_NAME}")
+    babylon_set_unit_property(${UNIT_NAME} PCH "${PCH}")
+    babylon_set_unit_property(${UNIT_NAME} INCLUDE_DIRS "${INCLUDE_DIRS}")
+    babylon_set_unit_property(${UNIT_NAME} SOURCE_SEARCH_MASKS "${SOURCE_SEARCH_MASKS}")
+    babylon_set_unit_property(${UNIT_NAME} SOURCE_SEARCH_MASKS_OS_WIN "${SOURCE_SEARCH_MASKS_OS_WIN}")
+    babylon_set_unit_property(${UNIT_NAME} SOURCE_SEARCH_MASKS_OS_MAC "${SOURCE_SEARCH_MASKS_OS_MAC}")
+    babylon_set_unit_property(${UNIT_NAME} DEPEND_UNITS "${DEPEND_UNITS}")
 
-    bn_log_info("Babylon unit (${UNIT_NAME}) registered")
+    babylon_log_info("Babylon unit (${UNIT_NAME}) registered")
 endfunction()
 
 # Enable Babylon modules
-function(bn_enable_units)
+function(babylon_enable_units)
     set(OPTIONS ALL)
     cmake_parse_arguments("ARG" "${OPTIONS}" "" "" ${ARGN})
 
@@ -217,19 +217,19 @@ function(bn_enable_units)
     endif()
 
     foreach(UNIT ${UNITS})
-        bn_enable_unit(${UNIT})
+        babylon_enable_unit(${UNIT})
     endforeach()
 endfunction()
 
 # Enable Babylon unit
-function(bn_enable_unit UNIT_NAME)
+function(babylon_enable_unit UNIT_NAME)
     if(NOT UNIT_NAME)
-        bn_log_error("Not enough arguments")
+        babylon_log_error("Not enough arguments")
         return()
     endif()
 
     if(NOT UNIT_NAME IN_LIST BABYLON_UNITS_AVAILABLE)
-        bn_log_error("Babylon unit (${UNIT_NAME}) doesn't registered")
+        babylon_log_error("Babylon unit (${UNIT_NAME}) doesn't registered")
         return()
     endif()
 
@@ -244,56 +244,56 @@ function(bn_enable_unit UNIT_NAME)
     endif()
 
     # Enable depend units
-    bn_get_unit_property(${UNIT_NAME} DEPEND_UNITS DEPEND_UNITS)
-    bn_enable_units(${DEPEND_UNITS})
+    babylon_get_unit_property(${UNIT_NAME} DEPEND_UNITS DEPEND_UNITS)
+    babylon_enable_units(${DEPEND_UNITS})
 
     # Enable current unit
     if(TARGET ${UNIT_NAME})
-        bn_log_error("Babylon unit ${UNIT_NAME} already exists")
+        babylon_log_error("Babylon unit ${UNIT_NAME} already exists")
         return()
     endif()
 
     project(${UNIT_NAME})
 
-    bn_unit_configure_sources(${UNIT_NAME})
-    bn_unit_configure_output(${UNIT_NAME})
-    bn_unit_configure_dependencies(${UNIT_NAME})
-    bn_unit_configure_build(${UNIT_NAME})
+    babylon_unit_configure_sources(${UNIT_NAME})
+    babylon_unit_configure_output(${UNIT_NAME})
+    babylon_unit_configure_dependencies(${UNIT_NAME})
+    babylon_unit_configure_build(${UNIT_NAME})
 
-    bn_log_info("Babylon unit (${UNIT_NAME}) enabled")
+    babylon_log_info("Babylon unit (${UNIT_NAME}) enabled")
 endfunction()
 
 # Configure Babylon unit sources
-function(bn_unit_configure_sources UNIT_NAME)
+function(babylon_unit_configure_sources UNIT_NAME)
     if(NOT UNIT_NAME)
-        bn_log_fatal("UNIT_NAME not specified")
+        babylon_log_fatal("UNIT_NAME not specified")
         return()
     endif()
 
     # Properties
-    bn_get_unit_property(${UNIT_NAME} UNIT_TYPE UNIT_TYPE)
+    babylon_get_unit_property(${UNIT_NAME} UNIT_TYPE UNIT_TYPE)
     if(NOT UNIT_TYPE)
-        bn_log_fatal("Babylon unit (${UNIT_NAME}): UNIT_TYPE not specified")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}): UNIT_TYPE not specified")
         return()
     endif()
 
-    bn_get_unit_property(${UNIT_NAME} ROOT_DIR ROOT_DIR)
+    babylon_get_unit_property(${UNIT_NAME} ROOT_DIR ROOT_DIR)
     if(NOT ROOT_DIR)
-        bn_log_fatal("Babylon unit (${UNIT_NAME}): ROOT_DIR not specified")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}): ROOT_DIR not specified")
         return()
     endif()
 
-    bn_get_unit_property(${UNIT_NAME} BUILD_MODE BUILD_MODE)
+    babylon_get_unit_property(${UNIT_NAME} BUILD_MODE BUILD_MODE)
     if(NOT BUILD_MODE)
         set(BUILD_MODE ${BABYLON_MODULES_BUILD_MODE})
     endif()
 
-    bn_get_unit_property(${UNIT_NAME} SOURCE_SEARCH_MASKS SOURCE_SEARCH_MASKS)
-    bn_get_unit_property(${UNIT_NAME} SOURCE_SEARCH_MASKS_OS_WIN SOURCE_SEARCH_MASKS_OS_WIN)
-    bn_get_unit_property(${UNIT_NAME} SOURCE_SEARCH_MASKS_OS_MAC SOURCE_SEARCH_MASKS_OS_MAC)
+    babylon_get_unit_property(${UNIT_NAME} SOURCE_SEARCH_MASKS SOURCE_SEARCH_MASKS)
+    babylon_get_unit_property(${UNIT_NAME} SOURCE_SEARCH_MASKS_OS_WIN SOURCE_SEARCH_MASKS_OS_WIN)
+    babylon_get_unit_property(${UNIT_NAME} SOURCE_SEARCH_MASKS_OS_MAC SOURCE_SEARCH_MASKS_OS_MAC)
 
     # Find and filter source files
-    bn_get_sources(SRC_FILES
+    babylon_get_sources(SRC_FILES
         SEARCH_MASKS ${SOURCE_SEARCH_MASKS}
         SEARCH_MASKS_OS_WIN ${SOURCE_SEARCH_MASKS_OS_WIN}
         SEARCH_MASKS_OS_MAC ${SOURCE_SEARCH_MASKS_OS_MAC}
@@ -311,22 +311,22 @@ function(bn_unit_configure_sources UNIT_NAME)
 endfunction()
 
 # Configure Babylon unit output
-function(bn_unit_configure_output UNIT_NAME)
+function(babylon_unit_configure_output UNIT_NAME)
     if(NOT TARGET ${UNIT_NAME})
-        bn_log_fatal("Babylon unit (${UNIT_NAME}) doesn't exists")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}) doesn't exists")
         return()
     endif()
 
     # Properties
-    bn_get_unit_property(${UNIT_NAME} OUTPUT_DIR OUTPUT_DIR)
+    babylon_get_unit_property(${UNIT_NAME} OUTPUT_DIR OUTPUT_DIR)
     if(NOT OUTPUT_DIR)
-        bn_log_fatal("Babylon unit (${UNIT_NAME}): OUTPUT_DIR not specified")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}): OUTPUT_DIR not specified")
         return()
     endif()
 
-    bn_get_unit_property(${UNIT_NAME} OUTPUT_NAME OUTPUT_NAME)
+    babylon_get_unit_property(${UNIT_NAME} OUTPUT_NAME OUTPUT_NAME)
     if(NOT OUTPUT_NAME)
-        bn_log_fatal("Babylon unit (${UNIT_NAME}): OUTPUT_NAME not specified")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}): OUTPUT_NAME not specified")
         return()
     endif()
 
@@ -343,26 +343,26 @@ function(bn_unit_configure_output UNIT_NAME)
 endfunction()
 
 # Configure Babylon unit dependencies
-function(bn_unit_configure_dependencies UNIT_NAME)
+function(babylon_unit_configure_dependencies UNIT_NAME)
     if(NOT TARGET ${UNIT_NAME})
-        bn_log_fatal("Babylon unit (${UNIT_NAME}) doesn't exists")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}) doesn't exists")
         return()
     endif()
 
     # Properties
-    bn_get_unit_property(${UNIT_NAME} UNIT_TYPE UNIT_TYPE)
+    babylon_get_unit_property(${UNIT_NAME} UNIT_TYPE UNIT_TYPE)
     if(NOT UNIT_TYPE)
-        bn_log_fatal("Babylon unit (${UNIT_NAME}): UNIT_TYPE not specified")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}): UNIT_TYPE not specified")
         return()
     endif()
 
-    bn_get_unit_property(${UNIT_NAME} OUTPUT_DIR OUTPUT_DIR)
+    babylon_get_unit_property(${UNIT_NAME} OUTPUT_DIR OUTPUT_DIR)
     if(NOT OUTPUT_DIR)
-        bn_log_fatal("Babylon unit (${UNIT_NAME}): OUTPUT_DIR not specified")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}): OUTPUT_DIR not specified")
         return()
     endif()
 
-    bn_get_unit_property(${UNIT_NAME} INCLUDE_DIRS INCLUDE_DIRS)
+    babylon_get_unit_property(${UNIT_NAME} INCLUDE_DIRS INCLUDE_DIRS)
 
     # Configure
     target_include_directories(${UNIT_NAME} PUBLIC ${INCLUDE_DIRS})
@@ -371,67 +371,67 @@ function(bn_unit_configure_dependencies UNIT_NAME)
         target_link_directories(${UNIT_NAME} INTERFACE ${OUTPUT_DIR})
     endif()
 
-    bn_unit_link_depend_units(${UNIT_NAME})
+    babylon_unit_link_depend_units(${UNIT_NAME})
 endfunction()
 
 # Link depend Babylon units
-function(bn_unit_link_depend_units UNIT_NAME)
+function(babylon_unit_link_depend_units UNIT_NAME)
     if(NOT TARGET ${UNIT_NAME})
-        bn_log_fatal("Babylon unit (${UNIT_NAME}) doesn't exists")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}) doesn't exists")
         return()
     endif()
 
     # Properties
-    bn_get_unit_property(${UNIT_NAME} DEPEND_UNITS DEPEND_UNITS)
+    babylon_get_unit_property(${UNIT_NAME} DEPEND_UNITS DEPEND_UNITS)
 
     # Configure
     foreach(DEPEND_UNIT ${DEPEND_UNITS})
-        bn_unit_link_depend_unit(${UNIT_NAME} ${DEPEND_UNIT})
+        babylon_unit_link_depend_unit(${UNIT_NAME} ${DEPEND_UNIT})
     endforeach()
 endfunction()
 
 # Link depend Babylon module
-function(bn_unit_link_depend_unit UNIT_NAME DEPEND_UNIT)
+function(babylon_unit_link_depend_unit UNIT_NAME DEPEND_UNIT)
     if(NOT TARGET ${UNIT_NAME})
-        bn_log_fatal("Babylon unit (${UNIT_NAME}) doesn't exists")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}) doesn't exists")
         return()
     endif()
 
     if(NOT UNIT_NAME IN_LIST BABYLON_UNITS_AVAILABLE)
-        bn_log_error("Babylon unit (${UNIT_NAME}) doesn't registered")
+        babylon_log_error("Babylon unit (${UNIT_NAME}) doesn't registered")
         return()
     endif()
 
     if(NOT UNIT_NAME IN_LIST BABYLON_UNITS_ENABLED)
-        bn_log_error("Babylon unit (${UNIT_NAME}) doesn't enabled")
+        babylon_log_error("Babylon unit (${UNIT_NAME}) doesn't enabled")
         return()
     endif()
 
     if(NOT DEPEND_UNIT)
-        bn_log_error("Babylon unit (${UNIT_NAME}): depend unit not specified")
+        babylon_log_error("Babylon unit (${UNIT_NAME}): depend unit not specified")
         return()
     endif()
 
     if(NOT DEPEND_UNIT IN_LIST BABYLON_UNITS_AVAILABLE)
-        bn_log_error("Babylon unit (${UNIT_NAME}): depend unit (${DEPEND_UNIT}) doesn't registered")
+        babylon_log_error("Babylon unit (${UNIT_NAME}): depend unit (${DEPEND_UNIT}) doesn't registered")
         return()
     endif()
 
     if(NOT DEPEND_UNIT IN_LIST BABYLON_UNITS_ENABLED)
-        bn_log_error("Babylon unit (${UNIT_NAME}): depend unit (${DEPEND_UNIT}) doesn't enabled")
+        babylon_log_error("Babylon unit (${UNIT_NAME}): depend unit (${DEPEND_UNIT}) doesn't enabled")
         return()
     endif()
 
     # Properties
-    bn_get_unit_property(${DEPEND_UNIT} UNIT_TYPE DEPEND_UNIT_TYPE)
+    babylon_get_unit_property(${DEPEND_UNIT} UNIT_TYPE DEPEND_UNIT_TYPE)
     if(NOT DEPEND_UNIT_TYPE)
-        bn_log_fatal("Babylon unit (${DEPEND_UNIT}): UNIT_TYPE not specified")
+        babylon_log_fatal("Babylon unit (${DEPEND_UNIT}): UNIT_TYPE not specified")
         return()
     endif()
 
-    bn_get_unit_property(${DEPEND_UNIT} OUTPUT_NAME DEPEND_OUTPUT_NAME)
+    babylon_get_unit_property(${DEPEND_UNIT} OUTPUT_NAME DEPEND_OUTPUT_NAME)
     if(NOT DEPEND_OUTPUT_NAME)
-        bn_log_fatal("Babylon unit (${DEPEND_UNIT}): OUTPUT_NAME not specified")
+        babylon_log_fatal("Babylon unit (${DEPEND_UNIT}): OUTPUT_NAME not specified")
         return()
     endif()
 
@@ -444,38 +444,38 @@ function(bn_unit_link_depend_unit UNIT_NAME DEPEND_UNIT)
 endfunction()
 
 # Configure Babylon unit build
-function(bn_unit_configure_build UNIT_NAME)
+function(babylon_unit_configure_build UNIT_NAME)
     if(NOT TARGET ${UNIT_NAME})
-        bn_log_fatal("Babylon unit (${UNIT_NAME}) doesn't exists")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}) doesn't exists")
         return()
     endif()
 
     # Helper
     macro(reset_external_configure_function)
-        function(bn_unit_external_configure_build UNIT_NAME)
-            bn_log_error("Babylon unit (${UNIT_NAME}): function (bn_unit_external_configure_build) doesn't exists")
+        function(babylon_unit_external_configure_build UNIT_NAME)
+            babylon_log_error("Babylon unit (${UNIT_NAME}): function (babylon_unit_external_configure_build) doesn't exists")
         endfunction()
     endmacro()
 
     # Properties
-    bn_get_unit_property(${UNIT_NAME} BASE_BUILD_CFG BASE_BUILD_CFG)
-    bn_get_unit_property(${UNIT_NAME} BUILD_CFG BUILD_CFG)
+    babylon_get_unit_property(${UNIT_NAME} BASE_BUILD_CFG BASE_BUILD_CFG)
+    babylon_get_unit_property(${UNIT_NAME} BUILD_CFG BUILD_CFG)
 
     # Base configure
     if(NOT BASE_BUILD_CFG)
-        bn_log_fatal("Babylon unit (${UNIT_NAME}): BASE_BUILD_CFG not specified")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}): BASE_BUILD_CFG not specified")
         return()
     endif()
 
     if(NOT EXISTS "${BASE_BUILD_CFG}")
-        bn_log_fatal("Babylon unit (${UNIT_NAME}): BASE_BUILD_CFG (${BASE_BUILD_CFG}) doesn't exists")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}): BASE_BUILD_CFG (${BASE_BUILD_CFG}) doesn't exists")
         return()
     endif()
 
     reset_external_configure_function()
 
     include("${BASE_BUILD_CFG}")
-    bn_unit_external_configure_build(${UNIT_NAME})
+    babylon_unit_external_configure_build(${UNIT_NAME})
 
     reset_external_configure_function()
 
@@ -485,12 +485,12 @@ function(bn_unit_configure_build UNIT_NAME)
     endif()
 
     if(NOT EXISTS "${BUILD_CFG}")
-        bn_log_fatal("Babylon unit (${UNIT_NAME}): BUILD_CFG (${BUILD_CFG}) doesn't exists")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}): BUILD_CFG (${BUILD_CFG}) doesn't exists")
         return()
     endif()
 
     include("${BUILD_CFG}")
-    bn_unit_external_configure_build(${UNIT_NAME})
+    babylon_unit_external_configure_build(${UNIT_NAME})
 
     reset_external_configure_function()
 endfunction()

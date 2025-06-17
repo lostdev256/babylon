@@ -8,26 +8,26 @@ if(NOT BABYLON_ROOT_DIR)
 endif()
 
 # Info
-macro(bn_log_info MSG)
+macro(babylon_log_info MSG)
     message(STATUS "${MSG}")
 endmacro()
 
 # Warning
-macro(bn_log_warn MSG)
+macro(babylon_log_warn MSG)
     message(WARNING "${MSG}")
 endmacro()
 
 # Error
-macro(bn_log_error MSG)
+macro(babylon_log_error MSG)
     message(SEND_ERROR "${MSG}")
 endmacro()
 
 # Fatal error
-macro(bn_log_fatal MSG)
+macro(babylon_log_fatal MSG)
     message(FATAL_ERROR "${MSG}")
 endmacro()
 
 # Debug
-macro(bn_log_debug MSG)
+macro(babylon_log_debug MSG)
     message(AUTHOR_WARNING "${MSG}")
 endmacro()

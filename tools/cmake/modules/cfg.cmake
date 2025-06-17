@@ -8,32 +8,32 @@ if(NOT BABYLON_ROOT_DIR)
 endif()
 
 # Default base build configuration. Override this if needed in your BASE_BUILD_CFG cfg.cmake file
-function(bn_unit_external_configure_build UNIT_NAME)
+function(babylon_unit_external_configure_build UNIT_NAME)
     if(NOT TARGET ${UNIT_NAME})
-        bn_log_fatal("Babylon unit (${UNIT_NAME}) doesn't exists")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}) doesn't exists")
         return()
     endif()
 
     # Properties
-    bn_get_unit_property(${UNIT_NAME} UNIT_TYPE UNIT_TYPE)
+    babylon_get_unit_property(${UNIT_NAME} UNIT_TYPE UNIT_TYPE)
     if(NOT UNIT_TYPE)
-        bn_log_fatal("Babylon unit (${UNIT_NAME}): UNIT_TYPE not specified")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}): UNIT_TYPE not specified")
         return()
     endif()
 
-    bn_get_unit_property(${UNIT_NAME} ROOT_DIR ROOT_DIR)
+    babylon_get_unit_property(${UNIT_NAME} ROOT_DIR ROOT_DIR)
     if(NOT ROOT_DIR)
-        bn_log_fatal("Babylon unit (${UNIT_NAME}): ROOT_DIR not specified")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}): ROOT_DIR not specified")
         return()
     endif()
 
-    bn_get_unit_property(${UNIT_NAME} OUTPUT_NAME OUTPUT_NAME)
+    babylon_get_unit_property(${UNIT_NAME} OUTPUT_NAME OUTPUT_NAME)
     if(NOT OUTPUT_NAME)
-        bn_log_fatal("Babylon unit (${UNIT_NAME}): OUTPUT_NAME not specified")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}): OUTPUT_NAME not specified")
         return()
     endif()
 
-    bn_get_unit_property(${UNIT_NAME} PCH PCH)
+    babylon_get_unit_property(${UNIT_NAME} PCH PCH)
 
     set(IS_APP_UNIT FALSE)
     if(UNIT_TYPE STREQUAL "App")

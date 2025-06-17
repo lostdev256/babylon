@@ -8,12 +8,12 @@ if(NOT BABYLON_ROOT_DIR)
 endif()
 
 # Search for sources by masks
-function(bn_get_sources FILES)
+function(babylon_get_sources FILES)
     set(MULTI_VALUE_ARGS SEARCH_MASKS SEARCH_MASKS_OS_WIN SEARCH_MASKS_OS_MAC)
     cmake_parse_arguments("ARG" "" "" "${MULTI_VALUE_ARGS}" ${ARGN})
 
     if(NOT ARG_SEARCH_MASKS)
-        bn_log_error("Not enough arguments")
+        babylon_log_error("Not enough arguments")
         unset(${FILES} PARENT_SCOPE)
         return()
     endif()

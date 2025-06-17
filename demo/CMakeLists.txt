@@ -4,7 +4,7 @@
 cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
 
 # App
-bn_register_unit(BabylonDemoProject
+babylon_register_unit(BabylonDemoProject
     UNIT_TYPE App
     BUILD_CFG tools/cmake/cfg.cmake
     OUTPUT_DIR bin
@@ -14,4 +14,4 @@ bn_register_unit(BabylonDemoProject
     DEPEND_UNITS BabylonSystem BabylonUI
 )
 
-bn_enable_unit(BabylonDemoProject)
+babylon_enable_unit(BabylonDemoProject)

@@ -26,7 +26,7 @@
             "name": "win_vs_msvc",
             "hidden": false,
             "inherits": [
-                "bn_win_vs_msvc",
+                "babylon_win_vs_msvc",
                 "project"
             ]
         },
@@ -34,7 +34,7 @@
             "name": "win_vs_clang",
             "hidden": false,
             "inherits": [
-                "bn_win_vs_clang",
+                "babylon_win_vs_clang",
                 "project"
             ]
         },
@@ -42,7 +42,7 @@
             "name": "win_ninja_clang_debug",
             "hidden": false,
             "inherits": [
-                "bn_win_ninja_clang_debug",
+                "babylon_win_ninja_clang_debug",
                 "project"
             ]
         },
@@ -50,7 +50,7 @@
             "name": "win_ninja_clang_release",
             "hidden": false,
             "inherits": [
-                "bn_win_ninja_clang_release",
+                "babylon_win_ninja_clang_release",
                 "project"
             ]
         },
@@ -58,7 +58,7 @@
             "name": "win_ninja_clang_profile",
             "hidden": false,
             "inherits": [
-                "bn_win_ninja_clang_profile",
+                "babylon_win_ninja_clang_profile",
                 "project"
             ]
         },
@@ -66,14 +66,14 @@
             "name": "mac_xcode",
             "hidden": false,
             "inherits": [
-                "bn_mac_xcode"
+                "babylon_mac_xcode"
             ]
         },
         {
             "name": "mac_ninja_debug",
             "hidden": false,
             "inherits": [
-                "bn_mac_ninja_debug",
+                "babylon_mac_ninja_debug",
                 "project"
             ]
         },
@@ -81,7 +81,7 @@
             "name": "mac_ninja_release",
             "hidden": false,
             "inherits": [
-                "bn_mac_ninja_release",
+                "babylon_mac_ninja_release",
                 "project"
             ]
         },
@@ -89,7 +89,7 @@
             "name": "mac_ninja_profile",
             "hidden": false,
             "inherits": [
-                "bn_mac_ninja_profile",
+                "babylon_mac_ninja_profile",
                 "project"
             ]
         }

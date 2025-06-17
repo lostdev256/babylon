@@ -8,9 +8,9 @@ if(NOT BABYLON_ROOT_DIR)
 endif()
 
 # Additional build configuration
-function(bn_unit_external_configure_build UNIT_NAME)
+function(babylon_unit_external_configure_build UNIT_NAME)
     if(NOT TARGET ${UNIT_NAME})
-        bn_log_fatal("Babylon unit (${UNIT_NAME}) doesn't exists")
+        babylon_log_fatal("Babylon unit (${UNIT_NAME}) doesn't exists")
         return()
     endif()
 

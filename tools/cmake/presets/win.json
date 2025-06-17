@@ -10,10 +10,10 @@
     ],
     "configurePresets": [
         {
-            "name": "bn_win",
+            "name": "babylon_win",
             "hidden": true,
             "inherits": [
-                "bn_common"
+                "babylon_common"
             ],
             "architecture": {
                 "value": "x64",
@@ -21,18 +21,18 @@
             }
         },
         {
-            "name": "bn_win_vs",
+            "name": "babylon_win_vs",
             "hidden": true,
             "generator": "Visual Studio 17 2022",
             "inherits": [
-                "bn_win"
+                "babylon_win"
             ]
         },
         {
-            "name": "bn_win_vs_msvc",
+            "name": "babylon_win_vs_msvc",
             "hidden": true,
             "inherits": [
-                "bn_win_vs"
+                "babylon_win_vs"
             ],
             "toolset": {
                 "value": "v143",
@@ -40,10 +40,10 @@
             }
         },
         {
-            "name": "bn_win_vs_clang",
+            "name": "babylon_win_vs_clang",
             "hidden": true,
             "inherits": [
-                "bn_win_vs"
+                "babylon_win_vs"
             ],
             "toolset": {
                 "value": "ClangCL",
@@ -54,11 +54,11 @@
             }
         },
         {
-            "name": "bn_win_ninja_clang",
+            "name": "babylon_win_ninja_clang",
             "hidden": true,
             "generator": "Ninja",
             "inherits": [
-                "bn_win"
+                "babylon_win"
             ],
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "clang",
@@ -66,27 +66,27 @@
             }
         },
         {
-            "name": "bn_win_ninja_clang_debug",
+            "name": "babylon_win_ninja_clang_debug",
             "hidden": true,
             "inherits": [
-                "bn_win_ninja_clang",
-                "bn_debug"
+                "babylon_win_ninja_clang",
+                "babylon_debug"
             ]
         },
         {
-            "name": "bn_win_ninja_clang_release",
+            "name": "babylon_win_ninja_clang_release",
             "hidden": true,
             "inherits": [
-                "bn_win_ninja_clang",
-                "bn_release"
+                "babylon_win_ninja_clang",
+                "babylon_release"
             ]
         },
         {
-            "name": "bn_win_ninja_clang_profile",
+            "name": "babylon_win_ninja_clang_profile",
             "hidden": true,
             "inherits": [
-                "bn_win_ninja_clang",
-                "bn_profile"
+                "babylon_win_ninja_clang",
+                "babylon_profile"
             ]
         }
     ]

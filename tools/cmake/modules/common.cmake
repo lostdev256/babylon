@@ -48,7 +48,7 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 elseif(MSVC)
     set(BABYLON_CL_FLAGS_STYLE_MSVC TRUE CACHE INTERNAL "" FORCE)
 else ()
-    bn_log_fatal("Unsupported compiler (${CMAKE_CXX_COMPILER_ID})")
+    babylon_log_fatal("Unsupported compiler (${CMAKE_CXX_COMPILER_ID})")
 endif()
 
 set(BABYLON_CL_WARNING_AS_ERROR TRUE CACHE STRING "")
