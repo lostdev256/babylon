@@ -3,10 +3,10 @@
 namespace babylon::place
 {
 
-    place_ptr place::create_impl()
-    {
-        return std::make_shared<platform::place_impl>();
-    }
+place_ptr place::create_impl()
+{
+    return std::make_shared<platform::place_impl>();
+}
 
 } // namespace babylon::place
 

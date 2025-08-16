@@ -2,12 +2,12 @@
 
 @implementation view_controller
 
--(void)loadView
+- (void)loadView
 {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 700, 450)];
 }
 
--(void)viewDidLoad
+- (void)viewDidLoad
 {
     [super viewDidLoad];
 

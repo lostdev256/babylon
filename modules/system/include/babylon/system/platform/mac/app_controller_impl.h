@@ -1,7 +1,7 @@
 #pragma once
 
-#include <babylon/system/app_controller_iface.h>
 #include <babylon/platform/mac/app_delegate.h>
+#include <babylon/system/app_controller_iface.h>
 
 namespace babylon::system::platform
 {
@@ -12,7 +12,7 @@ public:
     void control() override;
 
 private:
-    //app_delegate* _delegate;
+    // app_delegate* _delegate;
 };
 
 } // namespace babylon::system::platform

@@ -4,6 +4,6 @@
 {
 }
 
-@property (nonatomic, assign) NSButton *button;
+@property(nonatomic, assign) NSButton* button;
 
 @end

@@ -9,7 +9,6 @@ app_arguments::app_arguments(int argc, char** argv)
     {
         _raw_arguments.emplace_back(argv[i]);
     }
-
     parse();
 }
 

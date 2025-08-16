@@ -6,7 +6,7 @@ namespace babylon::common
  * Финализатор для babylon::common::singleton
  * @tparam T Класс-наследник шаблона babylon::common::singleton
  */
-template<class T>
+template <class T>
 class singleton_finalizer final
 {
 public:
@@ -30,7 +30,7 @@ public:
  * Шаблон синглтона
  * @tparam T Класс-наследник данного шаблона
  */
-template<class T>
+template <class T>
 class singleton
 {
 public:
@@ -64,7 +64,7 @@ private:
     static T* _instance_;
 };
 
-template<class T>
+template <class T>
 T* singleton<T>::_instance_ = nullptr;
 
 } // namespace babylon::common
@@ -74,19 +74,19 @@ T* singleton<T>::_instance_ = nullptr;
  * Макрос необходимо использовать в связке с наследованием от babylon::common::singleton
  * @tparam T Имя класса-наследника babylon::common::singleton
  */
-#define SINGLETON_CLASS(T)                                  \
-                                                            \
-public:                                                     \
-    T(const T& other) = delete;                             \
-    T(T&& other) = delete;                                  \
-    T& operator=(const T& other) = delete;                  \
-    T& operator=(T&& other) = delete;                       \
-                                                            \
-private:                                                    \
-    T() = default;                                          \
-    ~T() = default;                                         \
-                                                            \
-    friend class babylon::common::singleton<T>;             \
+#define SINGLETON_CLASS(T)                                \
+                                                          \
+public:                                                   \
+    T(const T& other) = delete;                           \
+    T(T&& other) = delete;                                \
+    T& operator=(const T& other) = delete;                \
+    T& operator=(T&& other) = delete;                     \
+                                                          \
+private:                                                  \
+    T() = default;                                        \
+    ~T() = default;                                       \
+                                                          \
+    friend class babylon::common::singleton<T>;           \
     friend class babylon::common::singleton_finalizer<T>;
 
 #endif // SINGLETON_CLASS

@@ -21,7 +21,7 @@ public:
      * @tparam TConfigurator Класс реализующий babylon::system::app_configurator_iface
      * @param args Аргументы командной строки
      */
-    template<class TConfigurator>
+    template <class TConfigurator>
     static void entry(app_arguments&& args);
 
 private:
