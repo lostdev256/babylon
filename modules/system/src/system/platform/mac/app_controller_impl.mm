@@ -18,8 +18,8 @@ void app_controller_impl::control()
     @autoreleasepool
     {
         NSApplication* app = [NSApplication sharedApplication];
-        _delegate = [[app_delegate alloc] init];
-        [app setDelegate:_delegate];
+        //_delegate = [[app_delegate alloc] init];
+        //[app setDelegate:_delegate];
         [app run];
     }
 
