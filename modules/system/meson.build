@@ -75,3 +75,13 @@ babylon_units += {
         include_directories: include_dirs
     )
 }
+
+#if(BABYLON_OS_WIN)
+#    target_link_libraries(${UNIT_NAME} PUBLIC gdi32 gdiplus user32 advapi32 ole32 shell32 comdlg32)
+#    elseif(BABYLON_OS_MAC)
+#    # find_package(Cocoa REQUIRED)
+#    find_library(COCOA_FRAMEWORK Cocoa)
+#    find_library(CORE_VIDEO_FRAMEWORK CoreVideo)
+#
+#    target_link_libraries(${UNIT_NAME} PUBLIC ${COCOA_FRAMEWORK} ${CORE_VIDEO_FRAMEWORK})
+#endif()
