@@ -1,4 +1,15 @@
 echo off
 cd %~dp0../..
-meson setup ./build . --backend=vs --native-file tools/meson/presets/demo.ini
+set BUILDDIR=./build
+if not exist "%BUILDDIR%" (
+    echo Creating folder %BUILDDIR%...
+    mkdir "%BUILDDIR%"
+)
+if exist %BUILDDIR%/meson-info/meson-info.json (
+    echo Reconfiguring %BUILDDIR%...
+    meson setup --reconfigure %BUILDDIR%
+) else (
+    echo Configuring %BUILDDIR%...
+    meson setup %BUILDDIR% . --backend=vs --native-file tools/meson/presets/demo.ini
+)
 pause
