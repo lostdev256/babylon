@@ -56,7 +56,21 @@ endif
 pch_file = 'src/pch.h'
 include_dirs = include_directories('include')
 
-unit_deps = dependency('appleframeworks', modules: ['AppKit', 'Foundation'])
+platform = host_machine.system()
+if platform == 'windows'
+    cc = meson.get_compiler('cpp')
+    unit_deps = [
+        cc.find_library('gdi32'),
+        cc.find_library('gdiplus'),
+        cc.find_library('user32'),
+        cc.find_library('advapi32'),
+        cc.find_library('ole32'),
+        cc.find_library('shell32'),
+        cc.find_library('comdlg32'),
+    ]
+elif platform == 'darwin'
+    unit_deps = dependency('appleframeworks', modules: ['AppKit', 'Foundation'])
+endif
 
 unit = library(
     unit_name,
