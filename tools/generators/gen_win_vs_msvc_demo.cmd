@@ -12,4 +12,8 @@ if exist %BUILDDIR%/meson-info/meson-info.json (
     echo Configuring %BUILDDIR%...
     meson setup %BUILDDIR% . --backend=vs --native-file tools/meson/presets/demo.ini
 )
+
+echo Fixing...
+call python ./tools/scripts/fix_vs_project_filters.py %BUILDDIR%
+
 pause
