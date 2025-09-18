@@ -1,6 +1,8 @@
 project(
     'Babylon',
     ['cpp', 'objcpp'],
+    version: '0.0.1',
+    meson_version: '1.9.0',
     default_options: [
         'cpp_std=c++20'
     ]
