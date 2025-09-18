@@ -1,6 +1,8 @@
+export module babylon.system:app_arguments;
+
 #pragma once
 
-namespace babylon::system
+export namespace babylon::system
 {
 
 /**

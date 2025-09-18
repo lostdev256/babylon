@@ -1,3 +1,5 @@
+module babylon.system:app;
+
 #include <babylon/system/app.h>
 
 #include <babylon/platform/platform.h>

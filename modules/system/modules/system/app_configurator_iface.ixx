@@ -1,6 +1,6 @@
-#pragma once
+export module babylon.system:app_configurator_iface;
 
-namespace babylon::system
+export namespace babylon::system
 {
 
 /**

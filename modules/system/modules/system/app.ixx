@@ -1,3 +1,5 @@
+export module babylon.system:app;
+
 #pragma once
 
 #include <babylon/common/singleton.h>
@@ -5,7 +7,7 @@
 #include <babylon/system/app_configurator_iface.h>
 #include <babylon/system/app_controller_iface.h>
 
-namespace babylon::system
+export namespace babylon::system
 {
 
 /**
