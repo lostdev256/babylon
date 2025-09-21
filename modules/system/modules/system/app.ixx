@@ -13,11 +13,15 @@ export namespace babylon::system
 /**
  * Класс приложения Babylon
  */
-class app final : public common::singleton<app>
+class app final
 {
-    SINGLETON_CLASS(app)
-
 public:
+    static app& instance()
+    {
+        static app instance{};
+        return instance;
+    }
+
     /**
      * Точко входа в приложение
      * @tparam TConfigurator Класс реализующий babylon::system::app_configurator_iface
@@ -50,7 +54,6 @@ void app::entry(app_arguments&& args)
     static_assert(std::is_base_of_v<app_configurator_iface, TConfigurator>);
     auto configurator = std::make_unique<TConfigurator>();
 
-    finalizer guard;
     auto& app = instance();
     if (app.init(std::move(args), std::move(configurator)))
     {
