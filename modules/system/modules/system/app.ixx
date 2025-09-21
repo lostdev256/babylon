@@ -1,12 +1,5 @@
 export module babylon.system:app;
 
-#pragma once
-
-#include <babylon/common/singleton.h>
-#include <babylon/system/app_arguments.h>
-#include <babylon/system/app_configurator_iface.h>
-#include <babylon/system/app_controller_iface.h>
-
 export namespace babylon::system
 {
 
@@ -41,11 +34,11 @@ private:
     /**
      * Выполняет запуск основной логики работы приложения
      */
-    void run() const;
+    void run();
 
     app_arguments _arguments;
     app_configurator_iface_ptr _configurator;
-    app_controller_iface_ptr _controller;
+	platform::app_impl_ptr _impl;
 };
 
 template <class TConfigurator>

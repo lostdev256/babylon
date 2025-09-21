@@ -1,4 +1,6 @@
-#include "app_configurator.h"
+module app:app_configurator;
+
+import <iostream>;
 
 namespace app
 {

@@ -1,19 +1,9 @@
-#include <babylon/system/platform/mac/app_controller_impl.h>
-
-namespace babylon::system
-{
-
-app_controller_iface_ptr app_controller_iface::create_impl()
-{
-    return std::make_shared<platform::app_controller_impl>();
-}
-
-} // namespace babylon::system
+module babylon.system:app_impl;
 
 namespace babylon::system::platform
 {
 
-void app_controller_impl::control()
+void app_impl_ptr::run()
 {
     @autoreleasepool
     {

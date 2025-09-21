@@ -1,19 +1,17 @@
 unit_name = 'babylon_demo'
 
 source_files = files(
-    'src/app/app_configurator.h',
-)
-source_files += files(
-    'src/app/app_configurator.cpp',
+    'src/app.ixx',
+    'src/app/app_configurator.ixx',
+
     'src/app/main.cpp',
+    'src/app/app_configurator.cpp',
 )
 
-pch_file = 'src/pch.h'
 include_dirs = include_directories('src')
 
 required_units = [
-    'babylon_system',
-    'babylon_ui'
+    'babylon_system'
 ]
 
 unit_deps = []
@@ -29,8 +27,5 @@ executable(
     unit_name,
     source_files,
     include_directories: include_dirs,
-    #cpp_args: common_cargs,
-    cpp_pch: pch_file,
-    objcpp_args: ['-include', pch_file],
     dependencies: unit_deps
 )

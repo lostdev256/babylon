@@ -1,8 +1,8 @@
-#pragma once
+export module app:app_configurator;
 
-#include <babylon/system/app_configurator_iface.h>
+import babylon.system
 
-namespace app
+export namespace app
 {
 
 class app_configurator final : public babylon::system::app_configurator_iface

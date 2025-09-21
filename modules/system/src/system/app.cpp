@@ -1,7 +1,5 @@
 module babylon.system:app;
 
-#include <babylon/system/app.h>
-
 #include <babylon/platform/platform.h>
 
 namespace babylon::system
@@ -11,9 +9,9 @@ bool app::init(app_arguments&& args, app_configurator_iface_ptr&& configurator)
 {
     _arguments = std::move(args);
     _configurator = std::move(configurator);
-    _controller = app_controller_iface::create_impl();
+    _impl = std::make_shared<platform::app_impl>();
 
-    if (!_controller)
+    if (!_impl)
     {
         return false;
     }
@@ -21,9 +19,9 @@ bool app::init(app_arguments&& args, app_configurator_iface_ptr&& configurator)
     return true;
 }
 
-void app::run() const
+void app::run()
 {
-    _controller->control();
+    _impl->control();
 }
 
 } // namespace babylon::system
