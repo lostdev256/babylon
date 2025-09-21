@@ -18,6 +18,8 @@ elif platform == 'darwin'
     add_project_arguments('-DBABYLON_OS_MAC', language: ['cpp', 'objcpp'])
 endif
 
+add_project_arguments('-fmodules-ts', language: ['cpp', 'objcpp'])
+
 subdir('modules')
 
 if get_option('demo')

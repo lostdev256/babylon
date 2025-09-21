@@ -22,6 +22,7 @@ unit = library(
     unit_name,
     source_files,
     include_directories: include_dirs,
+    cpp_args: common_cpp_args,
     build_by_default: false,
     dependencies: unit_deps,
 )
