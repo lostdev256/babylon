@@ -3,17 +3,11 @@ unit_name = 'babylon_system'
 source_files = files(
     'include/babylon/platform/main.h',
     'include/babylon/platform/platform.h',
+    'include/babylon/system/app.h',
+    'include/babylon/system/app_arguments.h',
+    'include/babylon/system/app_configurator_iface.h',
+    'include/babylon/system/platform/app_impl.h',
     'include/babylon/entry.h',
-
-    'modules/common.ixx',
-    'modules/common/std.ixx',
-
-    'modules/system.ixx',
-    'modules/system/app.ixx',
-    'modules/system/app_arguments.ixx',
-    'modules/system/app_configurator_iface.ixx',
-    'modules/system/platform/app_impl.ixx',
-
     'src/system/app.cpp',
     'src/system/app_arguments.cpp',
 )

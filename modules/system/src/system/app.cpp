@@ -1,6 +1,5 @@
-module babylon.system:app;
-
-#include <babylon/platform/platform.h>
+#include <babylon/system/app.h>
+#include <memory>
 
 namespace babylon::system
 {
@@ -21,7 +20,7 @@ bool app::init(app_arguments&& args, app_configurator_iface_ptr&& configurator)
 
 void app::run()
 {
-    _impl->control();
+    _impl->run();
 }
 
 } // namespace babylon::system

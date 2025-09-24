@@ -1,8 +1,10 @@
-export module babylon.system:app_arguments;
-
 #pragma once
 
-export namespace babylon::system
+#include <string>
+#include <map>
+#include <vector>
+
+namespace babylon::system
 {
 
 /**

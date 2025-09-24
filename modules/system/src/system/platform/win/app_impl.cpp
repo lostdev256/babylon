@@ -1,9 +1,10 @@
-module babylon.system:app_impl;
+#include <babylon/system/platform/app_impl.h>
+#include <babylon/platform/platform.h>
 
 namespace babylon::system::platform
 {
 
-void app_impl_ptr::run()
+void app_impl::run()
 {
 }
 

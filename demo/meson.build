@@ -1,11 +1,9 @@
 unit_name = 'babylon_demo'
 
 source_files = files(
-    'modules/app.ixx',
-    'modules/app/app_configurator.ixx',
-
-    'src/app/main.cpp',
+    'src/app/app_configurator.h',
     'src/app/app_configurator.cpp',
+    'src/app/main.cpp',
 )
 
 include_dirs = include_directories('src')
@@ -23,14 +21,7 @@ foreach required_unit_name : required_units
     endif
 endforeach
 
-cc = meson.get_compiler('cpp')
-is_clang = cc.get_id() == 'clang'
-
 common_cpp_args = []
-#if is_clang
-#    common_cpp_args += ['-fmodules-ts']
-#    objcpp_args += ['-fmodules-ts']
-#endif
 
 executable(
     unit_name,

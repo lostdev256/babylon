@@ -1,6 +1,10 @@
-export module babylon.system:app;
+#pragma once
 
-export namespace babylon::system
+#include <babylon/system/app_arguments.h>
+#include <babylon/system/app_configurator_iface.h>
+#include <babylon/system/platform/app_impl.h>
+
+namespace babylon::system
 {
 
 /**

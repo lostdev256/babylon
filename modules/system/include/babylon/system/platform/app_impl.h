@@ -1,6 +1,8 @@
-export module babylon.system:app_impl;
+#pragma once
 
-export namespace babylon::system::platform
+#include <memory>
+
+namespace babylon::system::platform
 {
 
 class app_impl;

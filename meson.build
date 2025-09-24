@@ -2,9 +2,9 @@ project(
     'Babylon',
     ['cpp', 'objcpp'],
     version: '0.0.1',
-    meson_version: '1.9.0',
+    meson_version: '1.9.1',
     default_options: [
-        'cpp_std=c++20'
+        'cpp_std=c++23'
     ]
 )
 
@@ -18,7 +18,7 @@ elif platform == 'darwin'
     add_project_arguments('-DBABYLON_OS_MAC', language: ['cpp', 'objcpp'])
 endif
 
-add_project_arguments('-fmodules-ts', language: ['cpp', 'objcpp'])
+#add_project_arguments('-fmodules-ts', language: ['cpp', 'objcpp'])
 
 subdir('modules')
 

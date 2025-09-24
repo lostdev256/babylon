@@ -1,5 +1,3 @@
-module babylon.system:app_arguments;
-
 #include <babylon/system/app_arguments.h>
 
 namespace babylon::system

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <babylon/system/app.h>
+
 #if BABYLON_OS_MAC
 
 #define BABYLON_ENTRY_POINT_IMPL(TConfigurator)                     \
