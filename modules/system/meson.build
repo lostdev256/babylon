@@ -50,12 +50,13 @@ unit = library(
     dependencies: unit_deps,
 )
 
-babylon_units += {
-    unit_name : declare_dependency(
+meson.override_dependency(
+    unit_name,
+    declare_dependency(
         link_with: unit,
         include_directories: include_dirs
     )
-}
+)
 
 #if(BABYLON_OS_WIN)
 #    target_link_libraries(${UNIT_NAME} PUBLIC gdi32 gdiplus user32 advapi32 ole32 shell32 comdlg32)
