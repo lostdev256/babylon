@@ -1,3 +1,6 @@
+################################################################################
+# Babylon demo application
+################################################################################
 unit_name = 'babylon_demo'
 
 source_files = files(
@@ -12,15 +15,6 @@ required_units = [
     'babylon_system'
 ]
 
-unit_deps = []
-foreach required_unit_name : required_units
-    if babylon_units.has_key(required_unit_name)
-        unit_deps += [babylon_units[required_unit_name]]
-    else
-        warning('Babylon unit "@0@" depends on "@1@", but it is not registered'.format(unit_name, required_unit_name))
-    endif
-endforeach
-
 common_cpp_args = []
 
 executable(
@@ -28,5 +22,29 @@ executable(
     source_files,
     include_directories: include_dirs,
     cpp_args: common_cpp_args,
-    dependencies: unit_deps
+    dependencies: dependency(required_units)
 )
+
+
+#set_target_properties(${UNIT_NAME} PROPERTIES
+#    MACOSX_BUNDLE ON
+#    MACOSX_BUNDLE_INFO_PLIST "${BABYLON_CMAKE_PLATFORM_MODULES_DIR}/mac/Info.plist.in"
+#    MACOSX_BUNDLE_NAME "${OUTPUT_NAME}"
+#    MACOSX_BUNDLE_VERSION "${PROJECT_VERSION}"
+#    MACOSX_BUNDLE_COPYRIGHT ""
+#    MACOSX_BUNDLE_GUI_IDENTIFIER "lost.babylon.${OUTPUT_NAME}"
+#    MACOSX_BUNDLE_ICON_FILE "Icon.icns"
+#    MACOSX_BUNDLE_INFO_STRING ""
+#    MACOSX_BUNDLE_LONG_VERSION_STRING ""
+#    MACOSX_BUNDLE_SHORT_VERSION_STRING ""
+#    XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "lost.babylon.${OUTPUT_NAME}"
+#)
+
+
+#target_compile_definitions(${UNIT_NAME} PRIVATE
+#    WIN32
+#    _WINDOWS
+#    $<$<CONFIG:Debug>:_DEBUG>
+#    $<$<CONFIG:Release>:NDEBUG>
+#    $<$<STREQUAL:${UNIT_TYPE},Module>:_LIB>
+#)
