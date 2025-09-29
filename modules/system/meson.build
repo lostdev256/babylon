@@ -1,69 +1,74 @@
+################################################################################
+# Babylon system module
+################################################################################
 unit_name = 'babylon_system'
 
-source_files = files(
+################################################################################
+# Source files
+################################################################################
+unit_include_directories = include_directories('include')
+unit_source_files = files(
+    'include/babylon/entry.h',
     'include/babylon/platform/main.h',
     'include/babylon/platform/platform.h',
     'include/babylon/system/app.h',
     'include/babylon/system/app_arguments.h',
     'include/babylon/system/app_configurator_iface.h',
     'include/babylon/system/platform/app_impl.h',
-    'include/babylon/entry.h',
     'src/system/app.cpp',
     'src/system/app_arguments.cpp',
 )
 
-platform = host_machine.system()
-if platform == 'windows'
-    source_files += files(
-        'src/system/platform/win/app_impl.cpp',
-    )
-elif platform == 'darwin'
-    source_files += files(
-        'src/system/platform/mac/app_impl.mm',
-    )
+if is_os_win
+    unit_source_files += files('src/system/platform/win/app_impl.cpp')
+elif is_os_mac
+    unit_source_files += files('src/system/platform/mac/app_impl.mm')
 endif
 
-include_dirs = include_directories('include')
+################################################################################
+# Dependencies
+################################################################################
+unit_dependencies = []
 
-platform = host_machine.system()
-if platform == 'windows'
-    cc = meson.get_compiler('cpp')
-    unit_deps = [
-        cc.find_library('gdi32'),
-        cc.find_library('gdiplus'),
-        cc.find_library('user32'),
-        cc.find_library('advapi32'),
-        cc.find_library('ole32'),
-        cc.find_library('shell32'),
-        cc.find_library('comdlg32'),
+if is_os_win
+    unit_dependencies += [
+        cpp_cl.find_library('gdi32'),
+        cpp_cl.find_library('gdiplus'),
+        cpp_cl.find_library('user32'),
+        cpp_cl.find_library('advapi32'),
+        cpp_cl.find_library('ole32'),
+        cpp_cl.find_library('shell32'),
+        cpp_cl.find_library('comdlg32'),
     ]
-elif platform == 'darwin'
-    unit_deps = dependency('appleframeworks', modules: ['AppKit', 'Foundation'])
+elif is_os_mac
+    unit_dependencies += dependency(
+        'appleframeworks',
+        modules: [
+            'Foundation',
+            'AppKit',
+            'CoreVideo',
+            'QuartzCore',
+            'CoreGraphics',
+            'CoreMedia',
+        ],
+    )
 endif
 
+################################################################################
+# Target
+################################################################################
 unit = library(
     unit_name,
-    source_files,
-    include_directories: include_dirs,
-    cpp_args: common_cpp_args,
+    unit_source_files,
+    include_directories: unit_include_directories,
+    dependencies: unit_dependencies,
     build_by_default: false,
-    dependencies: unit_deps,
 )
 
 meson.override_dependency(
     unit_name,
     declare_dependency(
         link_with: unit,
-        include_directories: include_dirs
-    )
+        include_directories: unit_include_directories,
+    ),
 )
-
-#if(BABYLON_OS_WIN)
-#    target_link_libraries(${UNIT_NAME} PUBLIC gdi32 gdiplus user32 advapi32 ole32 shell32 comdlg32)
-#    elseif(BABYLON_OS_MAC)
-#    # find_package(Cocoa REQUIRED)
-#    find_library(COCOA_FRAMEWORK Cocoa)
-#    find_library(CORE_VIDEO_FRAMEWORK CoreVideo)
-#
-#    target_link_libraries(${UNIT_NAME} PUBLIC ${COCOA_FRAMEWORK} ${CORE_VIDEO_FRAMEWORK})
-#endif()
