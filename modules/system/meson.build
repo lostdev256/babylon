@@ -6,23 +6,23 @@ unit_name = 'babylon_system'
 ################################################################################
 # Source files
 ################################################################################
-unit_include_directories = include_directories('include')
+unit_include_directories = include_directories('src')
 unit_source_files = files(
-    'include/babylon/entry.h',
-    'include/babylon/platform/main.h',
-    'include/babylon/platform/platform.h',
-    'include/babylon/system/app.h',
-    'include/babylon/system/app_arguments.h',
-    'include/babylon/system/app_configurator_iface.h',
-    'include/babylon/system/platform/app_impl.h',
-    'src/system/app.cpp',
-    'src/system/app_arguments.cpp',
+    'src/babylon/entry.h',
+    'src/babylon/platform/main.h',
+    'src/babylon/platform/platform.h',
+    'src/babylon/system/app.cpp',
+    'src/babylon/system/app.h',
+    'src/babylon/system/app_arguments.cpp',
+    'src/babylon/system/app_arguments.h',
+    'src/babylon/system/app_configurator_iface.h',
+    'src/babylon/system/platform/app_impl.h',
 )
 
 if is_os_win
-    unit_source_files += files('src/system/platform/win/app_impl.cpp')
+    unit_source_files += files('src/babylon/system/platform/win/app_impl.cpp')
 elif is_os_mac
-    unit_source_files += files('src/system/platform/mac/app_impl.mm')
+    unit_source_files += files('src/babylon/system/platform/mac/app_impl.mm')
 endif
 
 ################################################################################
