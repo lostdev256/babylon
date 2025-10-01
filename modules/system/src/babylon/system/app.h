@@ -3,6 +3,7 @@
 #include <babylon/system/app_arguments.h>
 #include <babylon/system/app_configurator_iface.h>
 #include <babylon/system/platform/app_impl.h>
+#include <memory>
 
 namespace babylon::system
 {
@@ -20,12 +21,13 @@ public:
     }
 
     /**
-     * Точко входа в приложение
+     * Точка входа в приложение
      * @tparam TConfigurator Класс реализующий babylon::system::app_configurator_iface
      * @param args Аргументы командной строки
+     * @return 0 или код ошибки
      */
     template <class TConfigurator>
-    static void entry(app_arguments&& args);
+    static int entry(app_arguments&& args);
 
 private:
     /**
@@ -46,7 +48,7 @@ private:
 };
 
 template <class TConfigurator>
-void app::entry(app_arguments&& args)
+int app::entry(app_arguments&& args)
 {
     static_assert(std::is_base_of_v<app_configurator_iface, TConfigurator>);
     auto configurator = std::make_unique<TConfigurator>();
@@ -56,6 +58,8 @@ void app::entry(app_arguments&& args)
     {
         app.run();
     }
+
+    return 0;
 }
 
 } // namespace babylon::system

@@ -1,5 +1,4 @@
 #include <babylon/system/app.h>
-#include <memory>
 
 namespace babylon::system
 {
