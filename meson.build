@@ -40,7 +40,46 @@ is_cpp_cl_msvc = (cpp_cl_id == 'msvc' or is_cpp_cl_ms_clang)
 ################################################################################
 common_cl_flags = []
 
-# ...
+# Опции стандарта
+if is_cpp_cl_clang or is_cpp_cl_gcc
+    common_cl_flags += '-pedantic'
+elif is_cpp_cl_msvc
+    common_cl_flags += [
+        '/permissive-',
+        '/Zc:forScope',
+        '/Zc:wchar_t',
+        '/Zc:inline',
+        '/Zc:__cplusplus',
+        '/Zc:preprocessor',
+    ]
+endif
+
+# Обработка исключений
+if is_cpp_cl_clang or is_cpp_cl_gcc
+    common_cl_flags += '-fexceptions'
+elif is_cpp_cl_msvc
+    common_cl_flags += '/EHsc'
+endif
+
+# Защита
+if is_cpp_cl_clang or is_cpp_cl_gcc
+    common_cl_flags += '-fstack-protector-strong'
+elif is_cpp_cl_msvc
+    common_cl_flags += ['/GS', '/sdl']
+endif
+
+# Оптимизация
+if get_option('buildtype') == 'release'
+    if is_cpp_cl_clang or is_cpp_cl_gcc
+        common_cl_flags += [
+            '-finline-functions',
+            '-ffunction-sections',
+            '-fdata-sections',
+        ]
+    elif is_cpp_cl_msvc
+        common_cl_flags += '/Gy'
+    endif
+endif
 
 add_project_arguments(common_cl_flags, language: 'cpp')
 if is_os_mac
@@ -52,7 +91,20 @@ endif
 ################################################################################
 common_link_flags = []
 
-# ...
+# Оптимизация
+if get_option('buildtype') == 'debug'
+    if is_cpp_cl_msvc
+        common_cl_flags += ['/OPT:NOREF', '/OPT:NOICF']
+    endif
+elif get_option('buildtype') == 'release'
+    if is_cpp_cl_clang
+        common_cl_flags += '-dead-strip'
+    elif is_cpp_cl_gcc
+        common_cl_flags += '--gc-sections'
+    elif is_cpp_cl_msvc
+        common_cl_flags += ['/OPT:REF', '/OPT:ICF']
+    endif
+endif
 
 add_project_link_arguments(common_link_flags, language: 'cpp')
 if is_os_mac

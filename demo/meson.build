@@ -25,5 +25,6 @@ executable(
     unit_name,
     unit_source_files,
     include_directories: unit_include_directories,
+    win_subsystem : 'console', # 'windows'
     dependencies: unit_dependencies,
 )
