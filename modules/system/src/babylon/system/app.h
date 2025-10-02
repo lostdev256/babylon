@@ -2,7 +2,8 @@
 
 #include <babylon/system/app_arguments.h>
 #include <babylon/system/app_configurator_iface.h>
-#include <babylon/system/platform/app_impl.h>
+#include <babylon/platform/app_impl.h>
+
 #include <memory>
 
 namespace babylon::system
@@ -54,10 +55,12 @@ int app::entry(app_arguments&& args)
     auto configurator = std::make_unique<TConfigurator>();
 
     auto& app = instance();
-    if (app.init(std::move(args), std::move(configurator)))
+    if (!app.init(std::move(args), std::move(configurator)))
     {
-        app.run();
+        return -1;
     }
+
+    app.run();
 
     return 0;
 }

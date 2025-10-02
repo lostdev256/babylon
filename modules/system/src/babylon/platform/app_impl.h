@@ -2,7 +2,7 @@
 
 #include <memory>
 
-namespace babylon::system::platform
+namespace babylon::platform
 {
 
 class app_impl;
@@ -14,4 +14,4 @@ public:
     void run();
 };
 
-} // namespace babylon::system::platform
+} // namespace babylon::platform

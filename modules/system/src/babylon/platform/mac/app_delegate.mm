@@ -1,6 +1,5 @@
 #import <babylon/platform/mac/app_delegate.h>
 #import <babylon/platform/mac/view_controller.h>
-
 #import <babylon/system/app.h>
 
 #import <CoreVideo/CoreVideo.h>
