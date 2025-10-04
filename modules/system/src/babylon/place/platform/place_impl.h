@@ -1,9 +1,9 @@
 #pragma once
 
 #if BABYLON_OS_MAC
-#include <babylon/system/platform/mac/app_impl.h>
+#include <babylon/place/platform/mac/place_impl.h>
 #elif BABYLON_OS_WIN
-#include <system/system/platform/win/app_impl.h>
+#include <system/place/platform/win/place_impl.h>
 #else
 #error Target platform not supported
 #endif

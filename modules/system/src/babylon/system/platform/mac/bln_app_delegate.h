@@ -1,6 +1,6 @@
 #import <Cocoa/Cocoa.h>
 
-@interface app_delegate : NSObject <NSApplicationDelegate>
+@interface bln_app_delegate : NSObject <NSApplicationDelegate>
 {
 }
 

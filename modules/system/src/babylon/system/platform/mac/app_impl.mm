@@ -1,6 +1,6 @@
 #include <babylon/system/platform/mac/app_impl.h>
 
-#import <babylon/platform/mac/bln_app_delegate.h>
+#import <babylon/system/platform/mac/bln_app_delegate.h>
 
 #import <Cocoa/Cocoa.h>
 

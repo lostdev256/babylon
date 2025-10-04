@@ -1,6 +1,6 @@
-#import <babylon/platform/mac/app_loop_controller.h>
+#import <babylon/system/platform/mac/bln_loop_controller.h>
 
-@interface app_loop_controller ()
+@interface bln_loop_controller ()
 {
     CVDisplayLinkRef _display_link;
 }
@@ -14,7 +14,7 @@ static CVReturn display_callback(CVDisplayLinkRef display_link,
                                 CVOptionFlags* output_flags,
                                 void* context)
 {
-    auto* self = (__bridge app_loop_controller*)display_link;
+    auto* self = (__bridge bln_loop_controller*)display_link;
     if (!self || !self.tick_callback)
     {
         return kCVReturnSuccess;
@@ -27,7 +27,7 @@ static CVReturn display_callback(CVDisplayLinkRef display_link,
     return kCVReturnSuccess;
 }
 
-@implementation app_loop_controller
+@implementation bln_loop_controller
 
 - (instancetype)init:(dispatch_block_t)tick_callback
 {

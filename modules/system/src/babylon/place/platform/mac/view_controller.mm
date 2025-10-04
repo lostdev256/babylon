@@ -1,4 +1,4 @@
-#import <babylon/platform/mac/view_controller.h>
+#import <babylon/place/platform/mac/view_controller.h>
 
 @implementation view_controller
 

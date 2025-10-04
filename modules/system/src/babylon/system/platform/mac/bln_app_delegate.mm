@@ -1,11 +1,11 @@
-#import <babylon/platform/mac/app_delegate.h>
-#import <babylon/platform/mac/view_controller.h>
+#import <babylon/system/platform/mac/bln_app_delegate.h>
+#import <babylon/place/platform/mac/view_controller.h>
 #import <babylon/system/app.h>
 
 #import <CoreVideo/CoreVideo.h>
 #import <mach/mach_time.h>
 
-@implementation app_delegate
+@implementation bln_app_delegate
 {
     CVDisplayLinkRef displayLink;
     uint64_t start;
@@ -52,7 +52,7 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef /*displayLink*/, const CVTi
                                     const CVTimeStamp* /*outputTime*/, CVOptionFlags /*flagsIn*/,
                                     CVOptionFlags* /*flagsOut*/, void* context)
 {
-    app_delegate* self = (__bridge app_delegate*)context;
+    bln_app_delegate* self = (__bridge bln_app_delegate*)context;
     [self onFrame];
     return kCVReturnSuccess;
 }

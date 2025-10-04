@@ -1,6 +1,6 @@
 #pragma once
 
-#include <babylon/platform/main.h>
+#include <babylon/system/platform/main.h>
 
 /**
  * Точка входа в приложение

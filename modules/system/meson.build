@@ -7,27 +7,11 @@ unit_name = 'babylon_system'
 # Source files
 ################################################################################
 unit_include_directories = include_directories('src')
-unit_source_files = []
-
-unit_source_files += files(
+unit_source_files = files(
     'src/babylon/entry.h',
-    'src/babylon/place/place_manager.h',
-    'src/babylon/place/place_manager.cpp',
-    'src/babylon/platform/main.h',
 )
 
-if is_os_mac
-    unit_source_files += files(
-        'src/babylon/platform/mac/bln_app_delegate.h',
-        'src/babylon/platform/mac/bln_app_delegate.mm',
-        'src/babylon/platform/mac/bln_loop_controller.h',
-        'src/babylon/platform/mac/bln_loop_controller.mm',
-        'src/babylon/platform/mac/bln_window_controller.h',
-        'src/babylon/platform/mac/bln_window_controller.mm',
-    )
-elif is_os_win
-endif
-
+subdir('src/babylon/place')
 subdir('src/babylon/system')
 
 ################################################################################
