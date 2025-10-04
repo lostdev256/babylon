@@ -6,7 +6,7 @@ namespace babylon::system
 
 app& app::instance()
 {
-    static platform::app _instance{};
+    static platform::app_impl _instance{};
     return _instance;
 }
 
