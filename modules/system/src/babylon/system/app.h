@@ -29,6 +29,20 @@ public:
     template <class TConfigurator>
     static int entry(app_arguments&& args);
 
+protected:
+    app() = default;
+    virtual ~app() = default;
+
+public:
+    app(const app& other) = delete;
+    app(app&& other) = delete;
+    app& operator=(const app& other) = delete;
+    app& operator=(app&& other) = delete;
+
+protected:
+    virtual bool init_impl() = 0;
+    virtual void run_impl() = 0;
+
 private:
     /**
      * Выполняет инициализацию приложения
@@ -43,9 +57,6 @@ private:
     void run();
 
 protected:
-    virtual bool init_impl() = 0;
-    virtual void run_impl() = 0;
-
     app_arguments _arguments;
     app_configurator_iface_ptr _configurator;
 };
