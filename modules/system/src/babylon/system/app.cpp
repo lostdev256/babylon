@@ -1,25 +1,25 @@
 #include <babylon/system/app.h>
+#include <babylon/system/platform/app_impl.h>
 
 namespace babylon::system
 {
+
+app& app::instance()
+{
+    static platform::app _instance{};
+    return _instance;
+}
 
 bool app::init(app_arguments&& args, app_configurator_iface_ptr&& configurator)
 {
     _arguments = std::move(args);
     _configurator = std::move(configurator);
-    _impl = std::make_shared<platform::app_impl>();
-
-    if (!_impl)
-    {
-        return false;
-    }
-
-    return true;
+    return init_impl();
 }
 
 void app::run()
 {
-    _impl->run();
+    run_impl();
 }
 
 } // namespace babylon::system

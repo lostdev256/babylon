@@ -12,13 +12,13 @@ project(
 ################################################################################
 # Platform
 ################################################################################
-is_os_win = (host_machine.system() == 'windows')
 is_os_mac = (host_machine.system() == 'darwin')
+is_os_win = (host_machine.system() == 'windows')
 
-if is_os_win
-    add_project_arguments('-DBABYLON_OS_WIN', language: ['cpp', 'objcpp'])
-elif is_os_mac
+if is_os_mac
     add_project_arguments('-DBABYLON_OS_MAC', language: ['cpp', 'objcpp'])
+elif is_os_win
+    add_project_arguments('-DBABYLON_OS_WIN', language: ['cpp', 'objcpp'])
 endif
 
 ################################################################################

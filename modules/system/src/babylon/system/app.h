@@ -2,7 +2,6 @@
 
 #include <babylon/system/app_arguments.h>
 #include <babylon/system/app_configurator_iface.h>
-#include <babylon/platform/app_impl.h>
 
 #include <memory>
 
@@ -12,14 +11,14 @@ namespace babylon::system
 /**
  * Класс приложения Babylon
  */
-class app final
+class app
 {
 public:
-    static app& instance()
-    {
-        static app instance{};
-        return instance;
-    }
+    /**
+     * Инстанс приложения
+     * @return Инстанс приложения под заданную платформу
+     */
+    static app& instance();
 
     /**
      * Точка входа в приложение
@@ -43,9 +42,12 @@ private:
      */
     void run();
 
+protected:
+    virtual bool init_impl() = 0;
+    virtual void run_impl() = 0;
+
     app_arguments _arguments;
     app_configurator_iface_ptr _configurator;
-	platform::app_impl_ptr _impl;
 };
 
 template <class TConfigurator>

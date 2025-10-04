@@ -7,7 +7,7 @@ unit_name = 'babylon_ui'
 # Source files
 ################################################################################
 unit_include_directories = include_directories('include')
-unit_source_files = files()
+unit_source_files = []
 
 ################################################################################
 # Dependencies
