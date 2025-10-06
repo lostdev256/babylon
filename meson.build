@@ -6,7 +6,7 @@ project(
     ['cpp'],
     version: '0.0.0',
     meson_version: '>=1.9.1',
-    default_options: ['cpp_std=c++23'],
+    default_options: ['cpp_std=c++20'],
 )
 
 ################################################################################
